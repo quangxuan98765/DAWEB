@@ -1,0 +1,256 @@
+﻿.cart-page{
+    margin: 20px auto;
+    padding: 0 5vw;
+}
+
+.back{
+    margin-left: 5vw;
+    padding: 5px;
+    color: red;
+    font-size: 20px;
+    cursor: pointer;
+    text-transform: capitalize;
+}
+
+.back:hover{
+    background: #383838;
+    color: red;
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.cart-info{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+th{
+    text-align: left;
+    padding: 5px;
+    color: #fff;
+    background: #383838;
+    font-weight: normal;
+    font-size: 20px;
+    text-transform: capitalize;
+}
+
+td{
+    padding: 10px 5px;
+    font-size: 20px;
+    text-transform: capitalize;
+}
+
+td input{
+    width: 50px;
+    height: 40px;
+    padding: 5px;
+    border: 2px solid black;
+    font-size: 16px;
+}
+
+td a{
+    color: #1800f5;
+    font-size: 18px;
+    text-transform: capitalize;
+}
+
+td p{
+    color: #0fff1b;
+    font-size: 18px;
+    text-transform: capitalize;
+}
+
+
+td img{
+    width: 200px;
+    height: 155px;
+    margin-right: 10px;
+}
+
+.total-price{
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.total-price table{
+    border: 3px solid #000000;
+    width: 100%;
+    max-width: 400px;
+}
+
+td:last-child{
+    text-align: right;
+}
+
+.btn-cart{
+    border: 2px solid black;
+    border-radius: 5px;
+    background: hsl(0, 94%, 68%);
+    padding: 8px;
+    color: #fff;
+    cursor: pointer;
+    text-transform: capitalize;
+    font-size: 20px;
+}
+
+.btn-cart:hover{
+    background: #ff7e7e;
+    color: rgb(0, 0, 0);
+}
+
+.btn-remove{
+    border-radius: 3px;
+    border: 1px solid black;
+    background: #000000;
+    color: #ffffff;
+    font-size: 16px;
+    padding: 1px;
+    cursor: pointer;
+    text-transform: capitalize;
+}
+
+.btn-remove:hover{
+    background: #ff7e7e;
+    color: rgb(0, 0, 0);
+    
+}
+
+.btn-value{
+    width: 30px;
+    height: 40px;
+    padding: 5px;
+    background: #383838;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+}
+
+.btn-value:hover{
+    background: red;
+    color: black;
+}
+
+.text{
+    font-size: 20px;
+    text-transform: capitalize;
+    padding-bottom: 20px;
+}
+
+.text1{
+    padding-left: 77%;
+}
+
+.input-cart{
+    text-transform: uppercase;
+    margin-top: 20px;
+}
+
+.check-title{
+    padding-right: 20px;
+    padding-bottom: 30px;
+    text-transform: capitalize;
+}
+
+.header{
+    text-align: left;
+    text-transform: uppercase;
+    padding: 20px 0;
+}
+
+.address-input{
+    width: 100%;
+    padding: 10px;
+    background: #383838;
+    height: 120px;
+    border-radius: 10px;
+    align-items: center;
+}
+
+.input-text{
+    width: 48%;
+    border-radius: 5px;
+    padding: 8px;
+    text-transform: capitalize;
+    font-size: 16px;
+    margin: 20px 15px 10px 0;
+}
+
+.address-input{
+    margin-top: 20px;
+}
+
+.select{
+    font-size: 18px;
+    padding: 8px 19%;
+    border-radius: 5px;
+    text-transform: capitalize;
+    margin-right: 5px;
+    background: rgb(240, 240, 240);
+}
+
+.select3{
+    padding: 8px 15px;
+}
+/* Cái ô text này bé hơn ô select 1 xíu nên bôi trên, trái phải 1 xíu cho đủ */
+/* mà bôi thêm màu trắng ở dưới nữa thì thừa nên thôi */
+.input-text2{ 
+    width: 51%;
+    border-top: 2px solid white;
+    border-right: 2px solid white;
+    border-left: 2px solid white;
+    background: rgb(240, 240, 240);
+}
+
+.input-text3{
+    width: 100%;
+}
+
+.check-one-line{
+    margin-top: 20px;
+}
+
+.line{
+    width: 100%;
+    height: 1px;
+    background: black;
+    margin-top: 20px;
+}
+
+/* history-cart */
+
+.info-user{
+    margin: 20px auto;
+    padding: 0 5vw;
+    line-height: 28px;
+}
+
+.link-text{
+    color: blue;
+    cursor: pointer;
+    padding-left: 10px;
+    font-size: 18px;
+    text-transform: capitalize;
+}
+
+.title-user{
+    display: flex;
+    align-items: center;
+}
+
+.title-history-cart{
+    margin-top: 10px;
+}
+
+.go-right{
+    margin-top: 15px;
+    margin-left: 560px;
+}
+
+.status-confirm
+{
+    width: 140px;
+}

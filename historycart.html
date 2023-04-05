@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch sử mua hàng</title>
+
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/cart.css">
+
+</head>
+<body>
+    
+    <nav class="navbar"></nav>
+
+    <div class="info-user">
+        <div class="title-user">
+            <h2>THÔNG TIN CÁ NHÂN</h2>
+            <a class="link-text">sửa hồ sơ</a>
+        </div>
+        <a><img src="img/person.png"> Phan Minh Hiếu</a><br>
+        <a><img src="img/phonenum.png"> 033331412</a>
+        <div class="line"></div>
+        <div class="title-user">
+        <h2 class="title-history-cart">Đơn hàng đã mua gần đây</h2>  
+        <div class="search go-right">
+            <input type="text" class="search-box" placeholder="">
+            <button class="search-btn">&#9906; Tìm kiếm</button>                       
+        </div>
+        </div>
+    </div>
+
+    <div class="small-container cart-page">
+        <table>
+            <tr>
+                <th>Mã đơn hàng</th>
+                <th>Sản phẩm</th>
+                <th>Số lượng</th>
+                <th>giá</th>
+                <th>ngày đặt mua</th>
+                <th class="status-confirm">trạng thái</th>
+            </tr>
+            <tr>
+                <td>#997</td>
+                <td>
+                    <div class="cart-info">
+                        <img src="img/card1.png">
+                        <div>
+                            <h3>BloodAngels Primaris</h3>
+                            <small>Mark X Tacticus Power Armor</small>
+                            <br>
+                            <a class="link-text" onclick="location.href='product.html'">Xem chi tiết</a>
+                        </div>
+                    </div>
+                </td>
+                <td><a>1</a></td>
+                <td>230.000₫</td>
+                <td>11/11/2023</td>
+                <td><p>Đã nhận hàng</p></td>
+            </tr>
+        </table>
+
+        <table>
+            <tr>
+                <th>Mã đơn hàng</th>
+                <th>Sản phẩm</th>
+                <th>Số lượng</th>
+                <th>giá</th>
+                <th>ngày đặt mua</th>
+                <th class="status-confirm">trạng thái</th>
+            </tr>
+            <tr>
+                <td>#996</td>
+                <td>
+                    <div class="cart-info">
+                        <img src="img/card2.png">
+                        <div>
+                            <h3>BloodAngels Primaris</h3>
+                            <small>Mark X Tacticus Power Armor</small>
+                            <br>
+                            <a class="link-text" onclick="location.href='product.html'">Xem chi tiết</a>
+                        </div>
+                    </div>
+                </td>
+                <td><a>1</a></td>
+                <td>230.000₫</td>
+                <td>11/11/2023</td>
+                <td><p>Đã nhận hàng</p></td>
+            </tr>
+        </table>
+    </div>
+    <script src="js/nav.js"></script>
+</body>
+</html>

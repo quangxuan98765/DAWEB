@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADMIN</title>
+
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/search.css">
+    <link rel="stylesheet" href="css/sigup.css">
+    <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="css/admin.css">
+
+</head>
+<body>
+    <img src="img/loader.gif" class="loader" alt="">
+
+    <div class="alert-box">
+        <img src="img/error.png" class="alert-img" alt="">
+        <p class="alert-msg">Thông báo lỗi</p>
+    </div>
+    <img src="img/dark-logo.png" class="logo" alt="">
+
+    <!--become seller element-->
+    <!--apply form-->
+    <div class="nav-space">
+        <div class="nav-admin">
+            <img src="img/user.png">
+            <p class="add-product-title name-admin">Chào mừng Hiếu</p>
+            <button class="btn btn-new-product" id="new-product" onclick="location.href='login.html'">Đăng xuất</button>
+        </div>
+        <p class="add-product-title nav-link" onclick="location.href='admin.html'">quản lý sản phẩm</p>
+        <p class="add-product-title nav-link" onclick="location.href='user.html'">quản lý user</p>
+        <p class="add-product-title nav-link" onclick="location.href='order.html'">quản lý đơn hàng</p>
+        <p class="add-product-title nav-link" onclick="location.href='report.html'">báo cáo</p>
+        <p class="add-product-title nav-link" onclick="location.href='orderdetail.html'">xem đơn chi tiết</p>
+    </div>
+    <div class="list-ordered-product">
+        <div class="add-product">
+            <p class="add-product-title">Danh sách sản phẩm được đặt</p>
+        </div>
+        <div class="box">
+            <div class="date-search">
+                    <a class="nameselect-combo">Từ ngày</a>
+                    <input type="date" class="date">
+                    <a class="nameselect-combo">Tới ngày</a>
+                    <input type="date" class="date">
+                <div class="btn-search-date">
+                    <button class="btn btn-search-date">Xác nhận</button>
+                </div>
+            </div>
+        </div>
+    <h2 class="title-colection">Danh sách sản phẩm</h2>
+    <h2 class="info-date">hiển thị từ ngày: 1/1/2022 đến ngày 23/6/2023</h2>
+        <select class="select-report">
+            <option>Phân loại: Tất cả sản phẩm</option>
+            <option>Phân loại: Men Armor</option>
+            <option>Phân loại: Women Armor</option>
+            <option>Phân loại: Trang Bị</option>
+        </select>
+    <div class="small-container cart-page">
+        <table>
+            <tr>
+                <th>Ngày Đặt hàng</th>
+                <th>Sản phẩm</th>
+                <th>giá gốc</th>
+                <th>giá</th>
+                <th>số lượng</th>
+                <th>thành tiền</th>
+            </tr>
+            <tr>
+                <td><a>11/11/2022</a></td>
+                <td><a>Sister of Battle Power Armor, Wonen Armor, size: XL</a>
+                <td><a>500.000</a></td>
+                <td><a>230.000</a></td>
+                <td><a>300</a></td>
+                <td><a>99.999.999</a></td>
+            </tr>
+            <tr>
+                <td><a>11/11/2022</a></td>
+                <td><a>Sister of Battle Power Armor, Wonen Armor, size: XL</a>
+                <td><a>500.000</a></td>
+                <td><a>230.000</a></td>
+                <td><a>300</a></td>
+                <td><a>99.999.999</a></td>
+            </tr>
+            <tr>
+                <td><a>11/11/2022</a></td>
+                <td><a>Sister of Battle Power Armor, Wonen Armor, size: XL</a>
+                <td><a>500.000</a></td>
+                <td><a>230.000</a></td>
+                <td><a>300</a></td>
+                <td><a>99.999.999</a></td>
+            </tr>
+            <tr>
+                <td><a>11/11/2022</a></td>
+                <td><a>Sister of Battle Power Armor, Wonen Armor, size: XL</a>
+                <td><a>500.000</a></td>
+                <td><a>230.000</a></td>
+                <td><a>300</a></td>
+                <td><a>99.999.999</a></td>
+            </tr>   
+            <tr>
+                <td colspan="2">
+                    <a>Tổng: </a></td>
+                <td><a>1.900.000</a></td>
+                <td><a>1.200.000</a></td>
+                <td><a>1200</a></td>
+                <td><a>999.999.999</a></td>
+            </tr>             
+        </div>
+    </table>
+    <button class="btn report">In báo cáo</button>
+</div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>

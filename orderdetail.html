@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADMIN</title>
+
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/search.css">
+    <link rel="stylesheet" href="css/sigup.css">
+    <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="css/admin.css">
+
+</head>
+<body>
+    <img src="img/loader.gif" class="loader" alt="">
+
+    <div class="alert-box">
+        <img src="img/error.png" class="alert-img" alt="">
+        <p class="alert-msg">Thông báo lỗi</p>
+    </div>
+    <img src="img/dark-logo.png" class="logo" alt="">
+
+    <!--become seller element-->
+    <!--apply form-->
+    <div class="nav-space">
+        <div class="nav-admin">
+            <img src="img/user.png">
+            <p class="add-product-title name-admin">Chào mừng Hiếu</p>
+            <button class="btn btn-new-product" id="new-product" onclick="location.href='login.html'">Đăng xuất</button>
+        </div>
+        <p class="add-product-title nav-link" onclick="location.href='admin.html'">quản lý sản phẩm</p>
+        <p class="add-product-title nav-link" onclick="location.href='user.html'">quản lý user</p>
+        <p class="add-product-title nav-link" onclick="location.href='order.html'">quản lý đơn hàng</p>
+        <p class="add-product-title nav-link" onclick="location.href='report.html'">báo cáo</p>
+        <p class="add-product-title nav-link" onclick="location.href='orderdetail.html'">xem đơn chi tiết</p>
+    </div>
+
+    <div class="list-orderdetail">
+        <div class="add-product">
+            <p class="add-product-title">Chi tiết đơn hàng #99</p>
+        </div>
+        
+        <div class="info-order">
+            <p>Tên khách hàng: Nguyễn Văn A</p>
+            <p>Số điện thoại: 11311411522</p>
+            <p>Thời gian đặt: 12/12/2022 03:03:29</p>
+            <p>Địa chỉ: số 01, phường 2, quận 6, TP HCM</p>
+            <p>Hành động: đã xử lý</p>
+            <p>Hình thức thanh toán: Thẻ tín dụng</p>
+            <p>Trạng thái thanh toán: Đã thanh toán</p>
+            <p>Trạng thái đơn hàng: đã giao</p>
+            <p>Ghi chú: không có</p>
+            <button class="btn report">In thông tin đơn hàng</button>
+        </div>
+        <div class="small-container cart-page">
+            <table>
+                <tr>
+                    <th>Sản phẩm</th>
+                    <th class="number-pro">Số lượng</th>
+                    <th class="cost">giá</th>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="cart-info">
+                            <img src="img/card1.png">
+                            <div>
+                                <h3>Tên sản phẩm</h3>
+                                <small>mô tả sp</small>
+                            </div>
+                        </div>
+                    <td><a>1</a></td>
+                    <td>100.000$</td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="cart-info">
+                            <img src="img/card2.png">
+                            <div>
+                                <h3>Tên sản phẩm</h3>
+                                <small>mô tả sp</small>
+                            </div>
+                        </div>
+                    <td><a>1</a></td>
+                    <td>100.000$</td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="cart-info">
+                            <img src="img/card3.png">
+                            <div>
+                                <h3>Tên sản phẩm</h3>
+                                <small>mô tả sp</small>
+                            </div>
+                        </div>
+                    <td><a>1</a></td>
+                    <td>100.000$</td>
+                </tr> 
+            </div>
+        </table>
+      
+        <div class="total-price">
+                <table>
+                        <tr>
+                            <td>Tổng giá sản phẩm</td>
+                            <td>300.000$</td>
+                        </tr>
+                        <tr>
+                            <td>Vận chuyển</td>
+                            <td>50.000$</td>
+                        </tr>
+                        <tr>
+                            <td>Mã giảm giá</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Tổng thanh toán</td>
+                            <td>310.000$</td>
+                        </tr>
+                </table>
+            </div>
+    </div>
+</body>
+</html>

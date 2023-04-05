@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADMIN</title>
+
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="css/search.css">
+    <link rel="stylesheet" href="css/sigup.css">
+    <link rel="stylesheet" href="css/admin.css">
+
+</head>
+<body>
+    <img src="img/loader.gif" class="loader" alt="">
+
+    <div class="alert-box">
+        <img src="img/error.png" class="alert-img" alt="">
+        <p class="alert-msg">Thông báo lỗi</p>
+    </div>
+    <img src="img/dark-logo.png" class="logo" alt="">
+
+    <!--become seller element-->
+    <!--apply form-->
+    <div class="nav-space">
+        <div class="nav-admin">
+            <img src="img/user.png">
+            <p class="add-product-title name-admin">Chào mừng Hiếu</p>
+            <button class="btn btn-new-product" id="new-product" onclick="location.href='login.html'">Đăng xuất</button>
+        </div>
+        <p class="add-product-title nav-link" onclick="location.href='admin.html'">quản lý sản phẩm</p>
+        <p class="add-product-title nav-link" onclick="location.href='user.html'">quản lý user</p>
+        <p class="add-product-title nav-link" onclick="location.href='order.html'">quản lý đơn hàng</p>
+        <p class="add-product-title nav-link" onclick="location.href='report.html'">báo cáo</p>
+        <p class="add-product-title nav-link" onclick="location.href='orderdetail.html'">xem đơn chi tiết</p>
+    </div>
+    <div class="order-list">
+        <div class="add-product">
+            <p class="add-product-title">quản lý đơn hàng</p>
+        </div>
+        <div class="box">
+            <div class="date-search">
+                    <a class="nameselect-combo">Từ ngày</a>
+                    <input type="date" class="date">
+                    <a class="nameselect-combo">Tới ngày</a>
+                    <input type="date" class="date">
+                <div class="btn-search-date">
+                    <button class="btn btn-search-date">Xác nhận</button>
+                </div>
+            </div>
+        </div>
+        <h2>Danh sách đơn hàng</h2>
+        <div class="box">
+            <select class="select">
+                <option>hiển thị: 10 mục</option>
+                <option>20</option>
+                <option>30</option>
+                <option>tất cả</option>
+            </select>
+            <select class="select">
+                <option>Sếp theo: Trạng thái</option>
+                <option>Đã xử lý</option>
+                <option>chưa xử lý</option>
+                <option>đã xác nhận</option>
+                <option>đã huỷ</option>
+                <option>Mới nhất</option>
+                <option>cũ nhất</option>
+                <option>thành tiền</option>
+            </select>
+            <div class="search-order">
+                <input type="text" placeholder="Tìm kiếm...">
+                <button class="search-btn">&#9906; Tìm kiếm</button>                       
+            </div>
+        </div>
+        <div class="small-container oder-page">
+            <table>
+                <tr>
+                    <th>#</th>
+                    <th>Mã đơn hàng#</th>
+                    <th>Khách Hàng</th>
+                    <th>Thời gian</th>
+                    <th>Thành tiền</th>
+                    <th>Hình thức thanh toán</th>
+                    <th>Tình trạng đơn</th>
+                    <th>Hành động</th>
+                </tr>
+                <tr>
+                    <td>
+                        <a>1</a>
+                    <td><p class="see-full" onclick="location.href='orderdetail.html'">999</p>
+                    <td><p>Lord Inquisitor</p></td>
+                    <td><a>11/11/2023 03:33:15</a></td>
+                    <td><a>500.000</a></td>
+                    <td><a>Chuyển khoản</a></td>
+                    <td><a>Đang chờ</a></td>
+                    <td><button class="cancel-btn">Huỷ</button><button class="confirm-btn">Xác nhận</button></td>
+                </tr>
+                <tr>
+                    <td>
+                        <a>2</a>
+                    <td><p class="see-full" onclick="location.href='orderdetail.html'">998</p>
+                    <td><p>Lord Inquisitor</p></td>
+                    <td><a>11/11/2023 03:33:15</a></td>
+                    <td><a>500.000</a></td>
+                    <td><a>Thanh toán khi nhận hàng</a></td>
+                    <td><a>Đang chờ</a></td>
+                    <td><button class="cancel-btn">Huỷ</button><button class="confirm-btn">Xác nhận</button></td>
+                </tr>
+                <tr>
+                    <td>
+                        <a>3</a>
+                    <td><p class="see-full" onclick="location.href='orderdetail.html'">997</p>
+                    <td><p>Lord Inquisitor</p></td>
+                    <td><a>11/11/2023 03:33:15</a></td>
+                    <td><a>500.000</a></td>
+                    <td><a>Chuyển khoản</a></td>
+                    <td><a>Đã xác nhận</a></td>
+                    <td><button class="confirmed-btn">Đã Xác nhận</button></td>
+                </tr>
+                <tr>
+                    <td>
+                        <a>4</a>
+                    <td><p class="see-full" onclick="location.href='orderdetail.html'">996</p>
+                    <td><p>Lord Inquisitor</p></td>
+                    <td><a>11/11/2023 03:33:15</a></td>
+                    <td><a>500.000</a></td>
+                    <td><a>Chuyển khoản</a></td>
+                    <td><a>Đã xác nhận</a></td>
+                    <td><button class="confirmed-btn">Đã Xác nhận</button></td>
+                </tr>
+                <tr>
+                    <td>
+                        <a>5</a>
+                    <td><p class="see-full" onclick="location.href='orderdetail.html'">995</p>
+                    <td><p>Lord Inquisitor</p></td>
+                    <td><a>11/11/2023 03:33:15</a></td>
+                    <td><a>500.000</a></td>
+                    <td><a>Chuyển khoản</a></td>
+                    <td><a>Đã xác nhận</a></td>
+                    <td><button class="confirmed-btn">Đã Xác nhận</button></td>
+                </tr>
+                <tr>
+                    <td>
+                        <a>6</a>
+                    <td><p class="see-full" onclick="location.href='orderdetail.html'">994</p>
+                    <td><p>Lord Inquisitor</p></td>
+                    <td><a>11/11/2023 03:33:15</a></td>
+                    <td><a>500.000</a></td>
+                    <td><a>Chuyển khoản</a></td>
+                    <td><a>Đã xác nhận</a></td>
+                    <td><button class="confirmed-btn">Đã Xác nhận</button></td>
+                </tr>
+                <tr>
+                    <td>
+                        <a>7</a>
+                    <td><p class="see-full" onclick="location.href='orderdetail.html'">993</p>
+                    <td><p>Lord Inquisitor</p></td>
+                    <td><a>11/11/2023 03:33:15</a></td>
+                    <td><a>500.000</a></td>
+                    <td><a>Chuyển khoản</a></td>
+                    <td><a>Đã xác nhận</a></td>
+                    <td><button class="confirmed-btn">Đã Xác nhận</button></td>
+                </tr>
+                <tr>
+                    <td>
+                        <a>8</a>
+                    <td><p class="see-full" onclick="location.href='orderdetail.html'">992</p>
+                    <td><p>Lord Inquisitor</p></td>
+                    <td><a>11/11/2023 03:33:15</a></td>
+                    <td><a>500.000</a></td>
+                    <td><a>Chuyển khoản</a></td>
+                    <td><a>Đã huỷ</a></td>
+                    <td><button class="canceled-btn">Đã Huỷ</button></td>
+                </tr>
+                <tr>
+                    <td>
+                        <a>9</a>
+                    <td><p class="see-full" onclick="location.href='orderdetail.html'">991</p>
+                    <td><p>Lord Inquisitor</p></td>
+                    <td><a>11/11/2023 03:33:15</a></td>
+                    <td><a>500.000</a></td>
+                    <td><a>Chuyển khoản</a></td>
+                    <td><a>Đã huỷ</a></td>
+                    <td><button class="canceled-btn">Đã Huỷ</button></td>
+                </tr>
+                <tr>
+                    <td>
+                        <a>10</a>
+                    <td><p class="see-full" onclick="location.href='orderdetail.html'">990</p>
+                    <td><p>Lord Inquisitor</p></td>
+                    <td><a>11/11/2023 03:33:15</a></td>
+                    <td><a>500.000</a></td>
+                    <td><a>Chuyển khoản</a></td>
+                    <td><a>Đã huỷ</a></td>
+                    <td><button class="canceled-btn">Đã Huỷ</button></td>
+                </tr>
+            </div>
+        </table>
+        <div class="box">
+            <a>Đang hiển thị trang 1 trên 999</a>
+            <div class="pre-next-btn">
+                <a class="btn">Trang trước</a>
+                <a class="btn">1</a>
+                <a class="btn">Trang sau</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>

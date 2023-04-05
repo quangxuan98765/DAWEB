@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kết quả tìm kiếm cho MENARMOR</title>
+
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/search.css">
+
+</head>
+<body>
+    
+    <nav class="navbar"></nav>
+
+    <section class="search-results">
+        <h2 class="heading">kết quả tìm kiếm cho <b>&ldquo;MENARMOR&rdquo;</b></h2>
+        <div class="box">
+            <a class="titlefilter">Bộ lọc <img src="img/filter.png"></a>
+            <a class="nameselect-combo">thương hiệu</a>
+            <select class="select-combo">
+                <option>Mechanicus</option>
+                <option>Orn</option>
+                <option>Vulkan</option>
+                <option>Emperor</option>
+            </select>
+            <a class="nameselect-combo">Giá</a>
+            <select class="select-combo">
+                <option>dưới 2 triệu</option>
+                <option>từ 2 tới 4 triệu</option>
+                <option>từ 4 tới 6 triệu</option>
+                <option>trên 6 triệu</option>
+            </select>
+            <a class="nameselect-combo">Khối lượng</a>
+            <select class="select-combo">
+                <option>dưới 20kg</option>
+                <option>từ 2 tới 4 tỷ</option>
+                <option>từ 4 đến 6 tỷ</option>
+                <option>trên 6 tỷ</option>
+            </select>
+            <a class="nameselect-combo">nhu cầu</a>
+            <select class="select-combo">
+                <option>Bộ binh</option>
+                <option>Terminator</option>
+                <option>Không binh</option>
+                <option>Ám sát</option>
+            </select>
+            <a class="nameselect-combo">Tính năng đặc biệt</a>
+            <select class="select-combo">
+                <option>Dịch chuyển</option>
+                <option>Bay</option>
+                <option>Màn chắn</option>
+            </select>
+        </div>
+        <div class="box">
+            <a class="titlefilter">Tuỳ chọn mức giá phù hợp <img src="img/pricefilter.png"></a>
+            <div class="min-max-slider" data-legendnum="2">
+                <label for="min">Giá tối thiểu</label>
+                <input id="min" class="min" name="min" type="range" step="1" min="0" max="50000000" />
+                <label for="max">Giá tối đa</label>
+                <input id="max" class="max" name="max" type="range" step="1" min="0" max="50000000" />
+            </div>
+            <div class="btnend">
+                <button class="un-selectBtn">Bỏ chọn</button>
+                <button class="detailBtn">Xem kết quả</button>
+            </div>
+        </div>
+        <div class="box">
+            <input type="checkbox" checked id="date">
+            <label for="date" class="checktext">Mới nhất <img src="img/new.png" class="iconimg"></label>
+            <input type="checkbox" id="ship">
+            <label for="ship" class="checktext">Giao nhanh</label>
+            <input type="checkbox" id="selloff">
+            <label for="selloff" class="checktext">Giảm giá</label>
+            <input type="checkbox" id="vjp">
+            <label for="vjp" class="checktext">Độc quyền</label>
+            <select class="select">
+                <option>Xếp theo: Nổi bật</option>
+                <option>% giảm</option>
+                <option>Giá từ thấp đến cao</option>
+                <option>Giá từ cao đến thấp</option>
+            </select>
+        </div>
+        <div class="product-container">
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="discount-tag">đang giảm 50%</span>
+                    <img src="img/card1.png" class="product-thumb" alt="" onclick="location.href='product.html'">
+                    <button class="card-btn">thêm vào giỏ hàng</button>
+                </div>
+                <div class="product-info">
+                    <h2 class="product-brand">BloodAngels Primaris</h2>
+                    <p class="product-short-des">Mark X Tacticus Power Armor</p>
+                    <span class="price">230.000₫</span><span class="actual-price">460.000₫</span>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="discount-tag">đang giảm 50%</span>
+                    <img src="img/card2.png" class="product-thumb" alt="" onclick="location.href='product.html'">
+                    <button class="card-btn">thêm vào giỏ hàng</button>
+                </div>
+                <div class="product-info">
+                    <h2 class="product-brand">Black Dragons Primaris</h2>
+                    <p class="product-short-des">Mark X Tacticus Power Armor</p>
+                    <span class="price">230.000₫</span><span class="actual-price">460.000₫</span>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="discount-tag">đang giảm 30%</span>
+                    <img src="img/card3.png" class="product-thumb" alt="" onclick="location.href='product.html'">
+                    <button class="card-btn">thêm vào giỏ hàng</button>
+                </div>
+                <div class="product-info">
+                    <h2 class="product-brand">Blood Ravens Primaris</h2>
+                    <p class="product-short-des">Mark X Tacticus Power Armor</p>
+                    <span class="price">280.000₫</span><span class="actual-price">400.000₫</span>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="discount-tag">đang giảm 30%</span>
+                    <img src="img/card4.png" class="product-thumb" alt="" onclick="location.href='product.html'">
+                    <button class="card-btn">thêm vào giỏ hàng</button>
+                </div>
+                <div class="product-info">
+                    <h2 class="product-brand">Exorcists Primaris</h2>
+                    <p class="product-short-des">Mark X Tacticus Power Armor</p>
+                    <span class="price">266.000₫</span><span class="actual-price">380.000₫</span>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="discount-tag">đang giảm 20%</span>
+                    <img src="img/card9.png" class="product-thumb" alt="" onclick="location.href='product.html'">
+                    <button class="card-btn">thêm vào giỏ hàng</button>
+                </div>
+                <div class="product-info">
+                    <h2 class="product-brand">Sister of Battle Power Armor</h2>
+                    <p class="product-short-des">Power Armor</p>
+                    <span class="price">280.000₫</span><span class="actual-price">350.000₫</span>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="discount-tag">đang giảm 25%</span>
+                    <img src="img/card10.png" class="product-thumb" alt="" onclick="location.href='product.html'">
+                    <button class="card-btn">thêm vào giỏ hàng</button>
+                </div>
+                <div class="product-info">
+                    <h2 class="product-brand">Inquisition Sister of Battle Power Armor</h2>
+                    <p class="product-short-des">Power Armor of inquisition</p>
+                    <span class="price">270.000₫</span><span class="actual-price">360.000₫</span>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="discount-tag">đang giảm 10%</span>
+                    <img src="img/card11.png" class="product-thumb" alt="" onclick="location.href='product.html'">
+                    <button class="card-btn">thêm vào giỏ hàng</button>
+                </div>
+                <div class="product-info">
+                    <h2 class="product-brand">Flak Armor</h2>
+                    <p class="product-short-des">Armor of Imperial Guard</p>
+                    <span class="price">360.000₫</span><span class="actual-price">400.000₫</span>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="discount-tag">đang giảm 10%</span>
+                    <img src="img/card12.png" class="product-thumb" alt="" onclick="location.href='product.html'">
+                    <button class="card-btn">thêm vào giỏ hàng</button>
+                </div>
+                <div class="product-info">
+                    <h2 class="product-brand">Adeptus Arbites Armor</h2>
+                    <p class="product-short-des">Power Armor</p>
+                    <span class="price">270.000₫</span><span class="actual-price">300.000₫</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <h2 class="read-more">xem thêm</h2>
+
+    <footer></footer>
+
+    <script src="js/nav.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/search.js"></script>
+</body>
+</html>

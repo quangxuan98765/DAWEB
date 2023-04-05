@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kết quả tìm kiếm cho MENARMOR</title>
+
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/search.css">
+
+</head>
+<body>
+    
+    <nav class="navbar"></nav>
+
+    <section class="search-results">
+        <div class="box">
+            <a class="titlefilter">Bộ lọc <img src="img/filter.png"></a>
+            <a class="nameselect-combo">thương hiệu</a>
+            <select class="select-combo">
+                <option>Mechanicus</option>
+                <option>Orn</option>
+                <option>Vulkan</option>
+                <option>Emperor</option>
+            </select>
+            <a class="nameselect-combo">Giá</a>
+            <select class="select-combo">
+                <option>dưới 2 triệu</option>
+                <option>từ 2 tới 4 triệu</option>
+                <option>từ 4 tới 6 triệu</option>
+                <option>trên 6 triệu</option>
+            </select>
+            <a class="nameselect-combo">Khối lượng</a>
+            <select class="select-combo">
+                <option>dưới 20kg</option>
+                <option>từ 2 tới 4 tỷ</option>
+                <option>từ 4 đến 6 tỷ</option>
+                <option>trên 6 tỷ</option>
+            </select>
+            <a class="nameselect-combo">nhu cầu</a>
+            <select class="select-combo">
+                <option>Power Armor</option>
+                <option>Terminator</option>
+                <option>Dreagh</option>
+                <option>flak</option>
+            </select>
+            <a class="nameselect-combo">Tính năng đặc biệt</a>
+            <select class="select-combo">
+                <option>Dịch chuyển</option>
+                <option>Bay</option>
+                <option>Màn chắn</option>
+            </select>
+        </div>
+        <div class="box">
+            <a class="titlefilter">Tuỳ chọn mức giá phù hợp <img src="img/pricefilter.png"></a>
+            <div class="min-max-slider" data-legendnum="2">
+                <label for="min">Giá tối thiểu</label>
+                <input id="min" class="min" name="min" type="range" step="1" min="0" max="50000000" />
+                <label for="max">Giá tối đa</label>
+                <input id="max" class="max" name="max" type="range" step="1" min="0" max="50000000" />
+            </div>
+            <div class="btnend">
+                <button class="un-selectBtn">Bỏ chọn</button>
+                <button class="detailBtn">Xem kết quả</button>
+            </div>
+        </div>
+        <div class="box">
+            <input type="checkbox" checked id="date">
+            <label for="date" class="checktext">Mới nhất <img src="img/new.png" class="iconimg"></label>
+            <input type="checkbox" id="ship">
+            <label for="ship" class="checktext">Giao nhanh</label>
+            <input type="checkbox" id="selloff">
+            <label for="selloff" class="checktext">Giảm giá</label>
+            <input type="checkbox" id="vjp">
+            <label for="vjp" class="checktext">Độc quyền</label>
+            <select class="select">
+                <option>Xếp theo: Nổi bật</option>
+                <option>% giảm</option>
+                <option>Giá từ thấp đến cao</option>
+                <option>Giá từ cao đến thấp</option>
+            </select>
+        </div>
+        <div class="product-container">
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="img/vk1.png" class="product-thumb" alt="" onclick="location.href='product.html'">
+                    <button class="card-btn">thêm vào giỏ hàng</button>
+                </div>
+                <div class="product-info">
+                    <h2 class="product-brand">Kiếm năng lượng</h2>
+                    <p class="product-short-des">Cắt kim loại như xé giấy</p>
+                    <span class="price">230.000₫</span>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="img/vk2.png" class="product-thumb" alt="" onclick="location.href='product.html'">
+                    <button class="card-btn">thêm vào giỏ hàng</button>
+                </div>
+                <div class="product-info">
+                    <h2 class="product-brand">Kiếm cưa</h2>
+                    <p class="product-short-des">Sức mạnh lớn, dễ bảo trì</p>
+                    <span class="price">230.000₫</span>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="img/vk3.png" class="product-thumb" alt="" onclick="location.href='product.html'">
+                    <button class="card-btn">thêm vào giỏ hàng</button>
+                </div>
+                <div class="product-info">
+                    <h2 class="product-brand">Heavy Bolter</h2>
+                    <p class="product-short-des">Đầu đạn bọc kim cương phát nổ</p>
+                    <span class="price">280.000₫</span>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="img/vk4.png" class="product-thumb" alt="" onclick="location.href='product.html'">
+                    <button class="card-btn">thêm vào giỏ hàng</button>
+                </div>
+                <div class="product-info">
+                    <h2 class="product-brand">Flassma</h2>
+                    <p class="product-short-des">Thiêu kẻ thù thành tro</p>
+                    <span class="price">266.000₫</span>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="img/vk5.png" class="product-thumb" alt="" onclick="location.href='product.html'">
+                    <button class="card-btn">thêm vào giỏ hàng</button>
+                </div>
+                <div class="product-info">
+                    <h2 class="product-brand">Phương tiện di chuyển IG</h2>
+                    <p class="product-short-des">Vượt mọi địa hình trên chiến trận</p>
+                    <span class="price">280.000₫</span>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="img/vk6.png" class="product-thumb" alt="">
+                    <button class="card-btn">thêm vào giỏ hàng</button>
+                </div>
+                <div class="product-info">
+                    <h2 class="product-brand">Xẻng quân đội</h2>
+                    <p class="product-short-des">Cận chiến và xây dựng chiến hào</p>
+                    <span class="price">270.000₫</span>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="img/vk7.png" class="product-thumb" alt="" onclick="location.href='product.html'">
+                    <button class="card-btn">thêm vào giỏ hàng</button>
+                </div>
+                <div class="product-info">
+                    <h2 class="product-brand">Lasgun</h2>
+                    <p class="product-short-des">Vũ khí cơ bản bắn ra lazer</p>
+                    <span class="price">360.000₫</span>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="img/vk8.png" class="product-thumb" alt="" onclick="location.href='product.html'">
+                    <button class="card-btn">thêm vào giỏ hàng</button>
+                </div>
+                <div class="product-info">
+                    <h2 class="product-brand">Xe tăng Lemanruss</h2>
+                    <p class="product-short-des">Xe tăng chuyên dụng</p>
+                    <span class="price">270.000₫</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <h2 class="read-more">xem thêm</h2>
+
+    <footer></footer>
+
+    <script src="js/nav.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/search.js"></script>
+</body>
+</html>

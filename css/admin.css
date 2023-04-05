@@ -1,0 +1,356 @@
+body{
+    width: 100%;
+    display: block;
+    min-height: 90vw;
+    padding: 0 5vw;
+    position: relative;
+    font-family: 'Times New Roman', Times, serif;   
+}
+
+.logo{
+    margin: 20px auto 20px;
+}
+
+.hide{
+    display: none;
+}
+
+.btn{
+    border: none;
+    outline: none;
+    background: #383838;
+    color: #fff;
+    padding: 10px 30px;
+    border-radius: 5px;
+    text-transform: capitalize;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.box{
+padding-left: 0px;
+}
+
+.search{
+    margin-left: 20%;
+}
+
+.search-btn{
+    margin-top: 20px;
+}
+
+/*product listing*/
+.add-product{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    padding: 10px 20px;
+    border-radius:10px;
+    margin-bottom: 20px;
+}
+
+.add-product-title{
+    text-transform: capitalize;
+    color: #383838;
+}
+
+.no-product-image{
+    display: block;
+    margin: auto;
+}
+
+.hide{
+    display: none;
+}
+/* //// */
+.product-container{
+    padding: 0;
+    height: 525px;
+}
+
+.tag{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 2px 10px;
+    border-radius: 2px;
+    background: #fff;
+    color: #383838;
+    border: 2px solid red;
+}
+
+.card-action-btn{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1 px solid black;
+    outline: none;
+    transition: 0.5s;
+    background: #ffffff;
+    overflow: hidden;
+    cursor: pointer;
+    opacity: 0;
+}
+
+.card-action-btn img{
+    height: 18px;
+}
+
+.open-btn{
+    top: 60px;
+}
+
+.delete-popup-btn{
+    top: 110px;
+    background: red;
+    border: none;
+}
+
+.delete-popup-btn:hover{
+    border: 4px solid red;
+}
+
+.product-card:hover .card-action-btn{
+    opacity: 1;
+    pointer-events: all;
+}
+
+.amount-product{
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translate(-50%);
+    padding: 10px;
+    width: 90%;
+    text-transform: capitalize;
+    outline: none;
+    background: rgb(255, 255, 255);
+    border-radius: 5px;
+    border: 1px solid rgb(0, 0, 0);
+    font-size: 16px;
+}
+
+.alert-box.show{
+    opacity: 1;
+    pointer-events: all;
+    top: 30%; 
+ }
+
+ .list-of-order{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    padding: 10px 20px;
+    border-radius:10px;
+    margin-bottom: 20px;
+    margin-top: 5vw;
+    text-align: center;
+ }
+
+ /* lấy khoảng trắng căn lề cho đẹp */
+.space-top{
+    width: 100%;
+    height: 50px;
+    border-top: 3px solid grey;
+}
+.space-bottom{
+    width: 100%;
+    height: 50px;
+    border-bottom: 3px solid grey;
+}
+
+/* báo cáo */
+.date-search{
+    display: flex;
+    align-items: center;
+    padding-left: 45vw;
+}
+
+th, td{
+    border: 2px solid black;
+}
+
+td:last-child{
+    text-align: left;
+}
+
+.date{
+    padding: 7.5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    text-transform: capitalize;
+    padding-left: 20px;
+    margin-right: 5px;
+}
+
+.btn-search-date{
+    padding-left: 30px;
+}
+
+.info-date{
+    text-align: center;
+    text-transform: capitalize;
+    font-size: 16px;
+}
+
+.report{
+    margin-top: 30px;
+}
+
+.btn-new-product{
+    background: rgb(7, 7, 65);
+}
+
+.search-order{
+    padding-left: 40%;
+    display: flex;
+}
+
+.order-page{
+    padding-top: 10px;
+    height: 100%;
+}
+.cancel-btn{
+    border-radius: 5px;
+    background: orangered;
+    color: white;
+    margin-right:4px;
+    padding: 5px 8px;
+    text-transform: capitalize;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    margin-right: 4px;
+}
+.confirm-btn{
+    border-radius: 5px;
+    background: rgb(41, 41, 255);
+    color: white;
+    padding: 5px 8px;
+    text-transform: capitalize;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.confirmed-btn{
+    border-radius: 5px;
+    background: green;
+    color: white;
+    padding: 5px 8px;
+    text-transform: capitalize;
+    font-size: 16px;
+    opacity: 0.4;
+    border: none;
+    cursor: pointer;
+}
+
+.canceled-btn{
+    border-radius: 5px;
+    background: orangered;
+    color: white;
+    padding: 5px 8px;
+    text-transform: capitalize;
+    font-size: 16px;
+    opacity: 0.4;
+    border: none;
+    cursor: pointer;
+}
+
+td a{
+    color: #000000;
+    font-size: 18px;
+    text-transform: capitalize;
+}
+
+td p{
+    color: #2c5dff;
+    font-size: 18px;
+    text-transform: capitalize;
+}
+
+.table-btn-zone{
+    width: 180px;
+}
+
+tr:nth-child(even) {
+    background-color: rgb(232, 230, 230);
+  }
+
+.pre-next-btn{
+    margin-top: 20px;
+    padding-left: 59%;
+}
+
+.nav-admin{
+    align-items: center;
+    display: flex;
+    background: #ffd5d5;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.name-admin{
+    color: rgb(0, 0, 0);
+    padding: 0 15px;
+}
+
+.nav-space{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius:10px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    background: #fff;
+    border-bottom: 2px solid black;
+}
+
+.select-report{
+    margin: 0 0 0 5vw;
+    font-size: 14px;
+    padding: 8px;
+    border-radius: 5px;
+    text-transform: capitalize;
+    margin-right: 5px;
+}
+
+.number-pro{
+    width: 120px;
+    align-items: center;
+}
+
+.cost{
+    width: 200px;
+    align-items: center;
+}
+
+.info-order{
+    margin: 0 0 0 5vw;
+    text-transform: capitalize;
+    font-size: 16px;
+    background-color: rgb(204, 200, 200);
+    width: 50%;
+    border-radius: 10px;
+    padding: 20px;
+    line-height: 28px;
+}
+
+.see-full{
+    color: blue;
+    cursor: pointer;
+}
+
+.see-full:hover{
+    color: red;
+}
