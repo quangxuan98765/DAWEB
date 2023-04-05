@@ -35,7 +35,7 @@
                     <label for="first-file-upload-btn" class="upload-image" ></label>
                 </div>
             </div>
-            <div class="select-sizes">
+            <!-- <div class="select-sizes">
                 <p class="text">size hiện có</p>
                 <div class="sizes">
                     <input type="checkbox" class="size-checkbox" id="xs" value="xs">
@@ -46,7 +46,7 @@
                     <input type="checkbox" class="size-checkbox" id="xxl" value="xxl">
                     <input type="checkbox" class="size-checkbox" id="xxxl" value="xxxl">
                 </div>
-            </div>
+            </div> -->
         </div>
         <div class="product-price">
             <input type="number" id="selling-price" name="gia_sp" placeholder="giá bán">
