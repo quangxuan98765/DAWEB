@@ -5,7 +5,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "LaptrinhWeb2";
+$dbname = "laptrinhweb2";
 
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
@@ -14,8 +14,8 @@ if (!$conn) {
   die("Connection failed: " . mysqli_connect_error());
 }
 
-$id = $_GET['id'];
-$sql = "SELECT * FROM SanPham WHERE id = $id";
+$idmsp = $_GET['MaSP'];
+$sql = "SELECT * FROM sanpham WHERE MaSP = '$idmsp'";
 $result = mysqli_query($conn, $sql);
 if (!$result) { die("Query failed: " . mysqli_error($conn)); }
 
@@ -70,7 +70,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
 			};
 
 			// Thiết lập yêu cầu POST với địa chỉ URL của trang xử lý yêu cầu và dữ liệu cần gửi đi
-			xhr.open("POST", "cart.php", true);
+			xhr.open("POST", "addToCart.php", true);
 			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			xhr.send("id=" + productId);
         }
@@ -79,14 +79,14 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
         </div>
         <div class="details">
             <?php
-            $sql1 = "SELECT * FROM SanPham WHERE id = $id";
+            $sql1 = "SELECT * FROM SanPham WHERE MaSP = '$idmsp'";
             $result1 = mysqli_query($conn, $sql1);
             if (mysqli_num_rows($result1) > 0) {
                 $row = mysqli_fetch_assoc($result1);
                 $s = sprintf('<h2 class="product-brand">%s</h2>',$row['TenSP']);
                 $s .= sprintf('<p class="product-short-des">%s</p>',$row['MoTaSP']);
                 $s .= sprintf('<span class="product-price">%s vnđ</span>',number_format($row['GiaSP'], 0, '', ','));
-                $s .= '<div class="st-param"><ul><li data-info="Màn hình"><span class="icon-screen-size"></span><p>15.6 inch, 1920 x 1080 Pixels, IPS, 144 Hz, Anti-glare LED-backlit</p></li><li data-info="CPU"><span class="icon-cpu"></span><p>Intel, Core i5, 10300H</p></li><li data-info="RAM"><span class="icon-ram"></span><p>8 GB (1 thanh 8 GB), DDR4, 2933 MHz</p></li><li data-info="Ổ cứng"><span class="icon-hdd-black"></span><p>SSD 512 GB</p></li><li data-info="Đồ họa"><span class="icon-vga"></span><p>NVIDIA GeForce GTX 1650 4GB; Intel UHD Graphics</p></li></ul><a class="re-link js--open-modal2">Xem chi tiết thông số kỹ thuật</a></div>';
+                $s .= '<br><i>Thông số chi tiết</i><div class="st-param"><ul><li data-info="Màn hình"><span class="icon-screen-size"></span><p>15.6 inch, 1920 x 1080 Pixels, IPS, 144 Hz, Anti-glare LED-backlit</p></li><li data-info="CPU"><span class="icon-cpu"></span><p>Intel, Core i5, 10300H</p></li><li data-info="RAM"><span class="icon-ram"></span><p>8 GB (1 thanh 8 GB), DDR4, 2933 MHz</p></li><li data-info="Ổ cứng"><span class="icon-hdd-black"></span><p>SSD 512 GB</p></li><li data-info="Đồ họa"><span class="icon-vga"></span><p>NVIDIA GeForce GTX 1650 4GB; Intel UHD Graphics</p></li></ul><a class="re-link js--open-modal2">Xem chi tiết thông số kỹ thuật</a></div>';
                 $s .= sprintf('<button class="btn cart-btn" onclick="addToCart(%s)">thêm vào giỏ hàng</button>', $row['id']);
                 $s.='<span id="cart-status"></span>';
             }

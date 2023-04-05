@@ -46,7 +46,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                     $s.=sprintf('<tr><td><div class="cart-info"><img src="%s"><div>',$row['hinhsp']);
                     $s.=sprintf('<h3>%s</h3>',$row['tensp']);
                     $s.=sprintf('<small>%s</small><br>',$row['motasp']);
-                    $s.='<a class="link-text" href="product.php?id=' . $row['id'] .'">Xem chi tiết</a><br>';
+                    $s.='<a class="link-text" href="product.php?MaSP=' . $row['masp'] .'">Xem chi tiết</a><br>';
                     $s.='<button class="btn-remove">Xoá sản phẩm</button></div></div><td><button class="btn-value">-</button><input type="number" value="1"><button class="btn-value">+</button></td><td>230.000₫</td></tr>';
                 }
                 echo $s;

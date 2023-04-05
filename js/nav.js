@@ -23,7 +23,7 @@ const createNav = () => {
         <ul class="links-container">
             <li class="link-item"><a href="index.php" class="link"><img src="img/home.png">Trang chủ</li>
             <li class="link-item"><a href="womenarmor.html" class="link">women armor</li>
-            <li class="link-item"><a href="menarmor.html" class="link">man armor</li>
+            <li class="link-item"><a href="menarmor.php" class="link">man armor</li>
             <li class="link-item"><a href="accessories.html" class="link">phụ kiện</li>
             <li class="link-item"><a href="product.html" class="link">sản phẩm</li>
             <li class="link-item"><a href="404.html" class="link">404</li>

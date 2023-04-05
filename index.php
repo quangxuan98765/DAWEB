@@ -44,11 +44,11 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
     <div class="box">
             <a class="titlefilter">Bộ lọc <img src="img/filter.png"></a>
             <a class="nameselect-combo">thương hiệu</a>
-            <select class="select-combo">
-                <option>Mechanicus</option>
-                <option>Orn</option>
-                <option>Vulkan</option>
-                <option>Emperor</option>
+            <select class="select-combo" id="product-select">
+                <option>product1</option>
+                <option>product2</option>
+                <option>product3</option>
+                <option>product4</option>
             </select>
             <a class="nameselect-combo">Giá</a>
             <select class="select-combo">
@@ -78,6 +78,18 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                 <option>Màn chắn</option>
             </select>
         </div>
+        <script>
+            function filterProducts() {
+                // Lấy giá trị được chọn trong select box
+                var productSelect = document.getElementById('product-select');
+                var productValue = productSelect.value;
+
+                // Tạo yêu cầu Ajax để lấy sản phẩm theo giá trị được chọn
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', 'get_products.php?product=' + productValue, true);
+                //...
+            }
+        </script>
         <h2 class="product-category">Sản phẩm mới <img src="img/new.png"></h2>
         <button class="pre-btn"><img src="img/arrow.png" alt=""></button>
         <button class="nxt-btn"><img src="img/arrow.png" alt=""></button>
@@ -90,7 +102,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                     while($row = mysqli_fetch_assoc($result1)) {
                         $s.='<div class="product-card">';
                         $s.='<div class="product-image">';
-                        $s .= '<a href="product.php?id=' . $row['id'] . '">';
+                        $s .= '<a href="product.php?MaSP=' . $row['MaSP'] . '">';
                         $s.= sprintf('<img src="%s" class="product-thumb"> <button class="card-btn">thêm vào giỏ hàng</button>', $row['HinhSP']);
                         $s .= '</a>';
                         $s.='</div>';
