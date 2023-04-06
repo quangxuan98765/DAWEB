@@ -12,7 +12,7 @@ if (!$conn) {
 }
 
 $category = $_GET['category'];
-$sql = "SELECT * FROM sanpham WHERE category = $category";
+$sql = "SELECT * FROM sanpham WHERE category = '$category'";
 $result = mysqli_query($conn, $sql);
 // Đóng gói danh sách sản phẩm phù hợp vào một mảng và chuyển đổi sang định dạng JSON
 $products = array();
@@ -22,6 +22,6 @@ while ($row = mysqli_fetch_assoc($result)) {
 $json = json_encode($products);
 
 // Trả về danh sách sản phẩm phù hợp dưới dạng JSON
-echo $json;
-
+echo $json; //echo có thể in hoặc giá trị trả về chỉ có thể là một chuỗi (không trả về 1 biến)
+//echo trả về chuỗi JSON || echo json_encode($products);
 ?>

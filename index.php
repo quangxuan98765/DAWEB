@@ -43,7 +43,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                 <a class="titlefilter">Bộ lọc <img src="img/filter.png"></a>
                 <a class="nameselect-combo">thương hiệu</a>
                 <select class="select-combo" id="product-select" onchange="filterProducts()">
-                    <option value = "-1">chọn loại</option>
+                    <option>chọn loại</option>
                     <option value = "dell">dell</option>
                     <option value = "acer">product3</option>
                     <option value = "asus">product4</option>
@@ -85,38 +85,43 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
 
             // Tạo yêu cầu Ajax để lấy sản phẩm theo giá trị được chọn
             var xhr = new XMLHttpRequest();
-            xhr.open('GET', 'fillter.php?category=' + productValue, true);
+            xhr.open('GET', 'filter.php?category=' + productValue, true);
             xhr.onload = function() {
                 if (xhr.status === 200) {
                     // Xử lý kết quả trả về từ yêu cầu Ajax
                     var products = JSON.parse(xhr.responseText);
                     var productContainer = document.getElementById('boxajax-containter');
-                    productContainer.innerHTML = '';
+                    var productHtml = '';
                     products.forEach(function(product) {
                         // Tạo phần tử HTML để hiển thị sản phẩm
-                        productContainer.innerHTML += `<div class="product-card">
-                                                        <div class="product-image">
-                                                            <a href="product.php?id=` + product.id + `">
-                                                                <img src="` + product.HinhSP + `" class="product-thumb"> <button class="card-btn">thêm vào giỏ hàng</button>
-                                                            </a>
-                                                        </div>
-                                                        <div class="product-info">
-                                                            <h2 class="product-brand">` + product.TenSP + `(` + product.MaSP + `)</h2>
-                                                            <p class="product-short-des">` + product.MoTaSP + `</p>
-                                                            <span class="price">` + product.GiaSP + `vnđ</span>
-                                                        </div>
-                                                    </div>`;
+                        productHtml += `<div class="product-card">
+                                        <div class="product-image">
+                                            <a href="product.php?id=` + product.id + `">
+                                            <img src="` + product.HinhSP + `" class="product-thumb"> <button class="card-btn">thêm vào giỏ hàng</button>
+                                            </a>
+                                        </div>
+                                        <div class="product-info">
+                                            <h2 class="product-brand">` + product.TenSP + `(` + product.MaSP + `)</h2>
+                                            <p class="product-short-des">` + product.MoTaSP + `</p>
+                                            <span class="price">` + product.GiaSP + `vnđ</span>
+                                        </div>
+                                        </div>`;
                     });
+                    productContainer.innerHTML = `<section class="product"><h2 class="product-category">Sản phẩm mới <img src="img/new.png"></h2><button class="pre-btn"><img src="img/arrow.png" alt=""></button><button class="nxt-btn"><img src="img/arrow.png" alt=""></button><div class="product-container">` + productHtml + '</div></section>';
                 }
+
             }
+            // const productDiv = document.getElementById('boxajax-containter');
+            // productDiv.style.display = 'flex';
+            // productDiv.classList.add("ajaxclass");
             xhr.onerror = function() {
-                        console.error(xhr.statusText);
-                    };
+                console.error(xhr.statusText);
+            };
             xhr.send();
         }
     </script>
     <!--cards-container-->
-    <div id = "boxajax-containter">
+    <div id="boxajax-containter">
         <section class="product">
             <h2 class="product-category">Sản phẩm mới <img src="img/new.png"></h2>
             <button class="pre-btn"><img src="img/arrow.png" alt=""></button>
