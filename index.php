@@ -14,7 +14,7 @@ if (!$conn) {
   die("Connection failed: " . mysqli_connect_error());
 }
 
-$sql = "SELECT * FROM SanPham";
+$sql = "SELECT * FROM sanpham";
 $result = mysqli_query($conn, $sql);
 if (!$result) { die("Query failed: " . mysqli_error($conn)); }
 
@@ -39,118 +39,147 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
         </div>
     </header>
 
-    <!--cards-container-->
-    <section class="product">
     <div class="box">
-            <a class="titlefilter">Bộ lọc <img src="img/filter.png"></a>
-            <a class="nameselect-combo">thương hiệu</a>
-            <select class="select-combo" id="product-select">
-                <option>product1</option>
-                <option>product2</option>
-                <option>product3</option>
-                <option>product4</option>
-            </select>
-            <a class="nameselect-combo">Giá</a>
-            <select class="select-combo">
-                <option>dưới 2 triệu</option>
-                <option>từ 2 tới 4 triệu</option>
-                <option>từ 4 tới 6 triệu</option>
-                <option>trên 6 triệu</option>
-            </select>
-            <a class="nameselect-combo">Khối lượng</a>
-            <select class="select-combo">
-                <option>dưới 20kg</option>
-                <option>từ 2 tới 4 tỷ</option>
-                <option>từ 4 đến 6 tỷ</option>
-                <option>trên 6 tỷ</option>
-            </select>
-            <a class="nameselect-combo">nhu cầu</a>
-            <select class="select-combo">
-                <option>Power Armor</option>
-                <option>Terminator</option>
-                <option>Dreagh</option>
-                <option>flak</option>
-            </select>
-            <a class="nameselect-combo">Tính năng đặc biệt</a>
-            <select class="select-combo">
-                <option>Dịch chuyển</option>
-                <option>Bay</option>
-                <option>Màn chắn</option>
-            </select>
+                <a class="titlefilter">Bộ lọc <img src="img/filter.png"></a>
+                <a class="nameselect-combo">thương hiệu</a>
+                <select class="select-combo" id="product-select" onchange="filterProducts()">
+                    <option value = "-1">chọn loại</option>
+                    <option value = "dell">dell</option>
+                    <option value = "acer">product3</option>
+                    <option value = "asus">product4</option>
+                </select>
+                <a class="nameselect-combo">Giá</a>
+                <select class="select-combo">
+                    <option>dưới 2 triệu</option>
+                    <option>từ 2 tới 4 triệu</option>
+                    <option>từ 4 tới 6 triệu</option>
+                    <option>trên 6 triệu</option>
+                </select>
+                <a class="nameselect-combo">Khối lượng</a>
+                <select class="select-combo">
+                    <option>dưới 20kg</option>
+                    <option>từ 2 tới 4 tỷ</option>
+                    <option>từ 4 đến 6 tỷ</option>
+                    <option>trên 6 tỷ</option>
+                </select>
+                <a class="nameselect-combo">nhu cầu</a>
+                <select class="select-combo">
+                    <option>Power Armor</option>
+                    <option>Terminator</option>
+                    <option>Dreagh</option>
+                    <option>flak</option>
+                </select>
+                <a class="nameselect-combo">Tính năng đặc biệt</a>
+                <select class="select-combo">
+                    <option>Dịch chuyển</option>
+                    <option>Bay</option>
+                    <option>Màn chắn</option>
+                </select>
         </div>
-        <script>
-            function filterProducts() {
-                // Lấy giá trị được chọn trong select box
-                var productSelect = document.getElementById('product-select');
-                var productValue = productSelect.value;
 
-                // Tạo yêu cầu Ajax để lấy sản phẩm theo giá trị được chọn
-                var xhr = new XMLHttpRequest();
-                xhr.open('GET', 'get_products.php?product=' + productValue, true);
-                //...
+    <script>
+        function filterProducts() {
+            // Lấy giá trị được chọn trong select box
+            var productSelect = document.getElementById('product-select');
+            var productValue = productSelect.value;
+
+            // Tạo yêu cầu Ajax để lấy sản phẩm theo giá trị được chọn
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'fillter.php?category=' + productValue, true);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    // Xử lý kết quả trả về từ yêu cầu Ajax
+                    var products = JSON.parse(xhr.responseText);
+                    var productContainer = document.getElementById('boxajax-containter');
+                    productContainer.innerHTML = '';
+                    products.forEach(function(product) {
+                        // Tạo phần tử HTML để hiển thị sản phẩm
+                        productContainer.innerHTML += `<div class="product-card">
+                                                        <div class="product-image">
+                                                            <a href="product.php?id=` + product.id + `">
+                                                                <img src="` + product.HinhSP + `" class="product-thumb"> <button class="card-btn">thêm vào giỏ hàng</button>
+                                                            </a>
+                                                        </div>
+                                                        <div class="product-info">
+                                                            <h2 class="product-brand">` + product.TenSP + `(` + product.MaSP + `)</h2>
+                                                            <p class="product-short-des">` + product.MoTaSP + `</p>
+                                                            <span class="price">` + product.GiaSP + `vnđ</span>
+                                                        </div>
+                                                    </div>`;
+                    });
+                }
             }
-        </script>
-        <h2 class="product-category">Sản phẩm mới <img src="img/new.png"></h2>
-        <button class="pre-btn"><img src="img/arrow.png" alt=""></button>
-        <button class="nxt-btn"><img src="img/arrow.png" alt=""></button>
-        <div class="product-container">
-            <?php
-            $sql1 = "SELECT * FROM SanPham WHERE product_sell = 'hàng mới'";
-            $result1 = mysqli_query($conn, $sql1);
-                if(mysqli_num_rows($result1) > 0){
-                    $s = "";
-                    while($row = mysqli_fetch_assoc($result1)) {
-                        $s.='<div class="product-card">';
-                        $s.='<div class="product-image">';
-                        $s .= '<a href="product.php?MaSP=' . $row['MaSP'] . '">';
-                        $s.= sprintf('<img src="%s" class="product-thumb"> <button class="card-btn">thêm vào giỏ hàng</button>', $row['HinhSP']);
-                        $s .= '</a>';
-                        $s.='</div>';
-                        $s.='<div class="product-info">';
-                        $s .= sprintf('<h2 class="product-brand">%s (%s)</h2>', $row['TenSP'], $row['MaSP']);
-                        $s.= sprintf('<p class="product-short-des">%s</p>',$row['MoTaSP']);
-                        $s.= sprintf('<span class="price">%s vnđ</span>',number_format($row['GiaSP'], 0, '', ','));
-                        $s.='</div>';
-                        $s.='</div>';
+            xhr.onerror = function() {
+                        console.error(xhr.statusText);
+                    };
+            xhr.send();
+        }
+    </script>
+    <!--cards-container-->
+    <div id = "boxajax-containter">
+        <section class="product">
+            <h2 class="product-category">Sản phẩm mới <img src="img/new.png"></h2>
+            <button class="pre-btn"><img src="img/arrow.png" alt=""></button>
+            <button class="nxt-btn"><img src="img/arrow.png" alt=""></button>
+            <div class="product-container">
+                <?php
+                $sql1 = "SELECT * FROM SanPham WHERE product_sell = 'hàng mới'";
+                $result1 = mysqli_query($conn, $sql1);
+                    if(mysqli_num_rows($result1) > 0){
+                        $s = "";
+                        while($row = mysqli_fetch_assoc($result1)) {
+                            $s.='<div class="product-card">';
+                            $s.='<div class="product-image">';
+                            $s .= '<a href="product.php?MaSP=' . $row['MaSP'] . '">';
+                            $s.= sprintf('<img src="%s" class="product-thumb"> <button class="card-btn">thêm vào giỏ hàng</button>', $row['HinhSP']);
+                            $s .= '</a>';
+                            $s.='</div>';
+                            $s.='<div class="product-info">';
+                            $s .= sprintf('<h2 class="product-brand">%s (%s)</h2>', $row['TenSP'], $row['MaSP']);
+                            $s.= sprintf('<p class="product-short-des">%s</p>',$row['MoTaSP']);
+                            $s.= sprintf('<span class="price">%s vnđ</span>',number_format($row['GiaSP'], 0, '', ','));
+                            $s.='</div>';
+                            $s.='</div>';
+                        }
                     }
-                }
-                echo $s;
-            ?>
-        </div>
-    </section>
+                    echo $s;
+                ?>
+            </div>
+        </section>
 
-    <section class="product">
-        <h2 class="product-category">Sản phẩm bán chạy  <img src="img/bestsell.png"></h2>
-        <button class="pre-btn"><img src="img/arrow.png" alt=""></button>
-        <button class="nxt-btn"><img src="img/arrow.png" alt=""></button>
-        <div class="product-container">
-            <?php
-            $sql1 = "SELECT * FROM SanPham WHERE product_sell = 'hàng bán chạy'";
-            $result1 = mysqli_query($conn, $sql1);
-                if(mysqli_num_rows($result1) > 0){
-                    $s = "";
-                    while($row = mysqli_fetch_assoc($result1)) {
-                        $s.='<div class="product-card">';
-                        $s.='<div class="product-image">';
-                        $s .= '<a href="product.php?id=' . $row['id'] . '">';
-                        $s.= sprintf('<img src="%s" class="product-thumb"> <button class="card-btn">thêm vào giỏ hàng</button>', $row['HinhSP']);
-                        $s .= '</a>';
-                        $s.='</div>';
-                        $s.='<div class="product-info">';
-                        $s .= sprintf('<h2 class="product-brand">%s (%s)</h2>', $row['TenSP'], $row['MaSP']);
-                        $s.= sprintf('<p class="product-short-des">%s</p>',$row['MoTaSP']);
-                        $s.= sprintf('<span class="price">%s vnđ</span>',number_format($row['GiaSP'], 0, '', ','));
-                        $s.='</div>';
-                        $s.='</div>';
+        <section class="product">
+            <h2 class="product-category">Sản phẩm bán chạy  <img src="img/bestsell.png"></h2>
+            <button class="pre-btn"><img src="img/arrow.png" alt=""></button>
+            <button class="nxt-btn"><img src="img/arrow.png" alt=""></button>
+            <div class="product-container">
+                <?php
+                $sql1 = "SELECT * FROM SanPham WHERE product_sell = 'hàng bán chạy'";
+                $result1 = mysqli_query($conn, $sql1);
+                    if(mysqli_num_rows($result1) > 0){
+                        $s = "";
+                        while($row = mysqli_fetch_assoc($result1)) {
+                            $s.='<div class="product-card">';
+                            $s.='<div class="product-image">';
+                            $s .= '<a href="product.php?id=' . $row['id'] . '">';
+                            $s.= sprintf('<img src="%s" class="product-thumb"> <button class="card-btn">thêm vào giỏ hàng</button>', $row['HinhSP']);
+                            $s .= '</a>';
+                            $s.='</div>';
+                            $s.='<div class="product-info">';
+                            $s .= sprintf('<h2 class="product-brand">%s (%s)</h2>', $row['TenSP'], $row['MaSP']);
+                            $s.= sprintf('<p class="product-short-des">%s</p>',$row['MoTaSP']);
+                            $s.= sprintf('<span class="price">%s vnđ</span>',number_format($row['GiaSP'], 0, '', ','));
+                            $s.='</div>';
+                            $s.='</div>';
+                        }
                     }
-                }
-                echo $s;
-            ?>
-        </div>
-    </section>
-    <?php
-    mysqli_close($conn);
-    ?>
+                    echo $s;
+                ?>
+            </div>
+        </section>
+        <?php
+        mysqli_close($conn);
+        ?>
+    </div>
 
     <!--collections-->
     <h2 class="title-colection">Mục đáng chú ý</h2>

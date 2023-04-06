@@ -107,12 +107,12 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                     while($row = mysqli_fetch_assoc($result)) {
                         $s.='<div class="product-card">';
                         $s.='<div class="product-image">';
-                        $s .='<a href="product.php?id=' . $row['id'] . '">';
+                        $s.='<a href="product.php?id=' . $row['id'] . '">';
                         $s.= sprintf('<img src="%s" class="product-thumb"> <button class="card-btn">thêm vào giỏ hàng</button>', $row['HinhSP']);
-                        $s .='</a>';
+                        $s.='</a>';
                         $s.='</div>';
                         $s.='<div class="product-info">';
-                        $s .= sprintf('<h2 class="product-brand">%s (%s)</h2>', $row['TenSP'], $row['MaSP']);
+                        $s.= sprintf('<h2 class="product-brand">%s (%s)</h2>', $row['TenSP'], $row['MaSP']);
                         $s.= sprintf('<p class="product-short-des">%s</p>',$row['MoTaSP']);
                         $s.= sprintf('<span class="price">%s vnđ</span>',number_format($row['GiaSP'], 0, '', ','));
                         $s.='</div>';
