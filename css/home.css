@@ -68,7 +68,7 @@
 }
 
 .product-thumb{
-    width: 100%;
+    width: 420px;
     height: 350px;
     object-fit: cover;
     cursor: pointer;
