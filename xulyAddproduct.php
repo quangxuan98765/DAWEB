@@ -1,5 +1,5 @@
 <?php
-if(isset($_REQUEST['dangky'])) {
+if(isset($_REQUEST['submitThemsp'])) {
 	$tenSP = $_REQUEST['ten_sp'];
 	$motaSP = $_REQUEST['mota_sp'];
 	$giaSP = (double)$_REQUEST['gia_sp'];
@@ -20,7 +20,12 @@ if(isset($_REQUEST['dangky'])) {
 	  die("Connection failed: " . mysqli_connect_error());
 	}
 
-	$sql = sprintf("INSERT INTO `sanpham` (`MaSP` ,`TenSP`, `HinhSP`, `MoTaSP`, `GiaSP`, `category`) VALUES ('%s','%s', '%s', '%s', %d , '%s');", $maSP, $tenSP,$hinhSP, $motaSP,$giaSP,$loaiSP);
+	$queo = "SELECT * FROM category WHERE category_name='$loaiSP'";
+	$result1 = mysqli_query($conn, $queo);
+	$row = mysqli_fetch_assoc($result1);
+	$category_id = $row['id'];
+
+	$sql = sprintf("INSERT INTO `sanpham` (`MaSP` ,`TenSP`, `HinhSP`, `MoTaSP`, `GiaSP`, `category_id`) VALUES ('%s','%s', '%s', '%s', %d , '%s');", $maSP, $tenSP,$hinhSP, $motaSP,$giaSP,$category_id);
 	//var_dump($sql);
 	if ($conn->query($sql) === TRUE) {
 	  echo "<hr/>New record created successfully";

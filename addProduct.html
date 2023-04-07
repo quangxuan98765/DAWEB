@@ -17,7 +17,7 @@
     </div>
 
     <img src="img/dark-logo.png" class="logo" alt="">
-    <form name="themsp" method="post" action="themSP.php" enctype="multipart/form-data">
+    <form name="themsp" method="post" action="xulyAddproduct.php" enctype="multipart/form-data">
         <div class="form">
             <input type="text" id="product-name" name="ten_sp" placeholder="Tên sản phẩm">
             <input type="text" id="short-des" name="ma_sp" placeholder="Mã sản phẩm">
@@ -68,11 +68,11 @@
                     alert("Bạn cần nhập tên,giá sản phẩm và tải ảnh sản phẩm lên trước khi thêm sản phẩm.");
                     return false;
                 }
-                }
+            }
         </script>
 
         <div class="buttons">
-            <button class="btn" id="add-btn" name="dangky" onclick="return validateForm()">thêm sản phẩm</button>
+            <button class="btn" id="add-btn" name="submitThemsp" onclick="return validateForm()">thêm sản phẩm</button>
             <button class="btn" id="save-btn">lưu chỉnh sửa</button>
         </div>
 </form>

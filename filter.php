@@ -11,8 +11,12 @@ if (!$conn) {
   die("Connection failed: " . mysqli_connect_error());
 }
 
-$category = $_GET['category'];
-$sql = "SELECT * FROM sanpham WHERE category = '$category'";
+$category = $_GET['category_name'];
+$queo = "SELECT * FROM category WHERE category_name='$category'";
+$result1 = mysqli_query($conn, $queo);
+$row1 = mysqli_fetch_assoc($result1);
+$category_id = $row1['id'];
+$sql = "SELECT * FROM sanpham WHERE category_id = '$category_id'";
 $result = mysqli_query($conn, $sql);
 // Đóng gói danh sách sản phẩm phù hợp vào một mảng và chuyển đổi sang định dạng JSON
 $products = array();

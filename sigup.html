@@ -17,23 +17,25 @@
         <p class="alert-msg">Error message</p>
     </div>
 
+    <form method="post" action="xulySigup.php" enctype="multipart/form-data">
     <div class="container">
         <img src="img/dark-logo.png" class="logo "alt="">
         <div>
-            <input type="text" autocomplete="off" id="name" placeholder="họ tên">
-            <input type="email" autocomplete="off" id="email" placeholder="email">
-            <input type="password" autocomplete="off" id="password" placeholder="mật khẩu">
-            <input type="text" autocomplete="off" id="number" placeholder="số điện thoại">
+            <input type="text" autocomplete="off" id="name" name="hoten" placeholder="họ tên">
+            <input type="email" autocomplete="off" id="email" name="email" placeholder="email">
+            <input type="text" autocomplete="off" id="username" name="username" placeholder="tên tài khoản">
+            <input type="password" autocomplete="off" id="password" name="password" placeholder="mật khẩu">
             <input type="checkbox" checked class="checkbox" id="term-and-cond">
             <label for="term-and-cond">đồng ý <a href="">điều khoản và chính sách bảo mật</a></label>
             <br>
             <input type="checkbox" class="checkbox" id="term-and-cond">
             <label for="notification">nhận thông báo về những ưu đãi mới nhất</label>
-            <button class="submit-btn">Tạo Tài Khoản</button>
+            <button class="submit-btn" name="submitDangky">Tạo Tài Khoản</button>
         </div>
         <a href="login.html" class="link">Đã có tài khoản? Nhấn để đăng nhập</a>
 	<a href="index.html" class="link">Quay lại trang chủ</a>
     </div>
+    </form>
 
     <script src="js/form.js"></script>
 

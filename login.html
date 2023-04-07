@@ -1,22 +1,36 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng nhập</title>
+    <title>Armor: Đăng nhập</title>
 
     <link rel="stylesheet" href="css/sigup.css">
 </head>
 <body>
-    <div>
-        <h1> login </h1>
-        <div>
-            <input type="text" autocomplete="off" id="username" placeholder="Username">
-            <input type="password" autocomplete="off" id="password" placeholder="Mật Khấu">
-            <button class="submit-btn">Đăng  nhập</button>
-        </div>
+
+    <img src="img/loader.gif" class="loader" alt="">
+
+    <div class="alert-box">
+        <img src="img/error.png" class="alert-img" alt="">
+        <p class="alert-msg"></p>
     </div>
+
+    <div>
+        <img src="img/dark-logo.png" class="logo "alt="">
+        <form method="post" action="xulyLogin.php">
+        <div>
+            <input type="text" autocomplete="off" id="username" name="username" placeholder="Tên tài khoản">
+            <input type="password" autocomplete="off" id="password" name="password" placeholder="Mật Khấu">
+            <button class="submit-btn" name="login-btn">Đăng  nhập</button>
+        </div>
+        <a href="sigup.html" class="link">chưa có tài khoản? Đăng ký</a>
+        </form>
+    </div>
+
+    <script src="js/form.js"></script>
 
 </body>
 </html>

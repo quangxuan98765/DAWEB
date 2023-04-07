@@ -14,7 +14,7 @@ if (!$conn) {
   die("Connection failed: " . mysqli_connect_error());
 }
 
-$sql = "SELECT * FROM sanpham";
+$sql = "SELECT * FROM category";
 $result = mysqli_query($conn, $sql);
 if (!$result) { die("Query failed: " . mysqli_error($conn)); }
 
@@ -85,7 +85,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
 
             // Tạo yêu cầu Ajax để lấy sản phẩm theo giá trị được chọn
             var xhr = new XMLHttpRequest();
-            xhr.open('GET', 'filter.php?category=' + productValue, true);
+            xhr.open('GET', 'filter.php?category_name=' + productValue, true);
             xhr.onload = function() {
                 if (xhr.status === 200) {
                     // Xử lý kết quả trả về từ yêu cầu Ajax
