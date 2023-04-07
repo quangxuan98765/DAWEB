@@ -59,21 +59,21 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
 
             function addToCart(productId) {
 			// Tạo đối tượng XMLHttpRequest
-			var xhr = new XMLHttpRequest();
+                var xhr = new XMLHttpRequest();
 
-			// Thiết lập hàm callback khi có phản hồi từ máy chủ
-			xhr.onreadystatechange = function() {
-				if (this.readyState === 4 && this.status === 200) {
-					// Xử lý phản hồi từ máy chủ
-					document.getElementById("cart-status").innerHTML = "Đã thêm vào giỏ hàng";
-				}
-			};
+                // Thiết lập hàm callback khi có phản hồi từ máy chủ
+                xhr.onreadystatechange = function() {
+                    if (this.readyState === 4 && this.status === 200) {
+                        // Xử lý phản hồi từ máy chủ
+                        document.getElementById("cart-status").innerHTML = "Đã thêm vào giỏ hàng";
+                    }
+                };
 
-			// Thiết lập yêu cầu POST với địa chỉ URL của trang xử lý yêu cầu và dữ liệu cần gửi đi
-			xhr.open("POST", "addToCart.php", true);
-			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-			xhr.send("id=" + productId);
-        }
+                // Thiết lập yêu cầu POST với địa chỉ URL của trang xử lý yêu cầu và dữ liệu cần gửi đi
+                xhr.open("POST", "addToCart.php", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.send("id=" + productId);
+            }
         </script>
         <!-- ----------------script------------------------------- -->
         </div>
