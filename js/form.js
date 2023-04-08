@@ -33,10 +33,6 @@ submitBtn.addEventListener('click', () =>{
             // Nếu form hợp lệ, có thể submit form
             loader.style.display = 'block';
         }  
-    } else{ // Trang đăng nhập
-        if(!email.value.trim() || !password.value.trim()){
-            showAlert('Vui lòng điền đầy đủ thông tin đăng nhập');
-        }
     }
 })
 

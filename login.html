@@ -18,38 +18,37 @@
         <p class="alert-msg"></p>
     </div>
 
-    <script>
-        function login() {
-            var form = document.querySelector('#login-form');
-            form.addEventListener('submit', function(event) {
-                event.preventDefault();
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', 'xulyLogin.php', true);
-                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                xhr.onload = function() {
-                    if (xhr.status === 200 && xhr.responseText === 'success') {
-                        window.location.href = 'index.php';
-                    } else {
-                        document.getElementById("error-message").innerHTML = "Sai tên đăng nhập hoặc mật khẩu";
-                    }
-                };
-                xhr.send(new FormData(form));
-            });
-        }
-    </script>
-
     <div>
         <img src="img/dark-logo.png" class="logo "alt="">
         <form id="login-form">
             <input type="text" autocomplete="off" id="username" name="username" placeholder="Tên tài khoản">
-            <div id="error-message"></div>
+            <div id="error-msg"></div>
             <input type="password" autocomplete="off" id="password" name="password" placeholder="Mật Khấu">
-            <button onclick="login()" class="submit-btn" name="login-btn">Đăng  nhập</button>
+            <button class="submit-btn" name="login-btn">Đăng nhập</button>
+            <a href="sigup.html" class="link">Chưa có tài khoản? Đăng ký</a>
         </form>
-        <a href="sigup.html" class="link">chưa có tài khoản? Đăng ký</a>
     </div>
-
-    <script src="js/form.js"></script>
+    
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent the form from submitting normally
+    
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'xulyLogin.php', true);
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            xhr.onload = function() {
+                if (this.status == 200) {
+                    if (this.responseText == 'success') {
+                        window.location.href = 'index.php';
+                    } else {
+                        document.getElementById('error-msg').innerHTML = 'Sai tên đăng nhập hoặc mật khẩu';
+                    }
+                }
+            };
+            xhr.send('username=' + encodeURIComponent(document.getElementById('username').value) + '&password=' + encodeURIComponent(document.getElementById('password').value));
+        });
+    </script>
+    
 
 </body>
 </html>
