@@ -39,10 +39,11 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
     </div>
 
     <img src="img/dark-logo.png" class="logo" alt="">
-    <form name="themsp" method="post" action="xulyAddproduct.php" enctype="multipart/form-data">
+    <form name="themsp" method="post" action="manageProduct.php" enctype="multipart/form-data">
         <div class="form">
-            <input type="text" id="product-name" placeholder="Tên sản phẩm" value="<?= $row['TenSP'] ?>">
-            <input type="text" id="short-des" name="ma_sp" placeholder="Mã sản phẩm" value="<?= $row['MaSP'] ?>">
+            <input type="hidden" name="id" value=<?=$row['id']?>/>
+            <input type="text" id="product-name" name="ten_sp" placeholder="Tên sản phẩm" value="<?= $row['TenSP'] ?>">
+            <input type="text" name="ma_sp" id="short-des" placeholder="Mã sản phẩm" value="<?= $row['MaSP'] ?>">
             <textarea id="des" name="mota_sp" placeholder="Mô tả chi tiết về sản phẩm"><?php echo $row['MoTaSP']; ?></textarea>
         </div>
 
@@ -100,7 +101,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
         </script>
 
         <div class="buttons">
-            <button class="btn" id="add-btn" name="submitThemsp" onclick="return validateForm()">lưu chỉnh sửa</button>
+            <button class="btn" id="add-btn" name="submitSuasp" onclick="return validateForm()">lưu chỉnh sửa</button>
         </div>
 </form>
     <script src="js/addProduct.js"></script>

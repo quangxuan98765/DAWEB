@@ -38,17 +38,18 @@ if(isset($_REQUEST['submitThemsp'])) {
 	mysqli_close($conn);
 }
 
-if(isset($_REQUEST['btnSuaSP'])) {
-	$ten = $_REQUEST['sp_ten'];
-	//$hinh = $_REQUEST['sp_hinh'];
-	$gia = $_REQUEST['sp_gia'];
-	$loai = $_REQUEST['sp_loai'];
+if(isset($_REQUEST['submitSuasp'])) {
+	$tenSP = $_REQUEST['ten_sp'];
+	$motaSP = $_REQUEST['mota_sp'];
+	$giaSP = (double)$_REQUEST['gia_sp'];
+	$maSP = $_REQUEST['ma_sp'];
+    $loaiSP = $_REQUEST['loai_sp'];
 	$id = $_REQUEST['id'];
-
+	
 	$servername = "localhost";
 	$username = "root";
 	$password = "";
-	$dbname = "web-ban-hang";
+	$dbname = "laptrinhweb2";
 
 	// Create connection
 	$conn = new mysqli($servername, $username, $password, $dbname);
@@ -56,26 +57,58 @@ if(isset($_REQUEST['btnSuaSP'])) {
 	if ($conn->connect_error) {
 	die("Connection failed: " . $conn->connect_error);
 	}
+	$queo = "SELECT * FROM category WHERE category_name='$loaiSP'";
+	$result1 = mysqli_query($conn, $queo);
+	$row = mysqli_fetch_assoc($result1);
+	$category_id = $row['id'];
 
-	if($_FILES['fileToUpload']['name']=='') {
+	if($_FILES['filetoup']['name']=='') {
 		//No file selected
-		$sql = sprintf("UPDATE `products` SET `tenSP` = '%s', `giaSP` = '%f', `product-type` = '%d' WHERE `products`.`id` = %d;", $ten, $gia, $loai, $id);
+		$sql = sprintf("UPDATE `sanpham` SET `MaSP` = '%s', `TenSP` = '%s', `MoTaSP` = '%s', `GiaSP` = '%f', `category_id` = '%s' WHERE `sanpham`.`id` = %d;", $maSP, $tenSP, $motaSP,$giaSP,$category_id, $id);
 	}
 	else {
 		$hinh = '';
 		uploadHinh($hinh);
-		$sql = sprintf("UPDATE `products` SET `tenSP` = '%s', `giaSP` = '%f', `product-type` = '%d', `hinhSP` = '%s' WHERE `products`.`id` = %d;", $ten, $gia, $loai, $hinh, $id);
-	}
+		$sql = sprintf("UPDATE `sanpham` SET `MaSP` = '%s', `TenSP` = '%s', `HinhSP` = '%s', `MoTaSP` = '%s', `GiaSP` = '%f', `category_id` = '%s' WHERE `sanpham`.`id` = %d;", $maSP, $tenSP, $hinh, $motaSP, $giaSP, $category_id, $id);
+	}	
 	
 	if ($conn->query($sql) === TRUE) {
 		echo "The record editted successfully";
-		header("Location:" . 'products.php');
+		//header("Location:" . 'products.php');
 		exit();
 	} else {
 	echo "Error: " . $sql . "<br>" . $conn->error;
 	}
 
 	$conn->close();
+}
+
+if(isset($_REQUEST['del'])) {
+    $id = $_REQUEST['id'];
+
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "laptrinhweb2";
+
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    // Check connection
+    if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+    }
+
+    $sql = sprintf("DELETE FROM sanpham WHERE `sanpham`.`id` = %d", $id);
+
+    if ($conn->query($sql) === TRUE) {
+        echo "The record deleted successfully";
+        //header("Location:" . 'products.php');
+        exit();
+    } else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+
+    $conn->close();
 }
 
 function uploadHinh(&$hinhSP) {
