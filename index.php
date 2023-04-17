@@ -45,8 +45,8 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                 <select class="select-combo" id="product-select" onchange="filterProducts()">
                     <option>chọn loại</option>
                     <option value = "dell">dell</option>
-                    <option value = "acer">product3</option>
-                    <option value = "asus">product4</option>
+                    <option value = "acer">acer</option>
+                    <option value = "asus">asus</option>
                 </select>
                 <a class="nameselect-combo">Giá</a>
                 <select class="select-combo">
@@ -97,7 +97,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                         productHtml += `<div class="product-card">
                                         <div class="product-image">
                                             <a href="product.php?id=` + product.id + `">
-                                            <img src="` + product.HinhSP + `" class="product-thumb"> <button class="card-btn">thêm vào giỏ hàng</button>
+                                            <a href="editProduct.php?id=` +  product.id + `">Sửa</a><img src="` + product.HinhSP + `" class="product-thumb"> <button class="card-btn">thêm vào giỏ hàng</button>
                                             </a>
                                         </div>
                                         <div class="product-info">
@@ -136,7 +136,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                             $s.='<div class="product-card">';
                             $s.='<div class="product-image">';
                             $s .= '<a href="product.php?MaSP=' . $row['MaSP'] . '">';
-                            $s.= sprintf('<img src="%s" class="product-thumb"> <button class="card-btn">thêm vào giỏ hàng</button>', $row['HinhSP']);
+                            $s.= sprintf('<a href="editProduct.php?id=' . $row['id'] . '">Sửa</a><img src="%s" class="product-thumb"> <button class="card-btn">thêm vào giỏ hàng</button>', $row['HinhSP']);
                             $s .= '</a>';
                             $s.='</div>';
                             $s.='<div class="product-info">';
