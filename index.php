@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="vi">
-
+<?php
+require_once('lib_login_session.php');
+?>
 <?php
 $servername = "localhost";
 $username = "root";
@@ -29,8 +31,73 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
     <link rel="stylesheet" href="css/searchIndex.css">
 </head>
 <body>
-    <nav class="navbar"></nav>
+<link rel="stylesheet" href="css/home.css">
+<link rel="stylesheet" href="css/searchIndex.css">
+<div class="nav">
+    <img src="img/dark-logo.png" class="brand-logo" alt="">
+    <div class="nav-items">
+            <div class="search">
+                <input type="text" class="search-box" placeholder="Tìm tên thương hiệu, sản phẩm...">
+                <button class="search-btn">Tìm kiếm</button>                       
+            </div>
+            <a>
+                <img src="img/user.png" id="user-img" alt="">
+                <div class="login-logout-popup hide">
+                <?php
+                    if(isLogged() == 0 || isLogged() == 1) {
+                        echo "<p class='account-info'>Xin chào, " . $_SESSION['current_username'] . "!</p>";
+                        echo ('<button class="btn" id="user-btn">đăng xuất</button>');?>
+                        <script>
+                            var logoutBtn = document.getElementById("user-btn");
 
+                            logoutBtn.addEventListener("click", function() {
+                                var xhr = new XMLHttpRequest();
+                                xhr.open('POST', 'unset_lib_login_session.php', true);
+
+                                xhr.onload = function() {
+                                    //var response = JSON.parse(this.responseText);
+                                    if (this.responseText === 'ok') {
+                                        window.location.reload();
+                                    }
+                                };
+
+                                xhr.send();
+                            });
+                        </script>
+                <?php
+                    }
+                    else {
+                        echo "<p class='account-info'>bạn chưa đăng nhập</p>";
+                        echo ('<button class="btn" id="user-btn">đăng nhập</button>');?>
+                        <script>
+                            document.getElementById("user-btn").addEventListener("click", function() {
+                                window.location.href = "login.html";
+                            });
+                        </script>
+                <?php
+                    }
+				?>
+                </div>
+            </a>
+            <a href="historycart.html"><img src="img/history.png"></a>
+            <a href="cart.php"><img src="img/cart.png"></a>
+    </div>
+</div>
+<ul class="links-container">
+    <li class="link-item"><a href="index.php" class="link"><img src="img/home.png">Trang chủ</li>
+    <li class="link-item"><a href="womenarmor.html" class="link">women armor</li>
+    <li class="link-item"><a href="menarmor.php" class="link">man armor</li>
+    <li class="link-item"><a href="accessories.html" class="link">phụ kiện</li>
+    <li class="link-item"><a href="product.html" class="link">sản phẩm</li>
+    <li class="link-item"><a class="link"></li>
+</ul>
+<script>
+    const userImageButton = document.getElementById("user-img");
+    const userPop = document.querySelector('.login-logout-popup');
+    userImageButton.addEventListener('click', () =>{
+        userPop.classList.toggle('hide');
+    })
+</script>
     <!--hero section-->
     <header class="hero-section">
         <div class="content">
@@ -79,45 +146,44 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
 
     <script>
         function filterProducts() {
-            // Lấy giá trị được chọn trong select box
-            var productSelect = document.getElementById('product-select');
-            var productValue = productSelect.value;
+            var xhr1 = new XMLHttpRequest();
+            xhr1.open("GET", "lib_login_session.php", true);
+            xhr1.onload = function() {
+                // Lấy giá trị được chọn trong select box
+                var productSelect = document.getElementById('product-select');
+                var productValue = productSelect.value;
 
-            // Tạo yêu cầu Ajax để lấy sản phẩm theo giá trị được chọn
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', 'filter.php?category_name=' + productValue, true);
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    // Xử lý kết quả trả về từ yêu cầu Ajax
-                    var products = JSON.parse(xhr.responseText);
-                    var productContainer = document.getElementById('boxajax-containter');
-                    var productHtml = '';
-                    products.forEach(function(product) {
-                        // Tạo phần tử HTML để hiển thị sản phẩm
-                        productHtml += `<div class="product-card">
-                                        <div class="product-image">
-                                            <a href="product.php?id=` + product.id + `">
-                                            <a href="editProduct.php?id=` +  product.id + `">Sửa</a><a href="manageProduct.php?del=1&id=` + product.id + `" onclick="return confirm("Are you sure?");">Del</a><img src="` + product.HinhSP + `" class="product-thumb"> <button class="card-btn">thêm vào giỏ hàng</button>
-                                            </a>
-                                        </div>
-                                        <div class="product-info">
-                                            <h2 class="product-brand">` + product.TenSP + `(` + product.MaSP + `)</h2>
-                                            <p class="product-short-des">` + product.MoTaSP + `</p>
-                                            <span class="price">` + product.GiaSP + `vnđ</span>
-                                        </div>
-                                        </div>`;
-                    });
-                    productContainer.innerHTML = `<section class="product"><h2 class="product-category">Sản phẩm mới <img src="img/new.png"></h2><button class="pre-btn"><img src="img/arrow.png" alt=""></button><button class="nxt-btn"><img src="img/arrow.png" alt=""></button><div class="product-container">` + productHtml + '</div></section>';
+                // Tạo yêu cầu Ajax để lấy sản phẩm theo giá trị được chọn
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', 'filter.php?category_name=' + productValue, true);
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        // Xử lý kết quả trả về từ yêu cầu Ajax
+                        var products = JSON.parse(xhr.responseText);
+                        var productContainer = document.getElementById('boxajax-containter');
+                        var productHtml = '';
+                        products.forEach(function(product) {
+                            // Tạo phần tử HTML để hiển thị sản phẩm
+                            productHtml += `<div class="product-card"><div class="product-image"><a href="product.php?id=` + product.id + `">`;
+                            if(xhr1.responseText == 1)
+                                productHtml += `<a href="editProduct.php?id=` +  product.id + `">Sửa</a><a href="manageProduct.php?del=1&id=` + product.id + `" onclick="return confirm("Are you sure?");">Del</a><img src="` + product.HinhSP + `" class="product-thumb"> <button class="card-btn">thêm vào giỏ hàng</button>`;
+                            else
+                                productHtml += `<img src="` + product.HinhSP + `" class="product-thumb"> <button class="card-btn">thêm vào giỏ hàng</button>`;
+                            productHtml +=`</a></div><div class="product-info"><h2 class="product-brand">` + product.TenSP + `(` + product.MaSP + `)</h2><p class="product-short-des">` + product.MoTaSP + `</p><span class="price">` + product.GiaSP + `vnđ</span></div></div>`;
+                        });
+                        productContainer.innerHTML = `<section class="product"><h2 class="product-category">Sản phẩm mới <img src="img/new.png"></h2><button class="pre-btn"><img src="img/arrow.png" alt=""></button><button class="nxt-btn"><img src="img/arrow.png" alt=""></button><div class="product-container">` + productHtml + '</div></section>';
+                    }
+
                 }
-
+                // const productDiv = document.getElementById('boxajax-containter');
+                // productDiv.style.display = 'flex';
+                // productDiv.classList.add("ajaxclass");
+                xhr.onerror = function() {
+                    console.error(xhr.statusText);
+                };
+                xhr.send();
             }
-            // const productDiv = document.getElementById('boxajax-containter');
-            // productDiv.style.display = 'flex';
-            // productDiv.classList.add("ajaxclass");
-            xhr.onerror = function() {
-                console.error(xhr.statusText);
-            };
-            xhr.send();
+            xhr1.send();
         }
     </script>
     <!--cards-container-->
@@ -136,7 +202,10 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                             $s.='<div class="product-card">';
                             $s.='<div class="product-image">';
                             $s .= '<a href="product.php?MaSP=' . $row['MaSP'] . '">';
-                            $s.= sprintf('<a href="editProduct.php?id=' . $row['id'] . '">Sửa</a><a href="manageProduct.php?del=1&id=' .$row['id'] . '" onclick="return confirm("Are you sure?");">Del</a><img src="%s" class="product-thumb"> <button class="card-btn">thêm vào giỏ hàng</button>', $row['HinhSP']);
+                            if(isLogged() == 1)
+                                $s.= sprintf('<a href="editProduct.php?id=' . $row['id'] . '">Sửa</a><a href="manageProduct.php?del=1&id=' .$row['id'] . '" onclick="return confirm("Are you sure?");">Del</a><img src="%s" class="product-thumb"> <button class="card-btn">thêm vào giỏ hàng</button>', $row['HinhSP']);
+                            else
+                                $s.= sprintf('<img src="%s" class="product-thumb"> <button class="card-btn">thêm vào giỏ hàng</button>', $row['HinhSP']);
                             $s .= '</a>';
                             $s.='</div>';
                             $s.='<div class="product-info">';

@@ -11,9 +11,41 @@
 
 </head>
 <body>
-    
-    <nav class="navbar"></nav>
-
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/searchIndex.css">
+<div class="nav">
+    <img src="img/dark-logo.png" class="brand-logo" alt="">
+    <div class="nav-items">
+            <div class="search">
+                <input type="text" class="search-box" placeholder="Tìm tên thương hiệu, sản phẩm...">
+                <button class="search-btn">Tìm kiếm</button>                       
+            </div>
+            <a>
+                <img src="img/user.png" id="user-img" alt="">
+                <div class="login-logout-popup hide">
+                    <p class="account-info">Đang đăng nhập Group3@gmail</p>
+                    <button class="btn" id="user-btn">đăng xuất</button>
+                </div>
+            </a>
+            <a href="historycart.html"><img src="img/history.png"></a>
+            <a href="cart.php"><img src="img/cart.png"></a>
+    </div>
+</div>
+<ul class="links-container">
+    <li class="link-item"><a href="index.php" class="link"><img src="img/home.png">Trang chủ</li>
+    <li class="link-item"><a href="womenarmor.html" class="link">women armor</li>
+    <li class="link-item"><a href="menarmor.php" class="link">man armor</li>
+    <li class="link-item"><a href="accessories.html" class="link">phụ kiện</li>
+    <li class="link-item"><a href="product.html" class="link">sản phẩm</li>
+    <li class="link-item"><a href="404.html" class="link">404</li>
+</ul>
+<script>
+    const userImageButton = document.getElementById("user-img");
+    const userPop = document.querySelector('.login-logout-popup');
+    userImageButton.addEventListener('click', () =>{
+        userPop.classList.toggle('hide');
+    })
+</script>
     <section class="search-results">
         <div class="box">
             <a class="titlefilter">Bộ lọc <img src="img/filter.png"></a>

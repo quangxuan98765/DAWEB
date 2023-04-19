@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="vi">
-
+<?php
+require_once('lib_login_session.php');
+?>
 <?php
 $servername = "localhost";
 $username = "root";
@@ -29,8 +31,73 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
 
 </head>
 <body>
-    
-    <nav class="navbar"></nav>
+<link rel="stylesheet" href="css/home.css">
+<link rel="stylesheet" href="css/searchIndex.css">
+<div class="nav">
+    <img src="img/dark-logo.png" class="brand-logo" alt="">
+    <div class="nav-items">
+            <div class="search">
+                <input type="text" class="search-box" placeholder="Tìm tên thương hiệu, sản phẩm...">
+                <button class="search-btn">Tìm kiếm</button>                       
+            </div>
+            <a>
+                <img src="img/user.png" id="user-img" alt="">
+                <div class="login-logout-popup hide">
+                <?php
+                    if(isLogged() == 0 || isLogged() == 1) {
+                        echo "<p class='account-info'>Xin chào, " . $_SESSION['current_username'] . "!</p>";
+                        echo ('<button class="btn" id="user-btn">đăng xuất</button>');?>
+                        <script>
+                            var logoutBtn = document.getElementById("user-btn");
+
+                            logoutBtn.addEventListener("click", function() {
+                                var xhr = new XMLHttpRequest();
+                                xhr.open('POST', 'unset_lib_login_session.php', true);
+
+                                xhr.onload = function() {
+                                    //var response = JSON.parse(this.responseText);
+                                    if (this.responseText === 'ok') {
+                                        window.location.reload();
+                                    }
+                                };
+
+                                xhr.send();
+                            });
+                        </script>
+                <?php
+                    }
+                    else {
+                        echo "<p class='account-info'>bạn chưa đăng nhập</p>";
+                        echo ('<button class="btn" id="user-btn">đăng nhập</button>');?>
+                        <script>
+                            document.getElementById("user-btn").addEventListener("click", function() {
+                                window.location.href = "login.html";
+                            });
+                        </script>
+                <?php
+                    }
+				?>
+                </div>
+            </a>
+            <a href="historycart.html"><img src="img/history.png"></a>
+            <a href="cart.php"><img src="img/cart.png"></a>
+    </div>
+</div>
+<ul class="links-container">
+    <li class="link-item"><a href="index.php" class="link"><img src="img/home.png">Trang chủ</li>
+    <li class="link-item"><a href="womenarmor.html" class="link">women armor</li>
+    <li class="link-item"><a href="menarmor.php" class="link">man armor</li>
+    <li class="link-item"><a href="accessories.html" class="link">phụ kiện</li>
+    <li class="link-item"><a href="product.html" class="link">sản phẩm</li>
+    <li class="link-item"><a class="link"></li>
+</ul>
+<script>
+    const userImageButton = document.getElementById("user-img");
+    const userPop = document.querySelector('.login-logout-popup');
+    userImageButton.addEventListener('click', () =>{
+        userPop.classList.toggle('hide');
+    })
+</script>
     <a class="back" onclick="location.href='index.php'">&larr; Mua thêm sản phẩm khác</a> 
     <div class="small-container cart-page">
         <table>
