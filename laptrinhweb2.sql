@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 07, 2023 at 09:59 AM
+-- Generation Time: Apr 19, 2023 at 05:50 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -98,10 +98,9 @@ INSERT INTO `sanpham` (`id`, `MaSP`, `TenSP`, `HinhSP`, `MoTaSP`, `GiaSP`, `prod
 (1, 'ABC564', 'Acer 1', '../ProjectWeb/img/product/acer1.jpg', 'acer lỏ', 17000000, 'hàng mới', '../ProjectWeb/img/product/asus1.jpg', 2),
 (2, 'VdU832', 'Asus 1', '../ProjectWeb/img/product/asus1.jpg', 'Asus lỏ', 18000000, 'hàng mới', '', 3),
 (3, 'HGa387', 'Dell 1', '../ProjectWeb/img/product/dell1.jpg', 'Dell lỏ', 19000000, 'hàng mới', '', 4),
-(4, 'POH823', 'Dell 1', '../ProjectWeb/img/product/dell1.jpg', 'Dell lỏ', 20000000, 'hàng bán chạy', '', 4),
+(4, 'POH823', 'Dell 3', '../ProjectWeb/img/product/dell 3.jpg', 'Dell lỏ', 20000000, 'hàng bán chạy', '', 4),
 (5, 'IbS893', 'Lenovo 1', '../ProjectWeb/img/product/lenovo1.jpg', 'Lenovo lỏ', 23000000, 'hàng bán chạy', '', 6),
-(6, 'gKD782', 'HP 2', '../ProjectWeb/img/product/hp2.jpg', 'HP lỏ', 23000000, 'hàng bán chạy', '', 5),
-(12, 'BJs982', 'Dell 2', '../ProjectWeb/img/product/dell2.png', 'Dell lỏ', 20000000, '', '', 4);
+(6, 'gKD782', 'HP 2', '../ProjectWeb/img/product/hp2.jpg', 'HP lỏ', 23000000, 'hàng bán chạy', '', 5);
 
 -- --------------------------------------------------------
 
@@ -110,7 +109,6 @@ INSERT INTO `sanpham` (`id`, `MaSP`, `TenSP`, `HinhSP`, `MoTaSP`, `GiaSP`, `prod
 --
 
 CREATE TABLE `users` (
-  `uid` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
   `email` varchar(100) NOT NULL,
@@ -121,8 +119,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`uid`, `username`, `password`, `email`, `fullname`) VALUES
-(7, 'quangxuan98765', 'Quangdeptrai', '123boyzzkhoi@gmail.com', 'Vạn Xuân Quang');
+INSERT INTO `users` (`username`, `password`, `email`, `fullname`) VALUES
+('newaccount', '123456789', 'Xxbbluexx@gmail.com', 'noncaihen'),
+('taikhoanmoi', 'adminbaso9', '123boyzzkhoi@gmail.com', 'Vạn Xuân Quang');
 
 -- --------------------------------------------------------
 
@@ -131,10 +130,17 @@ INSERT INTO `users` (`uid`, `username`, `password`, `email`, `fullname`) VALUES
 --
 
 CREATE TABLE `user_roles` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `user_name` varchar(50) NOT NULL,
   `role` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user_roles`
+--
+
+INSERT INTO `user_roles` (`user_name`, `role`) VALUES
+('newaccount', 'normal'),
+('taikhoanmoi', 'admin');
 
 --
 -- Indexes for dumped tables
@@ -164,16 +170,14 @@ ALTER TABLE `sanpham`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`uid`),
-  ADD UNIQUE KEY `username` (`username`),
+  ADD PRIMARY KEY (`username`) USING BTREE,
   ADD UNIQUE KEY `email` (`email`);
 
 --
 -- Indexes for table `user_roles`
 --
 ALTER TABLE `user_roles`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD PRIMARY KEY (`user_name`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -195,19 +199,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `sanpham`
 --
 ALTER TABLE `sanpham`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `user_roles`
---
-ALTER TABLE `user_roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Constraints for dumped tables
@@ -220,10 +212,10 @@ ALTER TABLE `sanpham`
   ADD CONSTRAINT `sanpham_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
 
 --
--- Constraints for table `user_roles`
+-- Constraints for table `users`
 --
-ALTER TABLE `user_roles`
-  ADD CONSTRAINT `user_roles_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`uid`);
+ALTER TABLE `users`
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user_roles` (`user_name`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
