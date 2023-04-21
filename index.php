@@ -28,6 +28,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ARMOR-SHOP</title>
     <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="css/searchIndex.css">
 </head>
 <body>
@@ -147,7 +148,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
     <script>
         function filterProducts() {
             var xhr1 = new XMLHttpRequest();
-            xhr1.open("GET", "lib_login_session.php", true);
+            xhr1.open("GET", "lib_login_sesison(forAjax).php", true);
             xhr1.onload = function() {
                 // Lấy giá trị được chọn trong select box
                 var productSelect = document.getElementById('product-select');
@@ -201,9 +202,13 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                         while($row = mysqli_fetch_assoc($result1)) {
                             $s.='<div class="product-card">';
                             $s.='<div class="product-image">';
-                            $s .= '<a href="product.php?MaSP=' . $row['MaSP'] . '">';
-                            if(isLogged() == 1)
-                                $s.= sprintf('<a href="editProduct.php?id=' . $row['id'] . '">Sửa</a><a href="manageProduct.php?del=1&id=' .$row['id'] . '" onclick="return confirm("Are you sure?");">Del</a><img src="%s" class="product-thumb"> <button class="card-btn">thêm vào giỏ hàng</button>', $row['HinhSP']);
+                            $s.= '<a href="product.php?MaSP=' . $row['MaSP'] . '">';
+                            if(isLogged() == 1){
+                                $s.= sprintf('<img src="%s" class="product-thumb"> <button class="card-btn">thêm vào giỏ hàng</button>', $row['HinhSP']);
+                                $s .= sprintf('<a href="editProduct.php?id=%s"><button class="card-action-btn edit-btn">Sửa</button></a>', $row['id']);
+                                $s.= sprintf('<a href="manageProduct.php?del=1&id=%s" onclick="return confirm(\'Are you sure?\');"><button class="card-action-btn delete-popup-btn">Xóa</button></a>', $row['id']);
+                                //<a href="editProduct.php?id=' . $row['id'] . '">Sửa</a><a href="manageProduct.php?del=1&id=' .$row['id'] . '" onclick="return confirm("Are you sure?");">Del</a>
+                            }
                             else
                                 $s.= sprintf('<img src="%s" class="product-thumb"> <button class="card-btn">thêm vào giỏ hàng</button>', $row['HinhSP']);
                             $s .= '</a>';

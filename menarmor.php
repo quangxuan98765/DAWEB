@@ -2,6 +2,10 @@
 <html lang="vi">
 
 <?php
+require_once('lib_login_session.php');
+?>
+
+<?php
 $servername = "localhost";
 $username = "root";
 $password = "";

@@ -11,5 +11,4 @@ function isLogged() {
 	}
 	return -1;
 }
-echo isLogged();
 ?>
