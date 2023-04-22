@@ -26,14 +26,12 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARMOR-SHOP</title>
+    <title>Trang chủ</title>
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="css/searchIndex.css">
 </head>
 <body>
-<link rel="stylesheet" href="css/home.css">
-<link rel="stylesheet" href="css/searchIndex.css">
 <div class="nav">
     <img src="img/dark-logo.png" class="brand-logo" alt="">
     <div class="nav-items">
@@ -86,10 +84,12 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
 </div>
 <ul class="links-container">
     <li class="link-item"><a href="index.php" class="link"><img src="img/home.png">Trang chủ</li>
-    <li class="link-item"><a href="womenarmor.html" class="link">women armor</li>
-    <li class="link-item"><a href="menarmor.php" class="link">man armor</li>
-    <li class="link-item"><a href="accessories.html" class="link">phụ kiện</li>
-    <li class="link-item"><a href="product.html" class="link">sản phẩm</li>
+    <li class="link-item"><a href="laptopProduct.php" class="link">Laptop</li>
+    <li class="link-item"><a href="womenarmor.html" class="link">Phụ Kiện</li>
+    <?php
+        if(isLogged() == 1)
+            echo '<li class="link-item"><a href="addProduct.html" class="link">Thêm sản phẩm</li>';
+    ?>
     <li class="link-item"><a class="link"></li>
 </ul>
 <script>
@@ -111,17 +111,17 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                 <a class="titlefilter">Bộ lọc <img src="img/filter.png"></a>
                 <a class="nameselect-combo">thương hiệu</a>
                 <select class="select-combo" id="product-select" onchange="filterProducts()">
-                    <option>chọn loại</option>
+                    <option value = "0">chọn loại</option>
                     <option value = "dell">dell</option>
                     <option value = "acer">acer</option>
                     <option value = "asus">asus</option>
                 </select>
                 <a class="nameselect-combo">Giá</a>
-                <select class="select-combo">
-                    <option>dưới 2 triệu</option>
-                    <option>từ 2 tới 4 triệu</option>
-                    <option>từ 4 tới 6 triệu</option>
-                    <option>trên 6 triệu</option>
+                <select class="select-combo" id="product-select_1" onchange="filterProducts()">
+                    <option>chọn tầm giá</option>
+                    <option value = "1">từ 5 tới 15 triệu</option>
+                    <option value = "2">từ 15 tới 20 triệu</option>
+                    <option value = "3">trên 20 triệu</option>
                 </select>
                 <a class="nameselect-combo">Khối lượng</a>
                 <select class="select-combo">
@@ -152,11 +152,13 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
             xhr1.onload = function() {
                 // Lấy giá trị được chọn trong select box
                 var productSelect = document.getElementById('product-select');
-                var productValue = productSelect.value;
+                var productSelect_1 = document.getElementById('product-select_1');
+                var productValue = productSelect_1.value;
+                var productName = productSelect.value;
 
                 // Tạo yêu cầu Ajax để lấy sản phẩm theo giá trị được chọn
                 var xhr = new XMLHttpRequest();
-                xhr.open('GET', 'filter.php?category_name=' + productValue, true);
+                xhr.open('GET', 'filter.php?category_name=' + productName + '&GiaSP=' + productValue, true);
                 xhr.onload = function() {
                     if (xhr.status === 200) {
                         // Xử lý kết quả trả về từ yêu cầu Ajax
@@ -165,12 +167,16 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                         var productHtml = '';
                         products.forEach(function(product) {
                             // Tạo phần tử HTML để hiển thị sản phẩm
-                            productHtml += `<div class="product-card"><div class="product-image"><a href="product.php?id=` + product.id + `">`;
-                            if(xhr1.responseText == 1)
-                                productHtml += `<a href="editProduct.php?id=` +  product.id + `">Sửa</a><a href="manageProduct.php?del=1&id=` + product.id + `" onclick="return confirm("Are you sure?");">Del</a><img src="` + product.HinhSP + `" class="product-thumb"> <button class="card-btn">thêm vào giỏ hàng</button>`;
+                            productHtml += `<div class="product-card"><div class="product-image"><a href="product.php?MaSP=` + product.MaSP + `">`;
+                            if(xhr1.responseText == 1){
+                                productHtml += `<img src="` + product.HinhSP + `" class="product-thumb"> <button class="card-btn">mua ngay</button>`;
+                                productHtml += `<a href="editProduct.php?id=` +  product.id + `"><button class="card-action-btn edit-btn">Sửa</button></a>`;
+                                productHtml += `<a href="manageProduct.php?del=1&id=` + product.id + `" onclick="return confirm(\'Are you sure?\');"><button class="card-action-btn delete-popup-btn">Xóa</button></a>`;
+                            }
                             else
-                                productHtml += `<img src="` + product.HinhSP + `" class="product-thumb"> <button class="card-btn">thêm vào giỏ hàng</button>`;
-                            productHtml +=`</a></div><div class="product-info"><h2 class="product-brand">` + product.TenSP + `(` + product.MaSP + `)</h2><p class="product-short-des">` + product.MoTaSP + `</p><span class="price">` + product.GiaSP + `vnđ</span></div></div>`;
+                                productHtml += `<img src="` + product.HinhSP + `" class="product-thumb"> <button class="card-btn">mua ngay</button>`;
+                            var gia = parseInt(product.GiaSP);
+                            productHtml +=`</a></div><div class="product-info"><h2 class="product-brand">` + product.TenSP + `(` + product.MaSP + `)</h2><p class="product-short-des">` + product.MoTaSP + `</p><span class="price">` + gia.toLocaleString('vi-VN') + ` vnđ</span></div></div>`;
                         });
                         productContainer.innerHTML = `<section class="product"><h2 class="product-category">Sản phẩm mới <img src="img/new.png"></h2><button class="pre-btn"><img src="img/arrow.png" alt=""></button><button class="nxt-btn"><img src="img/arrow.png" alt=""></button><div class="product-container">` + productHtml + '</div></section>';
                     }
@@ -204,19 +210,19 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                             $s.='<div class="product-image">';
                             $s.= '<a href="product.php?MaSP=' . $row['MaSP'] . '">';
                             if(isLogged() == 1){
-                                $s.= sprintf('<img src="%s" class="product-thumb"> <button class="card-btn">thêm vào giỏ hàng</button>', $row['HinhSP']);
+                                $s.= sprintf('<img src="%s" class="product-thumb"> <button class="card-btn">mua ngay</button>', $row['HinhSP']);
                                 $s .= sprintf('<a href="editProduct.php?id=%s"><button class="card-action-btn edit-btn">Sửa</button></a>', $row['id']);
                                 $s.= sprintf('<a href="manageProduct.php?del=1&id=%s" onclick="return confirm(\'Are you sure?\');"><button class="card-action-btn delete-popup-btn">Xóa</button></a>', $row['id']);
                                 //<a href="editProduct.php?id=' . $row['id'] . '">Sửa</a><a href="manageProduct.php?del=1&id=' .$row['id'] . '" onclick="return confirm("Are you sure?");">Del</a>
                             }
                             else
-                                $s.= sprintf('<img src="%s" class="product-thumb"> <button class="card-btn">thêm vào giỏ hàng</button>', $row['HinhSP']);
+                                $s.= sprintf('<img src="%s" class="product-thumb"> <button class="card-btn">mua ngay</button>', $row['HinhSP']);
                             $s .= '</a>';
                             $s.='</div>';
                             $s.='<div class="product-info">';
                             $s .= sprintf('<h2 class="product-brand">%s (%s)</h2>', $row['TenSP'], $row['MaSP']);
                             $s.= sprintf('<p class="product-short-des">%s</p>',$row['MoTaSP']);
-                            $s.= sprintf('<span class="price">%s vnđ</span>',number_format($row['GiaSP'], 0, '', ','));
+                            $s.= sprintf('<span class="price">%s vnđ</span>',number_format($row['GiaSP'], 0, '', '.'));
                             $s.='</div>';
                             $s.='</div>';
                         }
@@ -239,14 +245,14 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                         while($row = mysqli_fetch_assoc($result1)) {
                             $s.='<div class="product-card">';
                             $s.='<div class="product-image">';
-                            $s .= '<a href="product.php?id=' . $row['id'] . '">';
-                            $s.= sprintf('<img src="%s" class="product-thumb"> <button class="card-btn">thêm vào giỏ hàng</button>', $row['HinhSP']);
+                            $s .= '<a href="product.php?MaSP=' . $row['MaSP'] . '">';
+                            $s.= sprintf('<img src="%s" class="product-thumb"> <button class="card-btn">mua ngay</button>', $row['HinhSP']);
                             $s .= '</a>';
                             $s.='</div>';
                             $s.='<div class="product-info">';
                             $s .= sprintf('<h2 class="product-brand">%s (%s)</h2>', $row['TenSP'], $row['MaSP']);
                             $s.= sprintf('<p class="product-short-des">%s</p>',$row['MoTaSP']);
-                            $s.= sprintf('<span class="price">%s vnđ</span>',number_format($row['GiaSP'], 0, '', ','));
+                            $s.= sprintf('<span class="price">%s vnđ</span>',number_format($row['GiaSP'], 0, '', '.'));
                             $s.='</div>';
                             $s.='</div>';
                         }
@@ -282,7 +288,6 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
 
     <footer></footer>
 
-    <script src="js/nav.js"></script>
     <script src="js/home.js"></script>
     <script src="js/footer.js"></script>
 </body>

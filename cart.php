@@ -85,11 +85,8 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
 </div>
 <ul class="links-container">
     <li class="link-item"><a href="index.php" class="link"><img src="img/home.png">Trang chủ</li>
-    <li class="link-item"><a href="womenarmor.html" class="link">women armor</li>
-    <li class="link-item"><a href="menarmor.php" class="link">man armor</li>
-    <li class="link-item"><a href="accessories.html" class="link">phụ kiện</li>
-    <li class="link-item"><a href="product.html" class="link">sản phẩm</li>
-    <li class="link-item"><a class="link"></li>
+    <li class="link-item"><a href="laptopProduct.php" class="link">Laptop</li>
+    <li class="link-item"><a href="womenarmor.html" class="link">Phụ Kiện</li>
 </ul>
 <script>
     const userImageButton = document.getElementById("user-img");
@@ -123,7 +120,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                     $s.=sprintf('<h3>%s</h3>',$row['tensp']);
                     $s.=sprintf('<small>%s</small><br>',$row['motasp']);
                     $s.='<a class="link-text" href="product.php?MaSP=' . $row['masp'] .'">Xem chi tiết</a><br>';
-                    $s.=sprintf('<button class="btn-remove" onclick="deleteCart(\'%s\')">Xoá sản phẩm</button></div></div><td><button class="btn-value">-</button><input type="number" value="1"><button class="btn-value">+</button></td><td>%s₫</td></tr>',$row['masp'],number_format($row['giasp'], 0, '', ','));
+                    $s.=sprintf('<button class="btn-remove" onclick="deleteCart(\'%s\')">Xoá sản phẩm</button></div></div><td><button class="btn-value">-</button><input type="number" value="1"><button class="btn-value">+</button></td><td>%s₫</td></tr>',$row['masp'],number_format($row['giasp'], 0, '', '.'));
                 }
                 echo $s;
             }
