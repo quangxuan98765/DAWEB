@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 19, 2023 at 05:50 PM
+-- Generation Time: Apr 22, 2023 at 05:36 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `cart` (
-  `id` int(10) NOT NULL,
+  `taikhoan` varchar(50) NOT NULL,
   `masp` varchar(255) NOT NULL,
   `tensp` varchar(200) NOT NULL,
   `hinhsp` text NOT NULL,
@@ -41,12 +41,8 @@ CREATE TABLE `cart` (
 -- Dumping data for table `cart`
 --
 
-INSERT INTO `cart` (`id`, `masp`, `tensp`, `hinhsp`, `motasp`, `giasp`, `soluong`) VALUES
-(1, 'HGa387', 'Dell 1', '../ProjectWeb/img/product/dell1.jpg', '', 19000000, 1),
-(2, 'ABC564', 'Acer 1', '../ProjectWeb/img/product/acer1.jpg', '', 17000000, 2),
-(3, 'VdU832', 'Asus 1', '../ProjectWeb/img/product/asus1.jpg', '', 18000000, 1),
-(5, 'IbS893', 'Lenovo 1', '../ProjectWeb/img/product/lenovo1.jpg', '', 23000000, 1),
-(7, 'gKD782', 'HP 2', '../ProjectWeb/img/product/hp2.jpg', '', 23000000, 1);
+INSERT INTO `cart` (`taikhoan`, `masp`, `tensp`, `hinhsp`, `motasp`, `giasp`, `soluong`) VALUES
+('newaccount', 'gKD782', 'HP 2', '../ProjectWeb/img/product/hp2.jpg', '', 23000000, 1);
 
 -- --------------------------------------------------------
 
@@ -95,12 +91,11 @@ CREATE TABLE `sanpham` (
 --
 
 INSERT INTO `sanpham` (`id`, `MaSP`, `TenSP`, `HinhSP`, `MoTaSP`, `GiaSP`, `product_sell`, `more_img`, `category_id`) VALUES
-(1, 'ABC564', 'Acer 1', '../ProjectWeb/img/product/acer1.jpg', 'acer lỏ', 17000000, 'hàng mới', '../ProjectWeb/img/product/asus1.jpg', 2),
-(2, 'VdU832', 'Asus 1', '../ProjectWeb/img/product/asus1.jpg', 'Asus lỏ', 18000000, 'hàng mới', '', 3),
-(3, 'HGa387', 'Dell 1', '../ProjectWeb/img/product/dell1.jpg', 'Dell lỏ', 19000000, 'hàng mới', '', 4),
 (4, 'POH823', 'Dell 3', '../ProjectWeb/img/product/dell 3.jpg', 'Dell lỏ', 20000000, 'hàng bán chạy', '', 4),
 (5, 'IbS893', 'Lenovo 1', '../ProjectWeb/img/product/lenovo1.jpg', 'Lenovo lỏ', 23000000, 'hàng bán chạy', '', 6),
-(6, 'gKD782', 'HP 2', '../ProjectWeb/img/product/hp2.jpg', 'HP lỏ', 23000000, 'hàng bán chạy', '', 5);
+(6, 'gKD782', 'HP 2', '../ProjectWeb/img/product/hp2.jpg', 'HP lỏ', 23000000, 'hàng bán chạy', '', 5),
+(15, 'ASD', 'Acer 1', '../ProjectWeb/img/product/acer1.jpg', 'Acer lỏ', 17000000, 'hàng mới', '', 2),
+(16, 'DHB', 'Asus 1', '../ProjectWeb/img/product/asus1.jpg', 'Asus lỏ', 18000000, 'hàng mới', '', 3);
 
 -- --------------------------------------------------------
 
@@ -150,7 +145,7 @@ INSERT INTO `user_roles` (`user_name`, `role`) VALUES
 -- Indexes for table `cart`
 --
 ALTER TABLE `cart`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`taikhoan`,`masp`);
 
 --
 -- Indexes for table `category`
@@ -184,12 +179,6 @@ ALTER TABLE `user_roles`
 --
 
 --
--- AUTO_INCREMENT for table `cart`
---
-ALTER TABLE `cart`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
@@ -199,11 +188,17 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `sanpham`
 --
 ALTER TABLE `sanpham`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `cart`
+--
+ALTER TABLE `cart`
+  ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`taikhoan`) REFERENCES `users` (`username`);
 
 --
 -- Constraints for table `sanpham`
