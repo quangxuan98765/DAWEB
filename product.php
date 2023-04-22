@@ -132,6 +132,14 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                 });
             }
 
+            function check_addToCart() {
+                // Hiển thị thông báo và lựa chọn xác nhận hoặc hủy
+                if (confirm('Bạn cần đăng nhập để mua hàng. Nhấn OK để chuyển đến trang đăng nhập.')) {
+                    // Chuyển hướng đến trang đăng nhập
+                    window.location.href = 'login.html';
+                }
+            }
+
             function addToCart(productId) {
 			// Tạo đối tượng XMLHttpRequest
                 var xhr = new XMLHttpRequest();
@@ -162,7 +170,10 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                 $s .= sprintf('<p class="product-short-des">%s</p>',$row['MoTaSP']);
                 $s .= sprintf('<span class="product-price">%s vnđ</span>',number_format($row['GiaSP'], 0, '', '.'));
                 $s .= '<br><i>Thông số chi tiết</i><div class="st-param"><ul><li data-info="Màn hình"><span class="icon-screen-size"></span><p>15.6 inch, 1920 x 1080 Pixels, IPS, 144 Hz, Anti-glare LED-backlit</p></li><li data-info="CPU"><span class="icon-cpu"></span><p>Intel, Core i5, 10300H</p></li><li data-info="RAM"><span class="icon-ram"></span><p>8 GB (1 thanh 8 GB), DDR4, 2933 MHz</p></li><li data-info="Ổ cứng"><span class="icon-hdd-black"></span><p>SSD 512 GB</p></li><li data-info="Đồ họa"><span class="icon-vga"></span><p>NVIDIA GeForce GTX 1650 4GB; Intel UHD Graphics</p></li></ul><a class="re-link js--open-modal2">Xem chi tiết thông số kỹ thuật</a></div>';
-                $s .= sprintf('<button class="btn cart-btn" onclick="addToCart(%s)">thêm vào giỏ hàng</button>', $row['id']);
+                if(isLogged() == 0 || isLogged() == 1) {
+                    $s .= sprintf('<button class="btn cart-btn" onclick="addToCart(%s)">thêm vào giỏ hàng</button>', $row['id']);
+                } else 
+                    $s .= sprintf('<button class="btn cart-btn" onclick="check_addToCart()">thêm vào giỏ hàng</button>');
                 $s.='<span id="cart-status"></span>';
             }
             echo $s;

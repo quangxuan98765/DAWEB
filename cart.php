@@ -95,6 +95,38 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
         userPop.classList.toggle('hide');
     })
 </script>
+<!--         ajax           -->
+<script>
+    function deleteCart(masp) {
+        // Tạo đối tượng XMLHttpRequest
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "deleteCart.php?masp=" + masp, true);
+        xhr.onload = function() {
+            var products = JSON.parse(xhr.responseText);
+            var productContainer = document.getElementById('boxajax-containter');
+            var productHtml = `<a class="back" onclick="location.href='index.php'">&larr; Mua thêm sản phẩm khác</a> <div class="small-container cart-page"><table><tr><th>Sản phẩm</th><th>Số lượng</th><th style="width: 130px">giá</th></tr>`;
+            if(products.length === 0) {
+                productContainer.innerHTML = `Giỏ hàng của bạn đang trống`;
+            }
+            else{
+                products.forEach(function(product){
+                    productHtml += `<tr><td><div class="cart-info"><img src="` + product.hinhsp + `"><div>`;
+                    productHtml += `<h3>` + product.tensp + `</h3>`;
+                    productHtml += `<small>`+ product.motasp +`</small><br>`;
+                    productHtml += `<a class="link-text" href="product.php?MaSP=` + product.masp + `">Xem chi tiết</a><br>`;
+                    var gia = parseInt(product.giasp);
+                    productHtml += `<button class="btn-remove" onclick="deleteCart('${product.masp}')">Xoá sản phẩm</button></div></div><td><button class="btn-value">-</button><input type="number" value="${product.soluong}"><button class="btn-value">+</button></td><td>`+ gia.toLocaleString('vi-VN') +`₫</td></tr>`;
+                });
+                productContainer.innerHTML = productHtml;
+            }
+        }
+        xhr.onerror = function() {
+            console.error(xhr.statusText);
+        };
+        xhr.send();
+    }
+</script>
+<div id="boxajax-containter">
     <a class="back" onclick="location.href='index.php'">&larr; Mua thêm sản phẩm khác</a> 
     <div class="small-container cart-page">
         <table>
@@ -103,15 +135,6 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                 <th>Số lượng</th>
                 <th style="width: 130px">giá</th>
             </tr>
-            <script>
-                function deleteCart(masp) {
-                    // Tạo đối tượng XMLHttpRequest
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("GET", "deleteCart.php", true);
-                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                    xhr.send("masp=" + masp);
-                }
-            </script>
             <?php
             if(mysqli_num_rows($result) > 0){
                 $s = "";
@@ -120,7 +143,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                     $s.=sprintf('<h3>%s</h3>',$row['tensp']);
                     $s.=sprintf('<small>%s</small><br>',$row['motasp']);
                     $s.='<a class="link-text" href="product.php?MaSP=' . $row['masp'] .'">Xem chi tiết</a><br>';
-                    $s.=sprintf('<button class="btn-remove" onclick="deleteCart(\'%s\')">Xoá sản phẩm</button></div></div><td><button class="btn-value">-</button><input type="number" value="1"><button class="btn-value">+</button></td><td>%s₫</td></tr>',$row['masp'],number_format($row['giasp'], 0, '', '.'));
+                    $s.=sprintf('<button class="btn-remove" onclick="deleteCart(\'%s\')">Xoá sản phẩm</button></div></div><td><button class="btn-value">-</button><input type="number" value="%s"><button class="btn-value">+</button></td><td>%s₫</td></tr>',$row['masp'],$row['soluong'],number_format($row['giasp'], 0, '', '.'));
                 }
                 echo $s;
             }
@@ -128,8 +151,9 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                 echo 'Giỏ hàng của bạn đang trống';
             }
             ?>
-        </div>
-    </table>
+        </table>
+    </div>
+</div>
     <div class="line"></div>
     <div class="input-cart">
         <p class="text header">thông tin khách hàng</p>
