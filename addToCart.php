@@ -19,10 +19,10 @@ $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
 
 $masp = $row['MaSP'];
-$tenSP = $row['TenSP'];
-$motaSP = $row['MoTaSp'];
-$giaSP = (double)$row['GiaSP'];
-$hinhSP = $row['HinhSP'];
+// $tenSP = $row['TenSP'];
+// $motaSP = $row['MoTaSp'];
+// $giaSP = (double)$row['GiaSP'];
+// $hinhSP = $row['HinhSP'];
 $soluongSP = 1;
 $taikhoan = $_SESSION['current_username'];
 
@@ -32,7 +32,7 @@ if(mysqli_num_rows($result1) > 0){
   $sql1 = sprintf("UPDATE `cart` SET soluong = soluong + 1 WHERE masp = '$masp' and taikhoan = '$taikhoan'");
   mysqli_query($conn, $sql1);
 }else{
-  $sql1 = sprintf("INSERT INTO `cart` (`taikhoan` ,`masp` ,`tensp`, `hinhsp`, `motasp`, `giasp` ,`soluong`) VALUES ('$taikhoan','%s','%s', '%s', '%s', %d , %d);", $masp, $tenSP,$hinhSP, $motaSP,$giaSP,$soluongSP);
+  $sql1 = sprintf("INSERT INTO `cart` (`taikhoan` ,`masp` ,`soluong`) VALUES ('$taikhoan','%s', %d);", $masp ,$soluongSP);
   mysqli_query($conn, $sql1);
 }
 ?>

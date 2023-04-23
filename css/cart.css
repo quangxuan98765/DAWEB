@@ -164,8 +164,6 @@ td:last-child{
 .address-input{
     width: 100%;
     padding: 10px;
-    background: #383838;
-    height: 120px;
     border-radius: 10px;
     align-items: center;
 }
@@ -185,7 +183,7 @@ td:last-child{
 
 .select{
     font-size: 18px;
-    padding: 8px 19%;
+    padding: 5px;
     border-radius: 5px;
     text-transform: capitalize;
     margin-right: 5px;

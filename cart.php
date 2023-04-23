@@ -15,7 +15,8 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 if (!$conn) {
   die("Connection failed: " . mysqli_connect_error());
 }
-$sql = "SELECT * FROM cart";
+$taikhoan = $_SESSION['current_username'];
+$sql = "SELECT * FROM cart,sanpham WHERE cart.masp = sanpham.MaSP and taikhoan = '$taikhoan'";
 $result = mysqli_query($conn, $sql);
 if (!$result) { die("Query failed: " . mysqli_error($conn)); }
 
@@ -110,11 +111,11 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
             }
             else{
                 products.forEach(function(product){
-                    productHtml += `<tr><td><div class="cart-info"><img src="` + product.hinhsp + `"><div>`;
-                    productHtml += `<h3>` + product.tensp + `</h3>`;
-                    productHtml += `<small>`+ product.motasp +`</small><br>`;
+                    productHtml += `<tr><td><div class="cart-info"><img src="` + product.HinhSP + `"><div>`;
+                    productHtml += `<h3>` + product.TenSP + `</h3>`;
+                    productHtml += `<small>`+ product.MoTaSP +`</small><br>`;
                     productHtml += `<a class="link-text" href="product.php?MaSP=` + product.masp + `">Xem chi tiết</a><br>`;
-                    var gia = parseInt(product.giasp);
+                    var gia = parseInt(product.GiaSP);
                     productHtml += `<button class="btn-remove" onclick="deleteCart('${product.masp}')">Xoá sản phẩm</button></div></div><td><button class="btn-value">-</button><input type="number" value="${product.soluong}"><button class="btn-value">+</button></td><td>`+ gia.toLocaleString('vi-VN') +`₫</td></tr>`;
                 });
                 productContainer.innerHTML = productHtml;
@@ -139,11 +140,11 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
             if(mysqli_num_rows($result) > 0){
                 $s = "";
                 while($row = mysqli_fetch_assoc($result)) {
-                    $s.=sprintf('<tr><td><div class="cart-info"><img src="%s"><div>',$row['hinhsp']);
-                    $s.=sprintf('<h3>%s</h3>',$row['tensp']);
-                    $s.=sprintf('<small>%s</small><br>',$row['motasp']);
+                    $s.=sprintf('<tr><td><div class="cart-info"><img src="%s"><div>',$row['HinhSP']);
+                    $s.=sprintf('<h3>%s</h3>',$row['TenSP']);
+                    $s.=sprintf('<small>%s</small><br>',$row['MoTaSP']);
                     $s.='<a class="link-text" href="product.php?MaSP=' . $row['masp'] .'">Xem chi tiết</a><br>';
-                    $s.=sprintf('<button class="btn-remove" onclick="deleteCart(\'%s\')">Xoá sản phẩm</button></div></div><td><button class="btn-value">-</button><input type="number" value="%s"><button class="btn-value">+</button></td><td>%s₫</td></tr>',$row['masp'],$row['soluong'],number_format($row['giasp'], 0, '', '.'));
+                    $s.=sprintf('<button class="btn-remove" onclick="deleteCart(\'%s\')">Xoá sản phẩm</button></div></div><td><button class="btn-value">-</button><input type="number" value="%s"><button class="btn-value">+</button></td><td>%s₫</td></tr>',$row['masp'],$row['soluong'],number_format($row['GiaSP'], 0, '', '.'));
                 }
                 echo $s;
             }
@@ -170,43 +171,31 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
         <label for="ship" class="check-title">Giao hàng tận nơi</label>
         <input type="checkbox" id="shop">
         <label for="shop" class="check-title">Nhận tại cửa hàng</label>
+        <a href="locationForm.html" class="link">Thêm địa chỉ</a>
+        <script>
+            function redirectToPage() {
+                var selectBox = document.getElementById("mySelect");
+                var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+                if (selectedValue !== "") {
+                    window.location.href = 'editlocationForm.php?id=' + selectedValue;
+                }
+            }
+        </script>
         <div class="address-input">
-            <select class="select">
-                <option>Hồ Chí Minh</option>
-                <option>Hà Nội</option>
-                <option>Mặt Trăng</option>
-                <option>Sao Hoả</option>
-            </select>
-            <select class="select">
-                <option>Chọn Quận/Huyện</option>
-                <option>Hà Nội</option>
-                <option>Mặt Trăng</option>
-                <option>Sao Hoả</option>
-            </select>
-            <select class="select">
-                <option>Phường /xã</option>
-                <option>Hà Nội</option>
-                <option>Mặt Trăng</option>
-                <option>Sao Hoả</option>
-            </select>
-            <input type="text" class="input-text input-text2" placeholder="Số nhà, tên đường">
+        <select id="mySelect" onchange="redirectToPage()" class="select">
+            <option>Chọn địa chỉ</option>
+            <?php
+            $sql1 = "SELECT * FROM diachi WHERE taikhoan = '$taikhoan'";
+            $result1 = mysqli_query($conn, $sql1);
+            if(mysqli_num_rows($result1) > 0){
+                while($row1 = mysqli_fetch_assoc($result1)) {
+                    echo '<option value="' .$row1['id'] . '">' . $row1['city'] . ' ' . $row1['tenduong'] . ' ' . $row1['sonha'] . '</option>';
+                }
+            }
+            ?>
+        </select>
         </div>
         <input type="text" class="input-text input-text3" placeholder="Yêu cầu khác (không bắt buộc)">
-        <div class="check-one-line">
-            <input type="checkbox" id="none">
-            <label for="none" class="check-title">Gọi người khác nhận hàng (nếu có)</label>
-        </div>
-        <div class="check-one-line">
-            <input type="checkbox" id="none">
-            <label for="none" class="check-title">Hướng dẫn sử dụng, giải đáp thắc mắc</label>
-        </div>
-        <div class="check-one-line">
-            <input type="checkbox" id="none">
-            <label for="none" class="check-title">xuất hoá đơn công ty</label>
-        </div>
-        <div class="check-one-line">
-            <a class="check-title">*Bạn có thể chọn hình thức thanh toán sau khi đặt hàng</a>
-        </div>
     </div>
     <div class="total-price">
         <table>

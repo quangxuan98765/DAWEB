@@ -17,7 +17,7 @@ $sqp = "DELETE FROM cart WHERE masp='$maSP'";
 $result = mysqli_query($conn, $sqp);
 
 // Lấy danh sách các sản phẩm còn lại
-$sq = "SELECT * FROM cart";
+$sq = "SELECT * FROM cart,sanpham WHERE cart.masp = sanpham.MaSP";
 $result = mysqli_query($conn, $sq);
 
 // Đóng gói các sản phẩm còn lại vào một mảng
