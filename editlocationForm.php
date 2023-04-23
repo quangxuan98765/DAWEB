@@ -1,6 +1,29 @@
 <!DOCTYPE html>
 <html lang="vi">
 <meta charset="utf-8">
+<?php
+require_once('lib_login_session.php');
+?>
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "LaptrinhWeb2";
+
+// Create connection
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+// Check connection
+if (!$conn) {
+  die("Connection failed: " . mysqli_connect_error());
+}
+$id = $_GET['id'];
+$taikhoan = $_SESSION['current_username'];
+$sql = "SELECT * FROM diachi WHERE taikhoan = '$taikhoan'";
+$result = mysqli_query($conn, $sql);
+$row = mysqli_fetch_assoc($result);
+if (!$result) { die("Query failed: " . mysqli_error($conn)); }
+
+?>
 <html>
   <head>
     <title>Order form</title>
@@ -131,11 +154,12 @@
       <h1>Order Form</h1>
       <form name="themsp" method="post" action="manageLocation.php" enctype="multipart/form-data">
         <div class="info">
-          <input class="fname" type="text" name="name" placeholder="Tên người nhận">
-          <input type="text" name="sdt" placeholder="Số điện thoại">
-          <input type="text" name="city" placeholder="Thành phố(Tỉnh)/Quận(Huyện)/Phường(Xã)">
-          <input type="text" name="duong" placeholder="Đường/Tòa Nhà">
-          <input type="text" name="nha" placeholder="Số Nhà/Tầng">
+        <input type="hidden" name="id" value=<?=$row['id']?>/>
+          <input class="fname" type="text" name="name" placeholder="Tên người nhận" value="<?= $row['ten'] ?>">
+          <input type="text" name="sdt" placeholder="Số điện thoại" value="<?= $row['sdt'] ?>">
+          <input type="text" name="city" placeholder="Thành phố(Tỉnh)/Quận(Huyện)/Phường(Xã)" value="<?= $row['city'] ?>">
+          <input type="text" name="duong" placeholder="Đường/Tòa Nhà" value="<?= $row['tenduong'] ?>">
+          <input type="text" name="nha" placeholder="Số Nhà/Tầng" value="<?= $row['sonha'] ?>">
           <input type="text" name="test" placeholder="Địa chỉ dự phòng(nếu có)">
         </div>
         <h3>Loại địa chỉ</h3>
@@ -149,7 +173,8 @@
             <label for="radioTwo" class="radio">Văn phòng</label>
           </div>
         </div>
-        <button name="submit" class="button">Lưu</button>
+        <button name="submitDel" class="button" onclick="return confirm('Are you sure you want to delete this location?')">Xóa</button>
+        <button name="submitEdit" class="button">Lưu</button>
       </form>
     </div>
   </body>

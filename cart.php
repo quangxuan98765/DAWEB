@@ -167,23 +167,16 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
             <input type="text" class="input-text" placeholder="Số điện thoại">
         </div>
         <p class="text header">chọn cách thức nhận hàng</p>
-        <input type="checkbox" id="ship">
+        <input type="checkbox" id="ship" name="delivery" onclick="checkOnlyOne(this)">
         <label for="ship" class="check-title">Giao hàng tận nơi</label>
-        <input type="checkbox" id="shop">
+
+        <input type="checkbox" id="shop" name="delivery" onclick="checkOnlyOne(this)">
         <label for="shop" class="check-title">Nhận tại cửa hàng</label>
-        <a href="locationForm.html" class="link">Thêm địa chỉ</a>
-        <script>
-            function redirectToPage() {
-                var selectBox = document.getElementById("mySelect");
-                var selectedValue = selectBox.options[selectBox.selectedIndex].value;
-                if (selectedValue !== "") {
-                    window.location.href = 'editlocationForm.php?id=' + selectedValue;
-                }
-            }
-        </script>
+
+        <a href="locationForm.html" class="linked" id="add-address-link">Thêm địa chỉ mới</a>
         <div class="address-input">
-        <select id="mySelect" onchange="redirectToPage()" class="select">
-            <option>Chọn địa chỉ</option>
+        <select id="mySelect" class="select">
+            <option>Chọn địa chỉ nhận hàng</option>
             <?php
             $sql1 = "SELECT * FROM diachi WHERE taikhoan = '$taikhoan'";
             $result1 = mysqli_query($conn, $sql1);
@@ -194,10 +187,67 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
             }
             ?>
         </select>
+        <a id="myLink" href="#" style="display:none;">Chỉnh sửa địa chỉ</a>
+
+<script>
+    function checkOnlyOne(checkbox) {
+        var checkboxes = document.getElementsByName('delivery')
+        checkboxes.forEach((item) => {
+            if (item !== checkbox) item.checked = false
+        })
+    }
+
+    var checkbox = document.getElementById("ship");
+    var link1 = document.getElementById("add-address-link");
+    var link2 = document.getElementById("mySelect");
+    var link3 = document.getElementById("myLink");
+
+    checkbox.addEventListener( 'change', function() {
+        if (this.checked && checkOnlyOne(this.checked) == true) {
+            link1.style.display = "block";
+            link2.style.display = "inline";
+            link3.style.display = "inline-block";
+        } else {
+            link1.style.display = "none";
+            link2.style.display = "none";
+            link3.style.display = "none";
+        }
+    });
+
+    var select = document.getElementById("mySelect");
+    var link = document.getElementById("myLink");
+
+    select.addEventListener("change", function() {
+    var selectedOption = this.options[this.selectedIndex];
+    var selectedValue = selectedOption.value;
+    link.href = 'editlocationForm.php?id=' + selectedValue;
+  });
+</script>
+
+<style>
+    #add-address-link, #mySelect{
+        display: none;
+    }
+    .linked {
+        display: block;
+        text-decoration: none;
+        margin-top: 10px; /* khoảng cách giữa thẻ a và các checkbox */
+        border: 1px solid #ccc; /* độ rộng và màu sắc khung */
+        padding: 5px; /* khoảng cách giữa nội dung và khung */
+    }
+  .select {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  #myLink {
+    display: inline-block;
+    margin: 0;
+  }
+</style>
         </div>
         <input type="text" class="input-text input-text3" placeholder="Yêu cầu khác (không bắt buộc)">
     </div>
-    <div class="total-price">
+    <!-- <div class="total-price">
         <table>
             <tr>
                 <td>Tạm tính (3 sản phẩm)</td>
@@ -221,7 +271,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                 <td><button class="btn-cart">Đặt hàng</td>
             </tr>
         </table>
-    </div>
+    </div> -->
     <script src="js/nav.js"></script>
 </body>
 </html>
