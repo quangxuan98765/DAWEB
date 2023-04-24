@@ -26,6 +26,7 @@ if (mysqli_num_rows($result) == 0) {
     $row = mysqli_fetch_assoc($result);
     $row1 = mysqli_fetch_assoc($result1);
     if ($password == $row['password']) {
+        $_SESSION['pass'] = true;
         if($row1['role'] == 'admin'){
             $_SESSION['isAdmin'] = true;
             echo 'success';
@@ -35,6 +36,8 @@ if (mysqli_num_rows($result) == 0) {
             echo 'success'; // Trả về giá trị "success" nếu đăng nhập thành công
         }
     } else {
+        $_SESSION['pass'] = false;
+        $_SESSION['isAdmin'] = false;
         echo 'failure'; // Trả về giá trị "failure" nếu mật khẩu không đúng
     }
 }

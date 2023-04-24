@@ -29,11 +29,10 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
 
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="css/searchIndex.css">
 
 </head>
 <body>
-<link rel="stylesheet" href="css/home.css">
-<link rel="stylesheet" href="css/searchIndex.css">
 <div class="nav">
     <img src="img/dark-logo.png" class="brand-logo" alt="">
     <div class="nav-items">
@@ -58,7 +57,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                                 xhr.onload = function() {
                                     //var response = JSON.parse(this.responseText);
                                     if (this.responseText === 'ok') {
-                                        window.location.reload();
+                                        window.location.href = "index.php";
                                     }
                                 };
 
@@ -158,9 +157,9 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
     <div class="line"></div>
     <div class="input-cart">
         <p class="text header">thông tin khách hàng</p>
-        <input type="checkbox" id="Nam">
+        <input type="checkbox" id="Nam" name="xungho" onclick="checkOnlyOne1(this)">
         <label for="Nam" class="check-title">Anh</label>
-        <input type="checkbox" id="Nu">
+        <input type="checkbox" id="Nu" name="xungho" onclick="checkOnlyOne1(this)">
         <label for="Nu" class="check-title">Chị</label>
         <div class="zone-text-input">
             <input type="text" class="input-text" placeholder="Họ và tên">
@@ -188,22 +187,47 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
             ?>
         </select>
         <a id="myLink" href="#" style="display:none;">Chỉnh sửa địa chỉ</a>
+        <script>
+            var select = document.getElementById("mySelect");
+            var link = document.getElementById("myLink");
+
+            select.addEventListener("change", function() {
+            var selectedOption = this.options[this.selectedIndex];
+            var selectedValue = selectedOption.value;
+            link.href = 'editlocationForm.php?id=' + selectedValue;
+        });
+        </script>
 
 <script>
     function checkOnlyOne(checkbox) {
-        var checkboxes = document.getElementsByName('delivery')
+        var checkboxes = document.getElementsByName('delivery');
         checkboxes.forEach((item) => {
             if (item !== checkbox) item.checked = false
         })
     }
 
-    var checkbox = document.getElementById("ship");
+    function checkOnlyOne1(checkbox) {
+        var checkxh = document.getElementsByName('xungho');
+        checkxh.forEach((item) => {
+            if (item !== checkbox) item.checked = false
+        })
+    }
+
+    function checkOnlyOne2(checkbox) {
+        var checkxh = document.getElementsByName('pay');
+        checkxh.forEach((item) => {
+            if (item !== checkbox) item.checked = false
+        })
+    }
+
+    var checkbox1 = document.getElementById("ship");
+    var checkbox2 = document.getElementById("shop");
     var link1 = document.getElementById("add-address-link");
     var link2 = document.getElementById("mySelect");
     var link3 = document.getElementById("myLink");
 
-    checkbox.addEventListener( 'change', function() {
-        if (this.checked && checkOnlyOne(this.checked) == true) {
+    checkbox1.addEventListener('change', function() {
+        if (this.checked && !checkbox2.checked) {
             link1.style.display = "block";
             link2.style.display = "inline";
             link3.style.display = "inline-block";
@@ -212,16 +236,18 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
             link2.style.display = "none";
             link3.style.display = "none";
         }
+        checkOnlyOne(this);
     });
 
-    var select = document.getElementById("mySelect");
-    var link = document.getElementById("myLink");
+    checkbox2.addEventListener('change', function() {
+        if (this.checked && !checkbox1.checked) {
+            link1.style.display = "none";
+            link2.style.display = "none";
+            link3.style.display = "none";
+        }
+        checkOnlyOne(this);
+    });
 
-    select.addEventListener("change", function() {
-    var selectedOption = this.options[this.selectedIndex];
-    var selectedValue = selectedOption.value;
-    link.href = 'editlocationForm.php?id=' + selectedValue;
-  });
 </script>
 
 <style>
@@ -246,8 +272,35 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
 </style>
         </div>
         <input type="text" class="input-text input-text3" placeholder="Yêu cầu khác (không bắt buộc)">
+        <p class="text header">chọn phương thức thanh toán</p>
+        <input type="checkbox" id="cod" name="pay" onclick="checkOnlyOne2(this)">
+        <label for="cod" class="check-title">COD</label>
+
+        <input type="checkbox" id="onl" name="pay" onclick="checkOnlyOne2(this)">
+        <label for="onl" class="check-title">Online</label>
+        <div class="zone-text-input">
+            <input type="text" class="input-text" id="bank" placeholder="số tài khoản" style="display:none;">
+        </div>
+        <script>
+            var checkbox3 = document.getElementById("onl");
+            var checkbox4 = document.getElementById("cod");
+            var link4 = document.getElementById("bank");
+
+            checkbox3.addEventListener('change', function() {
+                link4.style.display = checkbox3.checked ? 'inline' : 'none';
+                checkOnlyOne2(this);
+            });
+
+            checkbox4.addEventListener('change', function() {
+                if (this.checked && !checkbox3.checked) {
+                    link4.style.display = "none";
+                }
+                checkOnlyOne2(this);
+            });
+        </script>
+
     </div>
-    <!-- <div class="total-price">
+    <div class="total-price">
         <table>
             <tr>
                 <td>Tạm tính (3 sản phẩm)</td>
@@ -271,7 +324,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                 <td><button class="btn-cart">Đặt hàng</td>
             </tr>
         </table>
-    </div> -->
+    </div>
     <script src="js/nav.js"></script>
 </body>
 </html>

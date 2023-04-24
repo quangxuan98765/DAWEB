@@ -155,8 +155,6 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
       <form name="themsp" method="post" action="manageLocation.php" enctype="multipart/form-data">
         <div class="info">
         <input type="hidden" name="id" value=<?=$row['id']?>/>
-          <input class="fname" type="text" name="name" placeholder="Tên người nhận" value="<?= $row['ten'] ?>">
-          <input type="text" name="sdt" placeholder="Số điện thoại" value="<?= $row['sdt'] ?>">
           <input type="text" name="city" placeholder="Thành phố(Tỉnh)/Quận(Huyện)/Phường(Xã)" value="<?= $row['city'] ?>">
           <input type="text" name="duong" placeholder="Đường/Tòa Nhà" value="<?= $row['tenduong'] ?>">
           <input type="text" name="nha" placeholder="Số Nhà/Tầng" value="<?= $row['sonha'] ?>">
