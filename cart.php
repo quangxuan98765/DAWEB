@@ -154,7 +154,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
         </table>
     </div>
 </div>
-    <div class="line"></div>
+    <form name="form">
     <div class="input-cart">
         <p class="text header">thông tin khách hàng</p>
         <input type="checkbox" id="Nam" name="xungho" onclick="checkOnlyOne1(this)">
@@ -162,8 +162,8 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
         <input type="checkbox" id="Nu" name="xungho" onclick="checkOnlyOne1(this)">
         <label for="Nu" class="check-title">Chị</label>
         <div class="zone-text-input">
-            <input type="text" class="input-text" placeholder="Họ và tên">
-            <input type="text" class="input-text" placeholder="Số điện thoại">
+            <input id="hoten" type="text" class="input-text" placeholder="Họ và tên">
+            <input id="sdt" type="text" class="input-text" placeholder="Số điện thoại">
         </div>
         <p class="text header">chọn cách thức nhận hàng</p>
         <input type="checkbox" id="ship" name="delivery" onclick="checkOnlyOne(this)">
@@ -175,7 +175,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
         <a href="locationForm.html" class="linked" id="add-address-link">Thêm địa chỉ mới</a>
         <div class="address-input">
         <select id="mySelect" class="select">
-            <option>Chọn địa chỉ nhận hàng</option>
+            <option value="-1">Chọn địa chỉ nhận hàng</option>
             <?php
             $sql1 = "SELECT * FROM diachi WHERE taikhoan = '$taikhoan'";
             $result1 = mysqli_query($conn, $sql1);
@@ -187,6 +187,18 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
             ?>
         </select>
         <a id="myLink" href="#" style="display:none;">Chỉnh sửa địa chỉ</a>
+        </div>
+        <input type="text" class="input-text input-text3" placeholder="Yêu cầu khác (không bắt buộc)">
+        <p class="text header">chọn phương thức thanh toán</p>
+        <input type="checkbox" id="cod" name="pay" onclick="checkOnlyOne2(this)">
+        <label for="cod" class="check-title">COD</label>
+
+        <input type="checkbox" id="onl" name="pay" onclick="checkOnlyOne2(this)">
+        <label for="onl" class="check-title">Online</label>
+        <div class="zone-text-input">
+            <input type="text" class="input-text" id="bank" placeholder="số tài khoản" style="display:none;">
+        </div>
+        </form>
         <script>
             var select = document.getElementById("mySelect");
             var link = document.getElementById("myLink");
@@ -270,18 +282,9 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
     margin: 0;
   }
 </style>
-        </div>
-        <input type="text" class="input-text input-text3" placeholder="Yêu cầu khác (không bắt buộc)">
-        <p class="text header">chọn phương thức thanh toán</p>
-        <input type="checkbox" id="cod" name="pay" onclick="checkOnlyOne2(this)">
-        <label for="cod" class="check-title">COD</label>
-
-        <input type="checkbox" id="onl" name="pay" onclick="checkOnlyOne2(this)">
-        <label for="onl" class="check-title">Online</label>
-        <div class="zone-text-input">
-            <input type="text" class="input-text" id="bank" placeholder="số tài khoản" style="display:none;">
-        </div>
         <script>
+            var checkbox1 = document.getElementById("ship");
+            var checkbox2 = document.getElementById("shop");
             var checkbox3 = document.getElementById("onl");
             var checkbox4 = document.getElementById("cod");
             var link4 = document.getElementById("bank");
@@ -297,6 +300,22 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                 }
                 checkOnlyOne2(this);
             });
+
+            function validateForm() {
+                var name = document.forms["form"]["hoten"].value;
+                var sdt = document.forms["form"]["sdt"].value;
+                var pay = document.forms["form"]["bank"].value;
+                if (name == "" || sdt == "" || (checkbox3.checked && pay == "" )|| (!checkbox1.checked && !checkbox2.checked) || (!checkbox3.checked && !checkbox4.checked)) {
+                    alert("Bạn cần nhập tên,giá sản phẩm và tải ảnh sản phẩm lên trước khi thêm sản phẩm.");
+                    return false;
+                }
+                if(checkbox1.checked){
+                    if(document.getElementById("mySelect").value == -1){
+                        alert("Bạn đã chọn option có value -1");
+                        return false;
+                    }
+                }
+            }
         </script>
 
     </div>
@@ -321,7 +340,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
             </tr>
             <tr>
                 <td></td>
-                <td><button class="btn-cart">Đặt hàng</td>
+                <td><button class="btn-cart" onclick="return validateForm()">Đặt hàng</td>
             </tr>
         </table>
     </div>
