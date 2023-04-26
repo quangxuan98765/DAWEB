@@ -102,12 +102,19 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
         var xhr = new XMLHttpRequest();
         xhr.open("GET", "deleteCart.php?masp=" + masp, true);
         xhr.onload = function() {
-            var billcontainer = document.getElementById('billajax');
+            var sum = 0;
+            var billcontainer = document.getElementById('myTD');
+            var billcontainer1 = document.getElementById('myTD1');
+            var count = document.getElementById('count');
             var products = JSON.parse(xhr.responseText);
+            var numOfItems = products.length;
             var productContainer = document.getElementById('boxajax-containter');
             var productHtml = `<a class="back" onclick="location.href='index.php'">&larr; Mua thêm sản phẩm khác</a> <div class="small-container cart-page"><table><tr><th>Sản phẩm</th><th>Số lượng</th><th style="width: 130px">giá</th></tr>`;
             if(products.length === 0) {
                 productContainer.innerHTML = `Giỏ hàng của bạn đang trống`;
+                billcontainer.innerHTML = sum;
+                billcontainer1.innerHTML = sum;
+                count.innerHTML = `Tạm tính(` + numOfItems + ` sản phẩm)`;
             }
             else{
                 products.forEach(function(product){
@@ -117,7 +124,11 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                     productHtml += `<a class="link-text" href="product.php?MaSP=` + product.masp + `">Xem chi tiết</a><br>`;
                     var gia = parseInt(product.GiaSP);
                     productHtml += `<button class="btn-remove" onclick="deleteCart('${product.masp}')">Xoá sản phẩm</button></div></div><td><button class="btn-value">-</button><input type="number" value="${product.soluong}"><button class="btn-value">+</button></td><td>`+ gia.toLocaleString('vi-VN') +`₫</td></tr>`;
+                    sum += gia;
                 });
+                billcontainer.innerHTML = sum;
+                billcontainer1.innerHTML = sum;
+                count.innerHTML = `Tạm tính(` + numOfItems + ` sản phẩm)`;
                 productContainer.innerHTML = productHtml;
             }
         }
@@ -329,10 +340,10 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                 $row = mysqli_fetch_assoc($result1);
                 $sum = $row['tong_gia'];
                 $count = mysqli_num_rows($result);
-                echo "<td>Tạm tính( $count sản phẩm)</td>";
-                echo "<td>$sum</td>";
+                echo '<td id="count">Tạm tính(' . $count . 'sản phẩm)</td>';
+                echo '<td id="myTD">' . $sum . '</td>';
                 echo '</tr><tr><td><select class=" select select3"><option>Sử dụng mã giảm giá</option><option>Có cái nịt</option><option>Mặt Trăng</option><option>Sao Hoả</option></select></td><td>-0₫</td></tr><tr><td>Tổng thanh toán</td>';
-                echo "<td>$sum</td>";
+                echo '<td id="myTD1">' . $sum . '</td>';
                 ?>
             </tr>
             <tr>

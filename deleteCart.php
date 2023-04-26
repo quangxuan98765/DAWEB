@@ -1,4 +1,6 @@
 <?php
+require_once('lib_login_session.php');
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -10,14 +12,14 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
-
+$taikhoan = $_SESSION['current_username'];
 // Xóa sản phẩm được yêu cầu
 $maSP = $_GET['masp'];
-$sqp = "DELETE FROM cart WHERE masp='$maSP'";
+$sqp = "DELETE FROM cart WHERE masp='$maSP' and taikhoan = '$taikhoan'";
 $result = mysqli_query($conn, $sqp);
 
 // Lấy danh sách các sản phẩm còn lại
-$sq = "SELECT * FROM cart,sanpham WHERE cart.masp = sanpham.MaSP";
+$sq = "SELECT * FROM cart,sanpham WHERE cart.masp = sanpham.MaSP and taikhoan = '$taikhoan'";
 $result = mysqli_query($conn, $sq);
 
 // Đóng gói các sản phẩm còn lại vào một mảng
