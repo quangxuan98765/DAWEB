@@ -69,6 +69,7 @@ require_once('lib_login_session.php');
         <li class="link-item"><a href="index.php" class="link"><img src="img/home.png">Trang chủ</li>
         <li class="link-item"><a href="laptopProduct.php" class="link">Laptop</li>
         <li class="link-item"><a href="womenarmor.html" class="link">Phụ Kiện</li>
+        <li class="link-item"><a class="link">Phụ Kiện</li>
     </ul>
     <script>
         const userImageButton = document.getElementById("user-img");

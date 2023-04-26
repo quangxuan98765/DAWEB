@@ -102,6 +102,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
         var xhr = new XMLHttpRequest();
         xhr.open("GET", "deleteCart.php?masp=" + masp, true);
         xhr.onload = function() {
+            var billcontainer = document.getElementById('billajax');
             var products = JSON.parse(xhr.responseText);
             var productContainer = document.getElementById('boxajax-containter');
             var productHtml = `<a class="back" onclick="location.href='index.php'">&larr; Mua thêm sản phẩm khác</a> <div class="small-container cart-page"><table><tr><th>Sản phẩm</th><th>Số lượng</th><th style="width: 130px">giá</th></tr>`;
@@ -306,12 +307,12 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                 var sdt = document.forms["form"]["sdt"].value;
                 var pay = document.forms["form"]["bank"].value;
                 if (name == "" || sdt == "" || (checkbox3.checked && pay == "" )|| (!checkbox1.checked && !checkbox2.checked) || (!checkbox3.checked && !checkbox4.checked)) {
-                    alert("Bạn cần nhập tên,giá sản phẩm và tải ảnh sản phẩm lên trước khi thêm sản phẩm.");
+                    alert("vui long2 dien du tt.");
                     return false;
                 }
                 if(checkbox1.checked){
                     if(document.getElementById("mySelect").value == -1){
-                        alert("Bạn đã chọn option có value -1");
+                        alert("vui long2 dien du tt.");
                         return false;
                     }
                 }
@@ -319,24 +320,20 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
         </script>
 
     </div>
-    <div class="total-price">
+    <div class="total-price" id="billajax">
         <table>
             <tr>
-                <td>Tạm tính (3 sản phẩm)</td>
-                <td>790.000₫</td>
-            </tr>
-            <tr>
-                <td><select class=" select select3">
-                    <option>Sử dụng mã giảm giá</option>
-                    <option>Có cái nịt</option>
-                    <option>Mặt Trăng</option>
-                    <option>Sao Hoả</option>
-                </select></td>
-                <td>-0₫</td>
-            </tr>
-            <tr>
-                <td>Tổng thanh toán</td>
-                <td>869.000₫</td>
+                <?php
+                $sql1 = "SELECT SUM(GiaSP) as tong_gia FROM cart,sanpham WHERE cart.masp = sanpham.MaSP and taikhoan = '$taikhoan'";
+                $result1 = mysqli_query($conn, $sql1);
+                $row = mysqli_fetch_assoc($result1);
+                $sum = $row['tong_gia'];
+                $count = mysqli_num_rows($result);
+                echo "<td>Tạm tính( $count sản phẩm)</td>";
+                echo "<td>$sum</td>";
+                echo '</tr><tr><td><select class=" select select3"><option>Sử dụng mã giảm giá</option><option>Có cái nịt</option><option>Mặt Trăng</option><option>Sao Hoả</option></select></td><td>-0₫</td></tr><tr><td>Tổng thanh toán</td>';
+                echo "<td>$sum</td>";
+                ?>
             </tr>
             <tr>
                 <td></td>
