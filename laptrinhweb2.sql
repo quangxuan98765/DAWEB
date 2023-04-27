@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2023 at 05:36 PM
+-- Generation Time: Apr 27, 2023 at 05:41 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -30,19 +30,8 @@ SET time_zone = "+00:00";
 CREATE TABLE `cart` (
   `taikhoan` varchar(50) NOT NULL,
   `masp` varchar(255) NOT NULL,
-  `tensp` varchar(200) NOT NULL,
-  `hinhsp` text NOT NULL,
-  `motasp` varchar(255) NOT NULL,
-  `giasp` int(100) NOT NULL,
   `soluong` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `cart`
---
-
-INSERT INTO `cart` (`taikhoan`, `masp`, `tensp`, `hinhsp`, `motasp`, `giasp`, `soluong`) VALUES
-('newaccount', 'gKD782', 'HP 2', '../ProjectWeb/img/product/hp2.jpg', '', 23000000, 1);
 
 -- --------------------------------------------------------
 
@@ -67,6 +56,34 @@ INSERT INTO `category` (`id`, `category_name`, `slug`) VALUES
 (4, 'dell', 'laptop'),
 (5, 'hp', 'laptop'),
 (6, 'lenovo', 'laptop');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `diachi`
+--
+
+CREATE TABLE `diachi` (
+  `id` int(10) NOT NULL,
+  `taikhoan` varchar(50) NOT NULL,
+  `city` text NOT NULL,
+  `tenduong` text NOT NULL,
+  `sonha` int(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `donhang`
+--
+
+CREATE TABLE `donhang` (
+  `id` int(11) NOT NULL,
+  `tentaikhoan` varchar(50) NOT NULL,
+  `masp` varchar(100) NOT NULL,
+  `date` date NOT NULL,
+  `trangthai` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -107,35 +124,17 @@ CREATE TABLE `users` (
   `username` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `fullname` varchar(100) NOT NULL
+  `fullname` varchar(100) NOT NULL,
+  `role` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`username`, `password`, `email`, `fullname`) VALUES
-('newaccount', '123456789', 'Xxbbluexx@gmail.com', 'noncaihen'),
-('taikhoanmoi', 'adminbaso9', '123boyzzkhoi@gmail.com', 'Vạn Xuân Quang');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user_roles`
---
-
-CREATE TABLE `user_roles` (
-  `user_name` varchar(50) NOT NULL,
-  `role` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `user_roles`
---
-
-INSERT INTO `user_roles` (`user_name`, `role`) VALUES
-('newaccount', 'normal'),
-('taikhoanmoi', 'admin');
+INSERT INTO `users` (`username`, `password`, `email`, `fullname`, `role`) VALUES
+('newaccount', '123456789', '123boyzzkhoi@gmail.com', 'asdasd', 'admin'),
+('taikhoanmoi', 'adminbaso9', 'Xxbbluexx@gmail.com', 'asasd', 'normal');
 
 --
 -- Indexes for dumped tables
@@ -145,13 +144,29 @@ INSERT INTO `user_roles` (`user_name`, `role`) VALUES
 -- Indexes for table `cart`
 --
 ALTER TABLE `cart`
-  ADD PRIMARY KEY (`taikhoan`,`masp`);
+  ADD PRIMARY KEY (`taikhoan`,`masp`),
+  ADD KEY `masp` (`masp`);
 
 --
 -- Indexes for table `category`
 --
 ALTER TABLE `category`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `diachi`
+--
+ALTER TABLE `diachi`
+  ADD PRIMARY KEY (`id`,`taikhoan`),
+  ADD KEY `taikhoan` (`taikhoan`);
+
+--
+-- Indexes for table `donhang`
+--
+ALTER TABLE `donhang`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `tentaikhoan` (`tentaikhoan`),
+  ADD KEY `donhang_ibfk_2` (`masp`);
 
 --
 -- Indexes for table `sanpham`
@@ -169,12 +184,6 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Indexes for table `user_roles`
---
-ALTER TABLE `user_roles`
-  ADD PRIMARY KEY (`user_name`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -183,6 +192,18 @@ ALTER TABLE `user_roles`
 --
 ALTER TABLE `category`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `diachi`
+--
+ALTER TABLE `diachi`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `donhang`
+--
+ALTER TABLE `donhang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `sanpham`
@@ -198,19 +219,27 @@ ALTER TABLE `sanpham`
 -- Constraints for table `cart`
 --
 ALTER TABLE `cart`
-  ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`taikhoan`) REFERENCES `users` (`username`);
+  ADD CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`masp`) REFERENCES `sanpham` (`MaSP`),
+  ADD CONSTRAINT `cart_ibfk_3` FOREIGN KEY (`taikhoan`) REFERENCES `users` (`username`);
+
+--
+-- Constraints for table `diachi`
+--
+ALTER TABLE `diachi`
+  ADD CONSTRAINT `diachi_ibfk_1` FOREIGN KEY (`taikhoan`) REFERENCES `users` (`username`);
+
+--
+-- Constraints for table `donhang`
+--
+ALTER TABLE `donhang`
+  ADD CONSTRAINT `donhang_ibfk_1` FOREIGN KEY (`tentaikhoan`) REFERENCES `users` (`username`),
+  ADD CONSTRAINT `donhang_ibfk_2` FOREIGN KEY (`masp`) REFERENCES `sanpham` (`MaSP`);
 
 --
 -- Constraints for table `sanpham`
 --
 ALTER TABLE `sanpham`
   ADD CONSTRAINT `sanpham_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
-
---
--- Constraints for table `users`
---
-ALTER TABLE `users`
-  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user_roles` (`user_name`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
