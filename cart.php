@@ -79,7 +79,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
 				?>
                 </div>
             </a>
-            <a href="historycart.html"><img src="img/history.png"></a>
+            <a href="historycart.php"><img src="img/history.png"></a>
             <a href="cart.php"><img src="img/cart.png"></a>
     </div>
 </div>
@@ -112,9 +112,6 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
             var productHtml = `<a class="back" onclick="location.href='index.php'">&larr; Mua thêm sản phẩm khác</a> <div class="small-container cart-page"><table><tr><th>Sản phẩm</th><th>Số lượng</th><th style="width: 130px">giá</th></tr>`;
             if(products.length === 0) {
                 productContainer.innerHTML = `Giỏ hàng của bạn đang trống`;
-                billcontainer.innerHTML = sum;
-                billcontainer1.innerHTML = sum;
-                count.innerHTML = `Tạm tính(` + numOfItems + ` sản phẩm)`;
             }
             else{
                 products.forEach(function(product){
@@ -122,15 +119,15 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                     productHtml += `<h3>` + product.TenSP + `</h3>`;
                     productHtml += `<small>`+ product.MoTaSP +`</small><br>`;
                     productHtml += `<a class="link-text" href="product.php?MaSP=` + product.masp + `">Xem chi tiết</a><br>`;
-                    var gia = parseInt(product.GiaSP);
+                    var gia = parseInt(product.GiaSP) * parseInt(product.soluong);
                     productHtml += `<button class="btn-remove" onclick="deleteCart('${product.masp}')">Xoá sản phẩm</button></div></div><td><button class="btn-value">-</button><input type="number" value="${product.soluong}"><button class="btn-value">+</button></td><td>`+ gia.toLocaleString('vi-VN') +`₫</td></tr>`;
                     sum += gia;
                 });
-                billcontainer.innerHTML = sum;
-                billcontainer1.innerHTML = sum;
-                count.innerHTML = `Tạm tính(` + numOfItems + ` sản phẩm)`;
                 productContainer.innerHTML = productHtml;
             }
+            billcontainer.innerHTML = sum;
+            billcontainer1.innerHTML = sum;
+            count.innerHTML = `Tạm tính(` + numOfItems + ` sản phẩm)`;
         }
         xhr.onerror = function() {
             console.error(xhr.statusText);
@@ -151,11 +148,13 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
             if(mysqli_num_rows($result) > 0){
                 $s = "";
                 while($row = mysqli_fetch_assoc($result)) {
+                    $gia_moi = $row['GiaSP'] * $row['soluong'];
+                    $gia_moi = number_format($gia_moi, 0, '', '.'); // Định dạng lại giá mới để hiển thị
                     $s.=sprintf('<tr><td><div class="cart-info"><img src="%s"><div>',$row['HinhSP']);
                     $s.=sprintf('<h3>%s</h3>',$row['TenSP']);
                     $s.=sprintf('<small>%s</small><br>',$row['MoTaSP']);
                     $s.='<a class="link-text" href="product.php?MaSP=' . $row['masp'] .'">Xem chi tiết</a><br>';
-                    $s.=sprintf('<button class="btn-remove" onclick="deleteCart(\'%s\')">Xoá sản phẩm</button></div></div><td><button class="btn-value">-</button><input type="number" value="%s"><button class="btn-value">+</button></td><td>%s₫</td></tr>',$row['masp'],$row['soluong'],number_format($row['GiaSP'], 0, '', '.'));
+                    $s.=sprintf('<button class="btn-remove" onclick="deleteCart(\'%s\')">Xoá sản phẩm</button></div></div><td><button class="btn-value">-</button><input type="number" value="%s"><button class="btn-value">+</button></td><td>' . $gia_moi . '₫</td></tr>',$row['masp'],$row['soluong'],number_format($row['GiaSP'], 0, '', '.'));
                 }
                 echo $s;
             }
@@ -335,10 +334,14 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
         <table>
             <tr>
                 <?php
-                $sql1 = "SELECT SUM(GiaSP) as tong_gia FROM cart,sanpham WHERE cart.masp = sanpham.MaSP and taikhoan = '$taikhoan'";
+                $sql1 = "SELECT SUM(sanpham.GiaSP * cart.soluong) as tong_gia 
+                FROM cart 
+                INNER JOIN sanpham ON cart.masp = sanpham.MaSP 
+                WHERE cart.taikhoan = '$taikhoan';";
                 $result1 = mysqli_query($conn, $sql1);
                 $row = mysqli_fetch_assoc($result1);
                 $sum = $row['tong_gia'];
+                $sum = number_format($sum, 0, '', '.'); // Định dạng lại giá mới để hiển thị
                 $count = mysqli_num_rows($result);
                 echo '<td id="count">Tạm tính(' . $count . 'sản phẩm)</td>';
                 echo '<td id="myTD">' . $sum . '</td>';
