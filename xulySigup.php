@@ -17,9 +17,7 @@ if(isset($_REQUEST['submitDangky'])) {
 	  die("Connection failed: " . mysqli_connect_error());
 	}
 
-	$sql = sprintf("INSERT INTO `users` (`username`, `password`, `email`, `fullname`) VALUES ('%s','%s', '%s', '%s');", $tk, $mk,$mail, $hoten);
-	$sql1 = sprintf("INSERT INTO `user_roles` (`user_name`, `role`) VALUES ('%s','normal');",$tk);
-	mysqli_query($conn, $sql1);
+	$sql = sprintf("INSERT INTO `users` (`username`, `password`, `email`, `fullname`,`role`) VALUES ('%s','%s', '%s', '%s','normal');", $tk, $mk,$mail, $hoten);
 	//var_dump($sql);
 	if ($conn->query($sql) === TRUE) {
 	  //echo "<hr/>New record created successfully";

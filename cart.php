@@ -111,7 +111,9 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
             var productContainer = document.getElementById('boxajax-containter');
             var productHtml = `<a class="back" onclick="location.href='index.php'">&larr; Mua thêm sản phẩm khác</a> <div class="small-container cart-page"><table><tr><th>Sản phẩm</th><th>Số lượng</th><th style="width: 130px">giá</th></tr>`;
             if(products.length === 0) {
-                productContainer.innerHTML = `Giỏ hàng của bạn đang trống`;
+                productContainer.innerHTML = `<p id="formtt">Giỏ hàng của bạn đang trống</p>`;
+                const myForm = document.getElementById("my-form");
+                myForm.style.display = "none";
             }
             else{
                 products.forEach(function(product){
@@ -154,18 +156,18 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                     $s.=sprintf('<h3>%s</h3>',$row['TenSP']);
                     $s.=sprintf('<small>%s</small><br>',$row['MoTaSP']);
                     $s.='<a class="link-text" href="product.php?MaSP=' . $row['masp'] .'">Xem chi tiết</a><br>';
-                    $s.=sprintf('<button class="btn-remove" onclick="deleteCart(\'%s\')">Xoá sản phẩm</button></div></div><td><button class="btn-value">-</button><input type="number" value="%s"><button class="btn-value">+</button></td><td>' . $gia_moi . '₫</td></tr>',$row['masp'],$row['soluong'],number_format($row['GiaSP'], 0, '', '.'));
+                    $s.=sprintf('<button class="btn-remove" onclick="deleteCart(\'%s\')">Xoá sản phẩm</button></div></div><td><button class="btn-value">-</button><input type="number" value="%s"><button class="btn-value">+</button></td><td>' . $gia_moi . '₫</td></tr>',$row['masp'],$row['soluong']);
                 }
                 echo $s;
             }
             else {
-                echo 'Giỏ hàng của bạn đang trống';
+                echo '<p id="formtt">Giỏ hàng của bạn đang trống</p>';
             }
             ?>
         </table>
     </div>
 </div>
-    <form name="form">
+    <form name="form" method="get" id="my-form" action="thanhtoan.php" enctype="multipart/form-data">
     <div class="input-cart">
         <p class="text header">thông tin khách hàng</p>
         <input type="checkbox" id="Nam" name="xungho" onclick="checkOnlyOne1(this)">
@@ -209,7 +211,6 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
         <div class="zone-text-input">
             <input type="text" class="input-text" id="bank" placeholder="số tài khoản" style="display:none;">
         </div>
-        </form>
         <script>
             var select = document.getElementById("mySelect");
             var link = document.getElementById("myLink");
@@ -351,10 +352,20 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
             </tr>
             <tr>
                 <td></td>
-                <td><button class="btn-cart" onclick="return validateForm()">Đặt hàng</td>
+                <td><button name="dathang" class="btn-cart" onclick="return validateForm()">Đặt hàng</td>
             </tr>
         </table>
     </div>
+    </form>
+    <script>
+        const productContainer = document.getElementById('formtt');
+        const myForm = document.getElementById("my-form");
+        if(productContainer.innerHTML === 'Giỏ hàng của bạn đang trống'){
+            myForm.style.display = "none";
+        }else{
+            myForm.style.display = "block";
+        }
+    </script>
     <script src="js/nav.js"></script>
 </body>
 </html>
