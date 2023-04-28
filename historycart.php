@@ -104,20 +104,53 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
         </div>
     </div>
 
-    <div class="small-container cart-page">
+    <script>
+    function deleteCart(masp) {
+        // Tạo đối tượng XMLHttpRequest
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "thanhtoan.php?masp=" + masp, true);
+        xhr.onload = function() {
+            var products = JSON.parse(xhr.responseText);
+            var productContainer = document.getElementById('boxajax');
+            var productHtml = `<table><tr><th>Mã đơn hàng</th><th>Sản phẩm</th><th>Số lượng</th><th>giá</th><th>ngày đặt mua</th><th class="status-confirm">trạng thái</th></tr>`;
+            if(products.length === 0) {
+                productContainer.innerHTML = `Bạn chưa mua gì`;
+            }
+            else{
+                products.forEach(function(product){
+                    productHtml += `<tr><td>#` + product.id + `</td><td>`;
+                    productHtml += `<div class="cart-info"><img src="` + product.HinhSP + `"><div>`;
+                    productHtml += `<h3>` + product.TenSP + ` (`+ product.MaSP + `)</h3>`;
+                    productHtml += `<small>` + product.MoTaSP +`</small><br>`;
+                    productHtml += `<a class="link-text" href="product.php?MaSP=` + product.masp + `">Xem chi tiết</a></div></div></td>`;
+                    var gia = parseInt(product.GiaSP) * parseInt(product.soluong);
+                    productHtml += `<td><a>`+ product.soluong +`</a></td><td>` + gia.toLocaleString('vi-VN') + `₫</td>`;
+                    productHtml += `<td>`+ product.date +`</td><td><form name="form1" method="get"  action="thanhtoan.php" enctype="multipart/form-data"><button name="huydon" onclick="deleteCart('${product.id}')>Hủy đơn</button><p>`+ product.trangthai +`</p></form></td></tr></table>`;
+                });
+                productContainer.innerHTML = productHtml;
+            }
+        }
+        xhr.onerror = function() {
+            console.error(xhr.statusText);
+        };
+        xhr.send();
+    }
+</script>
+
+    <div class="small-container cart-page" id="boxajax">
             <?php
             if(mysqli_num_rows($result) > 0){
                 $s = '<table><tr><th>Mã đơn hàng</th><th>Sản phẩm</th><th>Số lượng</th><th>giá</th><th>ngày đặt mua</th><th class="status-confirm">trạng thái</th></tr>';
                 while($row = mysqli_fetch_assoc($result)) {
                     $gia_moi = $row['GiaSP'] * $row['soluong'];
                     $gia_moi = number_format($gia_moi, 0, '', '.');
-                    $s .= sprintf('<tr><td>%s</td><td>',$row['id']);
+                    $s .= sprintf('<tr><td>#%s</td><td>',$row['id']);
                     $s .= sprintf('<div class="cart-info"><img src="%s"><div>',$row['HinhSP']);
-                    $s .= sprintf('<h3>%s</h3>',$row['TenSP']);
+                    $s .= sprintf('<h3>%s (%s)</h3>',$row['TenSP'], $row['MaSP']);
                     $s .= sprintf('<small>%s</small><br>',$row['MoTaSP']);
                     $s.='<a class="link-text" href="product.php?MaSP=' . $row['MaSP'] .'">Xem chi tiết</a></div></div></td>';
                     $s .= sprintf('<td><a>%s</a></td><td>' . $gia_moi . '₫</td>',$row['soluong'],$row['GiaSP']);
-                    $s .= sprintf('<td>%s</td><td><p>%s</p></td></tr></table>',$row['date'],$row['trangthai']);
+                    $s .= sprintf('<td>%s</td><td><form name="form1" method="get"  action="thanhtoan.php" enctype="multipart/form-data"><button name="huydon" onclick="deleteCart(\'%s\')>Hủy đơn</button><p>%s</p></form></td></tr></table>',$row['date'],$row['id'],$row['trangthai']);
                 }
                 echo $s;
             }

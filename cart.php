@@ -118,7 +118,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
             else{
                 products.forEach(function(product){
                     productHtml += `<tr><td><div class="cart-info"><img src="` + product.HinhSP + `"><div>`;
-                    productHtml += `<h3>` + product.TenSP + `</h3>`;
+                    productHtml += `<h3>` + product.TenSP + `(` + product.MaSP + `)</h3>`;
                     productHtml += `<small>`+ product.MoTaSP +`</small><br>`;
                     productHtml += `<a class="link-text" href="product.php?MaSP=` + product.masp + `">Xem chi tiết</a><br>`;
                     var gia = parseInt(product.GiaSP) * parseInt(product.soluong);
@@ -153,7 +153,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                     $gia_moi = $row['GiaSP'] * $row['soluong'];
                     $gia_moi = number_format($gia_moi, 0, '', '.'); // Định dạng lại giá mới để hiển thị
                     $s.=sprintf('<tr><td><div class="cart-info"><img src="%s"><div>',$row['HinhSP']);
-                    $s.=sprintf('<h3>%s</h3>',$row['TenSP']);
+                    $s.=sprintf('<h3>%s (%s)</h3>',$row['TenSP'], $row['MaSP']);
                     $s.=sprintf('<small>%s</small><br>',$row['MoTaSP']);
                     $s.='<a class="link-text" href="product.php?MaSP=' . $row['masp'] .'">Xem chi tiết</a><br>';
                     $s.=sprintf('<button class="btn-remove" onclick="deleteCart(\'%s\')">Xoá sản phẩm</button></div></div><td><button class="btn-value">-</button><input type="number" value="%s"><button class="btn-value">+</button></td><td>' . $gia_moi . '₫</td></tr>',$row['masp'],$row['soluong']);
