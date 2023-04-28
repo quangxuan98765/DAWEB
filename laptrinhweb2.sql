@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 27, 2023 at 05:41 PM
+-- Generation Time: Apr 28, 2023 at 08:50 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -81,9 +81,17 @@ CREATE TABLE `donhang` (
   `id` int(11) NOT NULL,
   `tentaikhoan` varchar(50) NOT NULL,
   `masp` varchar(100) NOT NULL,
+  `soluong` int(100) NOT NULL,
   `date` date NOT NULL,
   `trangthai` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `donhang`
+--
+
+INSERT INTO `donhang` (`id`, `tentaikhoan`, `masp`, `soluong`, `date`, `trangthai`) VALUES
+(11, 'newaccount', 'DHB', 1, '2023-04-28', 'Đang xử lý');
 
 -- --------------------------------------------------------
 
@@ -203,7 +211,7 @@ ALTER TABLE `diachi`
 -- AUTO_INCREMENT for table `donhang`
 --
 ALTER TABLE `donhang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `sanpham`

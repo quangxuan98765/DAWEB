@@ -15,7 +15,7 @@ if (!$conn) {
   die("Connection failed: " . mysqli_connect_error());
 }
 $taikhoan = $_SESSION['current_username'];
-$sql = "SELECT * FROM cart,sanpham,donhang WHERE cart.masp = sanpham.MaSP and donhang.masp = cart.masp and taikhoan = '$taikhoan'";
+$sql = "SELECT * FROM sanpham,donhang WHERE donhang.masp = sanpham.MaSP and donhang.tentaikhoan = '$taikhoan';";
 $result = mysqli_query($conn, $sql);
 if (!$result) { die("Query failed: " . mysqli_error($conn)); }
 ?>

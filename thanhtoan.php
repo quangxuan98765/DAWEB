@@ -19,9 +19,10 @@ if(isset($_REQUEST['dathang'])) {
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
     $masp = $row['MaSP'];
+    $sl = $row['soluong'];
     $currentDateTime = date('Y-m-d H:i:s'); // lấy ngày giờ hiện tại theo định dạng Y-m-d H:i:s (năm-tháng-ngày giờ:phút:giây)
 
-    $querry = sprintf("INSERT INTO `donhang` (`tentaikhoan`,`masp`,`date`,`trangthai`) VALUES ('$taikhoan','$masp','$currentDateTime','Đang xử lý')");
+    $querry = sprintf("INSERT INTO `donhang` (`tentaikhoan`,`masp`,`soluong` ,`date`,`trangthai`) VALUES ('$taikhoan','$masp','$sl','$currentDateTime','Đang xử lý')");
     if ($conn->query($querry) === TRUE) {
         $del = sprintf("DELETE FROM cart WHERE `cart`.`taikhoan` = '%s'", $taikhoan);
         mysqli_query($conn, $del);

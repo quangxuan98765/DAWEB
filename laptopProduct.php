@@ -18,7 +18,7 @@ if (!$conn) {
   die("Connection failed: " . mysqli_connect_error());
 }
 
-$sql = "SELECT * FROM SanPham WHERE category_id = '4'";
+$sql = "SELECT * FROM SanPham";
 $result = mysqli_query($conn, $sql);
 if (!$result) { die("Query failed: " . mysqli_error($conn)); }
 
