@@ -80,7 +80,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
             </a>
             <?php
                 if(isLogged() == 1 || isLogged() == 0){
-                    echo '<a href="historycart.html"><img src="img/history.png"></a><a href="cart.php"><img src="img/cart.png"></a>';
+                    echo '<a href="historycart.php"><img src="img/history.png"></a><a href="cart.php"><img src="img/cart.png"></a>';
                 }
             ?>
     </div>
@@ -90,8 +90,10 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
     <li class="link-item"><a href="laptopProduct.php" class="link">Laptop</li>
     <li class="link-item"><a href="womenarmor.html" class="link">Phụ Kiện</li>
     <?php
-        if(isLogged() == 1)
+        if(isLogged() == 1){
             echo '<li class="link-item"><a href="addProduct.html" class="link">Thêm sản phẩm</li>';
+            echo '<li class="link-item"><a href="order.php" class="link">Quản lý Shop</li>';
+        }
     ?>
     <li class="link-item"><a class="link"></li>
 </ul>
