@@ -88,7 +88,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
             </a>
             <?php
                 if(isLogged() == 1 || isLogged() == 0){
-                    echo '<a href="historycart.html"><img src="img/history.png"></a><a href="cart.php"><img src="img/cart.png"></a>';
+                    echo '<a href="historycart.php"><img src="img/history.png"></a><a href="cart.php"><img src="img/cart.png"></a>';
                 }
             ?>
     </div>

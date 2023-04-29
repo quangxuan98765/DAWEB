@@ -252,3 +252,22 @@ td:last-child{
 {
     width: 140px;
 }
+
+#add-address-link, #mySelect{
+    display: none;
+}
+.linked {
+    display: block;
+    text-decoration: none;
+    margin-top: 10px; /* khoảng cách giữa thẻ a và các checkbox */
+    border: 1px solid #ccc; /* độ rộng và màu sắc khung */
+    padding: 5px; /* khoảng cách giữa nội dung và khung */
+}
+.select {
+    display: inline-block;
+    margin-right: 10px;
+}
+#myLink {
+    display: inline-block;
+    margin: 0;
+}

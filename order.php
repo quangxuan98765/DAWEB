@@ -2,6 +2,24 @@
 <html lang="vi">
 <?php
 require_once('lib_login_session.php');
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "LaptrinhWeb2";
+
+// Create connection
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+// Check connection
+if (!$conn) {
+  die("Connection failed: " . mysqli_connect_error());
+}
+
+$sql = "SELECT * FROM donhang";
+$result = mysqli_query($conn, $sql);
+$count = 0;
+if (!$result) { die("Query failed: " . mysqli_error($conn)); }
+
 ?>
 <head>
     <meta charset="UTF-8">
@@ -54,7 +72,7 @@ require_once('lib_login_session.php');
             
         </div>
         <p class="add-product-title nav-link" onclick="location.href='user.html'">quản lý user</p>
-        <p class="add-product-title nav-link" onclick="location.href='order.html'">quản lý đơn hàng</p>
+        <p class="add-product-title nav-link" onclick="location.href='order.php'">quản lý đơn hàng</p>
         <p class="add-product-title nav-link" onclick="location.href='report.html'">báo cáo</p>
         <p class="add-product-title nav-link" onclick="location.href='orderdetail.html'">xem đơn chi tiết</p>
     </div>
@@ -100,7 +118,7 @@ require_once('lib_login_session.php');
             <table>
                 <tr>
                     <th>#</th>
-                    <th>Mã đơn hàng#</th>
+                    <th>Mã đơn hàng</th>
                     <th>Khách Hàng</th>
                     <th>Thời gian</th>
                     <th>Thành tiền</th>
@@ -108,118 +126,25 @@ require_once('lib_login_session.php');
                     <th>Tình trạng đơn</th>
                     <th>Hành động</th>
                 </tr>
-                <tr>
-                    <td>
-                        <a>1</a>
-                    <td><p class="see-full" onclick="location.href='orderdetail.html'">999</p>
-                    <td><p>Lord Inquisitor</p></td>
-                    <td><a>11/11/2023 03:33:15</a></td>
-                    <td><a>500.000</a></td>
-                    <td><a>Chuyển khoản</a></td>
-                    <td><a>Đang chờ</a></td>
-                    <td><button class="cancel-btn">Huỷ</button><button class="confirm-btn">Xác nhận</button></td>
-                </tr>
-                <tr>
-                    <td>
-                        <a>2</a>
-                    <td><p class="see-full" onclick="location.href='orderdetail.html'">998</p>
-                    <td><p>Lord Inquisitor</p></td>
-                    <td><a>11/11/2023 03:33:15</a></td>
-                    <td><a>500.000</a></td>
-                    <td><a>Thanh toán khi nhận hàng</a></td>
-                    <td><a>Đang chờ</a></td>
-                    <td><button class="cancel-btn">Huỷ</button><button class="confirm-btn">Xác nhận</button></td>
-                </tr>
-                <tr>
-                    <td>
-                        <a>3</a>
-                    <td><p class="see-full" onclick="location.href='orderdetail.html'">997</p>
-                    <td><p>Lord Inquisitor</p></td>
-                    <td><a>11/11/2023 03:33:15</a></td>
-                    <td><a>500.000</a></td>
-                    <td><a>Chuyển khoản</a></td>
-                    <td><a>Đã xác nhận</a></td>
-                    <td><button class="confirmed-btn">Đã Xác nhận</button></td>
-                </tr>
-                <tr>
-                    <td>
-                        <a>4</a>
-                    <td><p class="see-full" onclick="location.href='orderdetail.html'">996</p>
-                    <td><p>Lord Inquisitor</p></td>
-                    <td><a>11/11/2023 03:33:15</a></td>
-                    <td><a>500.000</a></td>
-                    <td><a>Chuyển khoản</a></td>
-                    <td><a>Đã xác nhận</a></td>
-                    <td><button class="confirmed-btn">Đã Xác nhận</button></td>
-                </tr>
-                <tr>
-                    <td>
-                        <a>5</a>
-                    <td><p class="see-full" onclick="location.href='orderdetail.html'">995</p>
-                    <td><p>Lord Inquisitor</p></td>
-                    <td><a>11/11/2023 03:33:15</a></td>
-                    <td><a>500.000</a></td>
-                    <td><a>Chuyển khoản</a></td>
-                    <td><a>Đã xác nhận</a></td>
-                    <td><button class="confirmed-btn">Đã Xác nhận</button></td>
-                </tr>
-                <tr>
-                    <td>
-                        <a>6</a>
-                    <td><p class="see-full" onclick="location.href='orderdetail.html'">994</p>
-                    <td><p>Lord Inquisitor</p></td>
-                    <td><a>11/11/2023 03:33:15</a></td>
-                    <td><a>500.000</a></td>
-                    <td><a>Chuyển khoản</a></td>
-                    <td><a>Đã xác nhận</a></td>
-                    <td><button class="confirmed-btn">Đã Xác nhận</button></td>
-                </tr>
-                <tr>
-                    <td>
-                        <a>7</a>
-                    <td><p class="see-full" onclick="location.href='orderdetail.html'">993</p>
-                    <td><p>Lord Inquisitor</p></td>
-                    <td><a>11/11/2023 03:33:15</a></td>
-                    <td><a>500.000</a></td>
-                    <td><a>Chuyển khoản</a></td>
-                    <td><a>Đã xác nhận</a></td>
-                    <td><button class="confirmed-btn">Đã Xác nhận</button></td>
-                </tr>
-                <tr>
-                    <td>
-                        <a>8</a>
-                    <td><p class="see-full" onclick="location.href='orderdetail.html'">992</p>
-                    <td><p>Lord Inquisitor</p></td>
-                    <td><a>11/11/2023 03:33:15</a></td>
-                    <td><a>500.000</a></td>
-                    <td><a>Chuyển khoản</a></td>
-                    <td><a>Đã huỷ</a></td>
-                    <td><button class="canceled-btn">Đã Huỷ</button></td>
-                </tr>
-                <tr>
-                    <td>
-                        <a>9</a>
-                    <td><p class="see-full" onclick="location.href='orderdetail.html'">991</p>
-                    <td><p>Lord Inquisitor</p></td>
-                    <td><a>11/11/2023 03:33:15</a></td>
-                    <td><a>500.000</a></td>
-                    <td><a>Chuyển khoản</a></td>
-                    <td><a>Đã huỷ</a></td>
-                    <td><button class="canceled-btn">Đã Huỷ</button></td>
-                </tr>
-                <tr>
-                    <td>
-                        <a>10</a>
-                    <td><p class="see-full" onclick="location.href='orderdetail.html'">990</p>
-                    <td><p>Lord Inquisitor</p></td>
-                    <td><a>11/11/2023 03:33:15</a></td>
-                    <td><a>500.000</a></td>
-                    <td><a>Chuyển khoản</a></td>
-                    <td><a>Đã huỷ</a></td>
-                    <td><button class="canceled-btn">Đã Huỷ</button></td>
-                </tr>
-            </div>
-        </table>
+                <?php
+                    if(mysqli_num_rows($result) > 0){
+                        $s = "";
+                        while($row = mysqli_fetch_assoc($result)) {
+                            $count++;
+                            $s .= '<tr><td><a>' . $count . '</a></td>';
+                            $s .= sprintf('<td><p class="see-full">%s</p></td>',$row['id']);
+                            $s .= sprintf('<td><p>%s</p></td>',$row['tentaikhoan']);
+                            $s .= sprintf('<td><a>%s</a></td>',$row['date']);
+                            $s .= sprintf('<td><a>500</a></td>');
+                            $s .= sprintf('<td><a>%s</a></td>',$row['payment']);
+                            $s .= sprintf('<td><a>%s</a></td>',$row['trangthai']);
+                            $s .= '<td><button class="cancel-btn">Huỷ</button><button class="confirm-btn">Xác nhận</button></td></tr>';
+                        }
+                        echo $s;
+                    }
+                ?>
+            </table>
+        </div>
         <div class="box">
             <a>Đang hiển thị trang 1 trên 999</a>
             <div class="pre-next-btn">

@@ -179,10 +179,10 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
             <input id="sdt" type="text" class="input-text" placeholder="Số điện thoại">
         </div>
         <p class="text header">chọn cách thức nhận hàng</p>
-        <input type="checkbox" id="ship" name="delivery" onclick="checkOnlyOne(this)">
+        <input type="checkbox" id="ship" name="delivery" value="Giao hàng tận nơi" onclick="checkOnlyOne(this)">
         <label for="ship" class="check-title">Giao hàng tận nơi</label>
 
-        <input type="checkbox" id="shop" name="delivery" onclick="checkOnlyOne(this)">
+        <input type="checkbox" id="shop" name="delivery" value="Nhận tại cửa hàng" onclick="checkOnlyOne(this)">
         <label for="shop" class="check-title">Nhận tại cửa hàng</label>
 
         <a href="locationForm.html" class="linked" id="add-address-link">Thêm địa chỉ mới</a>
@@ -211,124 +211,6 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
         <div class="zone-text-input">
             <input type="text" class="input-text" id="bank" placeholder="số tài khoản" style="display:none;">
         </div>
-        <script>
-            var select = document.getElementById("mySelect");
-            var link = document.getElementById("myLink");
-
-            select.addEventListener("change", function() {
-            var selectedOption = this.options[this.selectedIndex];
-            var selectedValue = selectedOption.value;
-            link.href = 'editlocationForm.php?id=' + selectedValue;
-        });
-        </script>
-
-<script>
-    function checkOnlyOne(checkbox) {
-        var checkboxes = document.getElementsByName('delivery');
-        checkboxes.forEach((item) => {
-            if (item !== checkbox) item.checked = false
-        })
-    }
-
-    function checkOnlyOne1(checkbox) {
-        var checkxh = document.getElementsByName('xungho');
-        checkxh.forEach((item) => {
-            if (item !== checkbox) item.checked = false
-        })
-    }
-
-    function checkOnlyOne2(checkbox) {
-        var checkxh = document.getElementsByName('pay');
-        checkxh.forEach((item) => {
-            if (item !== checkbox) item.checked = false
-        })
-    }
-
-    var checkbox1 = document.getElementById("ship");
-    var checkbox2 = document.getElementById("shop");
-    var link1 = document.getElementById("add-address-link");
-    var link2 = document.getElementById("mySelect");
-    var link3 = document.getElementById("myLink");
-
-    checkbox1.addEventListener('change', function() {
-        if (this.checked && !checkbox2.checked) {
-            link1.style.display = "block";
-            link2.style.display = "inline";
-            link3.style.display = "inline-block";
-        } else {
-            link1.style.display = "none";
-            link2.style.display = "none";
-            link3.style.display = "none";
-        }
-        checkOnlyOne(this);
-    });
-
-    checkbox2.addEventListener('change', function() {
-        if (this.checked && !checkbox1.checked) {
-            link1.style.display = "none";
-            link2.style.display = "none";
-            link3.style.display = "none";
-        }
-        checkOnlyOne(this);
-    });
-
-</script>
-
-<style>
-    #add-address-link, #mySelect{
-        display: none;
-    }
-    .linked {
-        display: block;
-        text-decoration: none;
-        margin-top: 10px; /* khoảng cách giữa thẻ a và các checkbox */
-        border: 1px solid #ccc; /* độ rộng và màu sắc khung */
-        padding: 5px; /* khoảng cách giữa nội dung và khung */
-    }
-  .select {
-    display: inline-block;
-    margin-right: 10px;
-  }
-  #myLink {
-    display: inline-block;
-    margin: 0;
-  }
-</style>
-        <script>
-            var checkbox1 = document.getElementById("ship");
-            var checkbox2 = document.getElementById("shop");
-            var checkbox3 = document.getElementById("onl");
-            var checkbox4 = document.getElementById("cod");
-            var link4 = document.getElementById("bank");
-
-            checkbox3.addEventListener('change', function() {
-                link4.style.display = checkbox3.checked ? 'inline' : 'none';
-                checkOnlyOne2(this);
-            });
-
-            checkbox4.addEventListener('change', function() {
-                if (this.checked && !checkbox3.checked) {
-                    link4.style.display = "none";
-                }
-                checkOnlyOne2(this);
-            });
-
-            function validateForm() {
-                var name = document.forms["form"]["hoten"].value;
-                var sdt = document.forms["form"]["sdt"].value;
-                var pay = document.forms["form"]["bank"].value;
-                if (name == "" || sdt == "" || (checkbox3.checked && pay == "" )|| (!checkbox1.checked && !checkbox2.checked) || (!checkbox3.checked && !checkbox4.checked)) {
-                    alert("vui long2 dien du tt.");
-                    return false;
-                }
-                if(checkbox1.checked){
-                    if(document.getElementById("mySelect").value == -1){
-                        alert("vui long2 dien du tt.");
-                        return false;
-                    }
-                }
-            }
-        </script>
 
     </div>
     <div class="total-price" id="billajax">
@@ -357,15 +239,6 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
         </table>
     </div>
     </form>
-    <script>
-        const productContainer = document.getElementById('formtt');
-        const myForm = document.getElementById("my-form");
-        if(productContainer.innerHTML === 'Giỏ hàng của bạn đang trống'){
-            myForm.style.display = "none";
-        }else{
-            myForm.style.display = "block";
-        }
-    </script>
-    <script src="js/nav.js"></script>
+    <script src="js/cart.js"></script>
 </body>
 </html>
