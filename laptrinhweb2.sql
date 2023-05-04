@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 28, 2023 at 08:50 AM
+-- Generation Time: May 04, 2023 at 06:52 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -32,6 +32,14 @@ CREATE TABLE `cart` (
   `masp` varchar(255) NOT NULL,
   `soluong` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`taikhoan`, `masp`, `soluong`) VALUES
+('account', 'IbS893', 1),
+('account', 'POH823', 1);
 
 -- --------------------------------------------------------
 
@@ -80,18 +88,11 @@ CREATE TABLE `diachi` (
 CREATE TABLE `donhang` (
   `id` int(11) NOT NULL,
   `tentaikhoan` varchar(50) NOT NULL,
-  `masp` varchar(100) NOT NULL,
-  `soluong` int(100) NOT NULL,
   `date` date NOT NULL,
+  `payment` varchar(100) NOT NULL,
+  `id_dc` int(10) NOT NULL,
   `trangthai` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `donhang`
---
-
-INSERT INTO `donhang` (`id`, `tentaikhoan`, `masp`, `soluong`, `date`, `trangthai`) VALUES
-(11, 'newaccount', 'DHB', 1, '2023-04-28', 'Đang xử lý');
 
 -- --------------------------------------------------------
 
@@ -125,6 +126,48 @@ INSERT INTO `sanpham` (`id`, `MaSP`, `TenSP`, `HinhSP`, `MoTaSP`, `GiaSP`, `prod
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `sl_sp_dh`
+--
+
+CREATE TABLE `sl_sp_dh` (
+  `id_dh` int(11) NOT NULL,
+  `id_sp` int(10) NOT NULL,
+  `soluong` int(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `sl_sp_dh`
+--
+
+INSERT INTO `sl_sp_dh` (`id_dh`, `id_sp`, `soluong`) VALUES
+(1, 16, 7),
+(12, 4, 9),
+(12, 5, 19),
+(12, 6, 39),
+(12, 16, 5),
+(13, 4, 9),
+(13, 5, 7),
+(13, 6, 9),
+(13, 16, 7),
+(14, 4, 9),
+(14, 5, 7),
+(14, 6, 9),
+(15, 4, 9),
+(15, 5, 7),
+(15, 6, 9),
+(16, 4, 9),
+(16, 5, 19),
+(17, 6, 39),
+(18, 4, 9),
+(18, 5, 19),
+(19, 4, 9),
+(19, 6, 39),
+(20, 5, 19),
+(20, 6, 39);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -141,8 +184,24 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`username`, `password`, `email`, `fullname`, `role`) VALUES
-('newaccount', '123456789', '123boyzzkhoi@gmail.com', 'asdasd', 'admin'),
-('taikhoanmoi', 'adminbaso9', 'Xxbbluexx@gmail.com', 'asasd', 'normal');
+('account', '123456789', '123boyzzkwdadasadw1313hoi@gmail.com', 'asdasd', 'admin'),
+('cc1', 'adminbaso9', 'Xxbblu333exx@gmail.com', 'asasds', 'normal'),
+('ccc1', 'adminbaso9', 'Xxbb13lu333esxx@gmail.com', 'asasd', 'normal'),
+('ccc2', 'adminbaso9', 'Xxbbaslue3xx@31gmail.com', 'asasd', 'normal'),
+('clm1', 'adminbaso9', 'Xxbblu333exx@gmails.com', 'asasd', 'normal'),
+('cocaic2', 'adminbaso9', 'Xxbbluexx@31gmaial.com', 'asasd', 'normal'),
+('newaccount', '123456789', '123boyzzk1313hoi@gmail.com', 'asdasd', 'adminsss'),
+('newnewaccount', '123456789', '1a23boyzzk1313hoi@gmail.com', 'asdasd', 'admin'),
+('taikhoanmoi', 'adminbaso9', 'Xxbb3luexx@g321mail.com', 'asasd', 'normal'),
+('taikhoanmsssoi', 'adminbaso9', 'Xxdasdadabb3luexx@g321mail.com', 'asasd', 'normal'),
+('taikhoanncc', 'adminbaso9', 'Xxbb3luessaxx@g321mail.com', 'asasd', 'normal'),
+('tk122', '123456789', '1das23boyzz123khoi@gma4il.com', 'asdasd', 'admin'),
+('tk1313', '123456789', '123boyzz123khoi@gmsa4il.com', 'asdasd', 'admin'),
+('tk2', '123456789', '123boyzz123khoi@gma4il.com', 'asdasd', 'admin'),
+('tk23', '123456789', '123boyz222zkhoi@gmail.com', 'asdsssssaadsada', 'adminss'),
+('tk2399', '123456789', '123boyz222zkhoi@gmadil.com', 'asdasd', 'admin'),
+('tk323', '123456789', '12123boyz222zkhoi@gmail.com', 'asdasd', 'admin'),
+('tk423', '123456789', '123boyz22ssss2zkhoi@gmail.com', 'asdasd', 'admin');
 
 --
 -- Indexes for dumped tables
@@ -174,7 +233,7 @@ ALTER TABLE `diachi`
 ALTER TABLE `donhang`
   ADD PRIMARY KEY (`id`),
   ADD KEY `tentaikhoan` (`tentaikhoan`),
-  ADD KEY `donhang_ibfk_2` (`masp`);
+  ADD KEY `id_dc` (`id_dc`,`tentaikhoan`);
 
 --
 -- Indexes for table `sanpham`
@@ -183,6 +242,13 @@ ALTER TABLE `sanpham`
   ADD PRIMARY KEY (`id`) USING BTREE,
   ADD UNIQUE KEY `MaSP` (`MaSP`) USING BTREE,
   ADD KEY `category_id` (`category_id`);
+
+--
+-- Indexes for table `sl_sp_dh`
+--
+ALTER TABLE `sl_sp_dh`
+  ADD PRIMARY KEY (`id_dh`,`id_sp`),
+  ADD KEY `id_sp` (`id_sp`);
 
 --
 -- Indexes for table `users`
@@ -211,7 +277,7 @@ ALTER TABLE `diachi`
 -- AUTO_INCREMENT for table `donhang`
 --
 ALTER TABLE `donhang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `sanpham`
@@ -241,13 +307,20 @@ ALTER TABLE `diachi`
 --
 ALTER TABLE `donhang`
   ADD CONSTRAINT `donhang_ibfk_1` FOREIGN KEY (`tentaikhoan`) REFERENCES `users` (`username`),
-  ADD CONSTRAINT `donhang_ibfk_2` FOREIGN KEY (`masp`) REFERENCES `sanpham` (`MaSP`);
+  ADD CONSTRAINT `donhang_ibfk_2` FOREIGN KEY (`id_dc`,`tentaikhoan`) REFERENCES `diachi` (`id`, `taikhoan`);
 
 --
 -- Constraints for table `sanpham`
 --
 ALTER TABLE `sanpham`
   ADD CONSTRAINT `sanpham_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
+
+--
+-- Constraints for table `sl_sp_dh`
+--
+ALTER TABLE `sl_sp_dh`
+  ADD CONSTRAINT `sl_sp_dh_ibfk_1` FOREIGN KEY (`id_dh`) REFERENCES `donhang` (`id`),
+  ADD CONSTRAINT `sl_sp_dh_ibfk_2` FOREIGN KEY (`id_sp`) REFERENCES `sanpham` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -3,22 +3,6 @@
 <?php
 require_once('lib_login_session.php');
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "LaptrinhWeb2";
-
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-if (!$conn) {
-  die("Connection failed: " . mysqli_connect_error());
-}
-
-$sql = "SELECT * FROM donhang";
-$result = mysqli_query($conn, $sql);
-$count = 0;
-if (!$result) { die("Query failed: " . mysqli_error($conn)); }
 
 ?>
 <head>
@@ -32,6 +16,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
     <link rel="stylesheet" href="css/search.css">
     <link rel="stylesheet" href="css/sigup.css">
     <link rel="stylesheet" href="css/admin1.css">
+    <link rel="stylesheet" href="css/page.css">
 
 </head>
 <body>
@@ -39,7 +24,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
 
     <div class="alert-box">
         <img src="img/error.png" class="alert-img" alt="">
-        <p class="alert-msg">Thông báo lỗi</p>
+        <p class="alert-msg"></p>
     </div>
     <img src="img/dark-logo.png" class="logo" alt="">
 
@@ -83,9 +68,9 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
         <div class="box">
             <div class="date-search">
                     <a class="nameselect-combo">Từ ngày</a>
-                    <input type="date" class="date">
+                    <input type="date" class="date from-date">
                     <a class="nameselect-combo">Tới ngày</a>
-                    <input type="date" class="date">
+                    <input type="date" class="date to-date">
                 <div class="btn-search-date">
                     <button class="btn btn-search-date">Xác nhận</button>
                 </div>
@@ -93,28 +78,27 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
         </div>
         <h2>Danh sách đơn hàng</h2>
         <div class="box">
-            <select class="select">
+            <!-- <select class="select">
                 <option>hiển thị: 10 mục</option>
                 <option>20</option>
                 <option>30</option>
                 <option>tất cả</option>
-            </select>
-            <select class="select">
-                <option>Sếp theo: Trạng thái</option>
-                <option>Đã xử lý</option>
-                <option>chưa xử lý</option>
-                <option>đã xác nhận</option>
-                <option>đã huỷ</option>
-                <option>Mới nhất</option>
-                <option>cũ nhất</option>
-                <option>thành tiền</option>
+            </select> -->
+            <select class="select select-order">  
+                <option value="ASC">mới nhất</option>
+                <option value="DESC">cũ nhất</option>
+                <option value="not wait">đã xử lý</option>
+                <option value="waiting">chưa xử lý</option>
+                <option value="confirmed">đã xác nhận</option>
+                <option value="cancelled">đã huỷ</option>
+                
             </select>
             <div class="search-order">
                 <input type="text" placeholder="Tìm kiếm...">
                 <button class="search-btn">&#9906; Tìm kiếm</button>                       
             </div>
         </div>
-        <div class="small-container oder-page">
+        <div class="small-container oder-page1">
             <table>
                 <tr>
                     <th>#</th>
@@ -125,36 +109,13 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                     <th>Hình thức thanh toán</th>
                     <th>Tình trạng đơn</th>
                     <th>Hành động</th>
+                    <th>diachiiiiiiiiiii</th>
                 </tr>
-                <?php
-                    if(mysqli_num_rows($result) > 0){
-                        $s = "";
-                        while($row = mysqli_fetch_assoc($result)) {
-                            $count++;
-                            $s .= '<tr><td><a>' . $count . '</a></td>';
-                            $s .= sprintf('<td><p class="see-full">%s</p></td>',$row['id']);
-                            $s .= sprintf('<td><p>%s</p></td>',$row['tentaikhoan']);
-                            $s .= sprintf('<td><a>%s</a></td>',$row['date']);
-                            $s .= sprintf('<td><a>500</a></td>');
-                            $s .= sprintf('<td><a>%s</a></td>',$row['payment']);
-                            $s .= sprintf('<td><a>%s</a></td>',$row['trangthai']);
-                            $s .= '<td><button class="cancel-btn">Huỷ</button><button class="confirm-btn">Xác nhận</button></td></tr>';
-                        }
-                        echo $s;
-                    }
-                ?>
+                
             </table>
         </div>
-        <div class="box">
-            <a>Đang hiển thị trang 1 trên 999</a>
-            <div class="pre-next-btn">
-                <a class="btn">Trang trước</a>
-                <a class="btn">1</a>
-                <a class="btn">Trang sau</a>
-            </div>
-        </div>
+        <ul class="box list_page"></ul>
     </div>
-
-    <script src="js/admin.js"></script>
+    <script type="module" src="js/order.js"> </script>
 </body>
 </html>

@@ -217,7 +217,7 @@ td:last-child{
     padding-top: 10px;
     height: 100%;
 }
-.cancel-btn{
+.delete-btn, .confirm-del-btn, .cancel-btn, .des-btn{
     border-radius: 5px;
     background: orangered;
     color: white;
@@ -229,7 +229,13 @@ td:last-child{
     cursor: pointer;
     margin-right: 4px;
 }
-.confirm-btn{
+.des-btn{
+    background: gray;
+}
+/* .cancel-btn{
+    background: gray;
+} */
+.edit-btn, .confirm-btn{
     border-radius: 5px;
     background: rgb(41, 41, 255);
     color: white;
@@ -354,3 +360,8 @@ tr:nth-child(even) {
 .see-full:hover{
     color: red;
 }
+.disabled-btn {
+    pointer-events: none;
+    background: gray;
+    opacity: 0.5; 
+  }
