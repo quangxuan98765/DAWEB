@@ -101,3 +101,14 @@ function useClick(element){
 
   click(element.dataset.value);
 }
+export function useFunc(page,func){
+  func(page);
+  const newListpageItem = document.querySelectorAll(".list_page_item");
+  var newItem = newListpageItem[page-1];
+    
+   
+    newListpageItem.forEach(function (item) {
+      item.classList.remove("list_page_item--active");
+     });
+    newItem.classList.add("list_page_item--active");
+};

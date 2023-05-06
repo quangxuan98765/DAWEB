@@ -30,7 +30,7 @@ function doFirst(sort){
       var page = DpP*(num-1) + i;
       s += '<tr class="data-row" data-id="'+ data[page].id+'"><td><a>'+ (i+1) + '</a><td><p class="see-full" onclick="' + 'location.href="orderdetail.html"'
         +'">'+ data[page].id +'</p><td><p>'+data[page].tentaikhoan +'</p></td><td><a>'+data[page].date+'</a></td><td><a>'
-        +data[page].cost + '</a></td><td><a>'+data[page].payment+ '</a></td><td>ccc</td><td><a>' 
+        +data[page].cost + '</a></td><td><a>'+data[page].payment+ '</a></td><td>'+data[page].city+'</td><td><a>' 
         + (data[page].trangthai == "waiting"
         ?'Đang đợi xác nhận</a></td><td class="wait-btn"><button class="cancel-btn">Huỷ</button><button class="confirm-btn">Xác nhận</button>'
         :(data[page].trangthai=="cancelled"? 'Đã huỷ</a></td><td><button class="canceled-btn">Đã huỷ</button>'

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 04, 2023 at 06:52 AM
+-- Generation Time: May 05, 2023 at 04:44 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -24,6 +24,17 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `brands`
+--
+
+CREATE TABLE `brands` (
+  `id` int(200) NOT NULL,
+  `brand_name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `cart`
 --
 
@@ -33,14 +44,6 @@ CREATE TABLE `cart` (
   `soluong` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `cart`
---
-
-INSERT INTO `cart` (`taikhoan`, `masp`, `soluong`) VALUES
-('account', 'IbS893', 1),
-('account', 'POH823', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -48,22 +51,9 @@ INSERT INTO `cart` (`taikhoan`, `masp`, `soluong`) VALUES
 --
 
 CREATE TABLE `category` (
-  `id` int(10) NOT NULL,
-  `category_name` varchar(200) NOT NULL,
-  `slug` varchar(200) NOT NULL
+  `id` int(200) NOT NULL,
+  `category_name` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `category`
---
-
-INSERT INTO `category` (`id`, `category_name`, `slug`) VALUES
-(1, 'apple', 'laptop'),
-(2, 'acer', 'laptop'),
-(3, 'asus', 'laptop'),
-(4, 'dell', 'laptop'),
-(5, 'hp', 'laptop'),
-(6, 'lenovo', 'laptop');
 
 -- --------------------------------------------------------
 
@@ -79,6 +69,19 @@ CREATE TABLE `diachi` (
   `sonha` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `diachi`
+--
+
+INSERT INTO `diachi` (`id`, `taikhoan`, `city`, `tenduong`, `sonha`) VALUES
+(1, 'account', 'asdds', 'sadads', 123),
+(3, 'account', 'HCM', 'asdsad', 231132),
+(4, 'account', 'HCM', 'TEnduong', 123),
+(5, 'account', 'HCM', 'TEnduong', 123),
+(8, 'account', 'asdds', 'sadads', 123),
+(9, 'account', '', '', 0),
+(10, 'cc1', '12', 'sadasd', 123);
+
 -- --------------------------------------------------------
 
 --
@@ -91,8 +94,19 @@ CREATE TABLE `donhang` (
   `date` date NOT NULL,
   `payment` varchar(100) NOT NULL,
   `id_dc` int(10) NOT NULL,
-  `trangthai` varchar(100) NOT NULL
+  `trangthai` varchar(100) NOT NULL,
+  `sdt` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `donhang`
+--
+
+INSERT INTO `donhang` (`id`, `tentaikhoan`, `date`, `payment`, `id_dc`, `trangthai`, `sdt`) VALUES
+(21, 'account', '2023-05-05', 'on', 4, 'waiting', 923123),
+(22, 'account', '2023-05-05', 'on', 3, 'waiting', 23123123),
+(23, 'account', '2023-05-05', 'on', 3, 'waiting', 23123123),
+(24, 'account', '2023-05-05', 'on', 4, 'waiting', 98809);
 
 -- --------------------------------------------------------
 
@@ -109,19 +123,9 @@ CREATE TABLE `sanpham` (
   `GiaSP` int(11) NOT NULL,
   `product_sell` varchar(100) NOT NULL,
   `more_img` text NOT NULL,
-  `category_id` int(200) NOT NULL
+  `category_id` int(200) NOT NULL,
+  `brand_id` int(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `sanpham`
---
-
-INSERT INTO `sanpham` (`id`, `MaSP`, `TenSP`, `HinhSP`, `MoTaSP`, `GiaSP`, `product_sell`, `more_img`, `category_id`) VALUES
-(4, 'POH823', 'Dell 3', '../ProjectWeb/img/product/dell 3.jpg', 'Dell lỏ', 20000000, 'hàng bán chạy', '', 4),
-(5, 'IbS893', 'Lenovo 1', '../ProjectWeb/img/product/lenovo1.jpg', 'Lenovo lỏ', 23000000, 'hàng bán chạy', '', 6),
-(6, 'gKD782', 'HP 2', '../ProjectWeb/img/product/hp2.jpg', 'HP lỏ', 23000000, 'hàng bán chạy', '', 5),
-(15, 'ASD', 'Acer 1', '../ProjectWeb/img/product/acer1.jpg', 'Acer lỏ', 17000000, 'hàng mới', '', 2),
-(16, 'DHB', 'Asus 1', '../ProjectWeb/img/product/asus1.jpg', 'Asus lỏ', 18000000, 'hàng mới', '', 3);
 
 -- --------------------------------------------------------
 
@@ -140,30 +144,11 @@ CREATE TABLE `sl_sp_dh` (
 --
 
 INSERT INTO `sl_sp_dh` (`id_dh`, `id_sp`, `soluong`) VALUES
-(1, 16, 7),
-(12, 4, 9),
-(12, 5, 19),
-(12, 6, 39),
-(12, 16, 5),
-(13, 4, 9),
-(13, 5, 7),
-(13, 6, 9),
-(13, 16, 7),
-(14, 4, 9),
-(14, 5, 7),
-(14, 6, 9),
-(15, 4, 9),
-(15, 5, 7),
-(15, 6, 9),
-(16, 4, 9),
-(16, 5, 19),
-(17, 6, 39),
-(18, 4, 9),
-(18, 5, 19),
-(19, 4, 9),
-(19, 6, 39),
-(20, 5, 19),
-(20, 6, 39);
+(23, 4, 2),
+(23, 5, 1),
+(23, 6, 1),
+(24, 15, 2),
+(24, 16, 4);
 
 -- --------------------------------------------------------
 
@@ -208,6 +193,12 @@ INSERT INTO `users` (`username`, `password`, `email`, `fullname`, `role`) VALUES
 --
 
 --
+-- Indexes for table `brands`
+--
+ALTER TABLE `brands`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `cart`
 --
 ALTER TABLE `cart`
@@ -241,7 +232,8 @@ ALTER TABLE `donhang`
 ALTER TABLE `sanpham`
   ADD PRIMARY KEY (`id`) USING BTREE,
   ADD UNIQUE KEY `MaSP` (`MaSP`) USING BTREE,
-  ADD KEY `category_id` (`category_id`);
+  ADD KEY `category_id` (`category_id`),
+  ADD KEY `brand_id` (`brand_id`);
 
 --
 -- Indexes for table `sl_sp_dh`
@@ -265,19 +257,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `diachi`
 --
 ALTER TABLE `diachi`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `donhang`
 --
 ALTER TABLE `donhang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `sanpham`
@@ -313,7 +305,8 @@ ALTER TABLE `donhang`
 -- Constraints for table `sanpham`
 --
 ALTER TABLE `sanpham`
-  ADD CONSTRAINT `sanpham_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
+  ADD CONSTRAINT `sanpham_ibfk_1` FOREIGN KEY (`brand_id`) REFERENCES `brands` (`id`),
+  ADD CONSTRAINT `sanpham_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
 
 --
 -- Constraints for table `sl_sp_dh`

@@ -17,10 +17,11 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
-$sql = "SELECT `donhang`.`id` AS `id`, `tentaikhoan`, `date`, `trangthai`, `payment`, SUM(`GiaSP` * `soluong`) AS `cost` 
+$sql = "SELECT `donhang`.`id` AS `id`, `city`,`tentaikhoan`, `date`, `trangthai`, `payment`, SUM(`GiaSP` * `soluong`) AS `cost` 
 FROM `donhang` 
 INNER JOIN `sl_sp_dh` ON `donhang`.`id` = `id_dh` 
 INNER JOIN `sanpham` ON `id_sp` = `sanpham`.`id` 
+INNER JOIN `diachi` ON `donhang`.`id_dc` = `diachi`.id AND `donhang`.`tentaikhoan` = `diachi`.`taikhoan`
 GROUP BY `donhang`.`id`";
 $action = $data["action"];
 unset($data["action"]);
