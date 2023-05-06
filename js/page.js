@@ -14,7 +14,7 @@ export function pagesToElement(count, amountdpp, element, click) {
   }
 
   element.innerHTML = s;
-  click('1');
+  click("1");
   const listItems = document.querySelectorAll(".list_page_item");
   if (listItems.length > 1) {
     var allPages = document.querySelectorAll(".link_page");
@@ -81,18 +81,26 @@ var i=1;
   });
   
 }
-// function useClick(element){
+function activeEvent(button) {
+  const clickEvent = new Event("click");
+  document.querySelectorAll(".list_page_item").forEach(function (item) {
+    item.classList.remove("list_page_item--active");
+   });
+  button.parentElement.classList.add("list_page_item--active");
+  button.dispatchEvent(clickEvent);
+}
+function useClick(element){
 
-//   e.preventDefault();
+  e.preventDefault();
 
-//   var listItems = document.querySelectorAll(".list_page_item");
-//   listItems.forEach(function (item) {
-//    item.classList.remove("list_page_item--active");
-//   });
-//   Item.classList.add("list_page_item--active");
+  var listItems = document.querySelectorAll(".list_page_item");
+  listItems.forEach(function (item) {
+   item.classList.remove("list_page_item--active");
+  });
+  Item.classList.add("list_page_item--active");
 
-//   click(element.dataset.value);
-// }
+  click(element.dataset.value);
+}
 export function useFunc(page,func){
   func(page);
   const newListpageItem = document.querySelectorAll(".list_page_item");
@@ -102,6 +110,5 @@ export function useFunc(page,func){
     newListpageItem.forEach(function (item) {
       item.classList.remove("list_page_item--active");
      });
-     console.log("Do useFunc");
     newItem.classList.add("list_page_item--active");
 };

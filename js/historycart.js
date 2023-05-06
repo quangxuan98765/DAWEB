@@ -1,23 +1,29 @@
      
-
-import {pagesToElement,useFunc} from "../js/page.js"; 
-doFirst();
-function doFirst(){
+    var thispage=1;
+    import {pagesToElement} from "../js/page.js"; 
     let DpP = 5; //amountOfDataPerPage
+
+
+ 
+
+
+
+
     var xhr2 = new XMLHttpRequest();
     xhr2.open("GET", "mHistorycart.php", true);
-    
     xhr2.onload = function () {
         
     if (xhr2.status == 200) {
-        
+    
+        console.log(data);
     var data = JSON.parse(xhr2.responseText);
     
+    console.log(data);
     var products = data.data_sp;
     var sp_1st = data.id_1st_sp;
      
-     function myFunc(num) {
-        console.log(num);
+     pagesToElement(products.length, DpP,document.querySelector(".list_page"),function myFunc(num) {
+            thispage=num;
             var productContainer = document.getElementById('boxajax');
             var productHtml = "";
             if(products.length === 0) {
@@ -38,33 +44,31 @@ function doFirst(){
                     productHtml += `<td><a>`+ products[page].soluong +`</a></td><td>` + gia.toLocaleString('vi-VN') + `₫</td>`;
                     productHtml += `<td>`+ products[page].date +`</td><td><button class="btn-huydon" name="huydon" data-idsp=` + products[page].id_sp+ " data-iddh="+products[page].id_dh+`>Hủy đơn</button><p>`+ (products[page].trangthai == "waiting"?"Đang xử lý":"Đã xử lý") +`</p></td></tr>`;
                 }
+                console.log(productHtml);
                 productContainer.innerHTML = productHtml;
+                productContainer.querySelectorAll(".btn-huydon").forEach(function(item){
+                    item.addEventListener("click",()=>{
+                        deleteCart(item.dataset.idsp,item.dataset.iddh)
+                        location.reload();
+                    });
+                })
             }
-            document.querySelectorAll(".btn-huydon").forEach(function(item){
-                item.addEventListener("click",(e)=>{
-                    deleteCart(item.dataset.idsp,item.dataset.iddh);
-                    doFirst();
-                });
-            })
-    }
-pagesToElement(products.length, DpP,document.querySelector(".list_page"),myFunc);  
+
+    })
 }
-}
-xhr2.send();
- 
     }
-function deleteCart(idsp,iddh) {
+    xhr2.send();
+    
+    function deleteCart(idsp,iddh) {
+        console.log(idsp+"-------"+iddh);
         // Tạo đối tượng XMLHttpRequest
-        
         var xhr = new XMLHttpRequest();
         xhr.open("GET", "thanhtoan.php?id_sp=" + idsp + "&id_dh="+iddh+"&huydon=1", true);
-        xhr.onload = function () {
-            
-            if (xhr.status == 200) {
+        xhr.onload = function() {
             }
         
-        
+        xhr.onerror = function() {
+            console.error(xhr.statusText);
         };
         xhr.send();
     }
-    
