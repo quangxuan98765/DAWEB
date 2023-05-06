@@ -106,14 +106,8 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
         </div>
     </div>
 
-    <script>
-   
-</script>
-
     <div class="small-container cart-page" id="boxajax">
-           
-           
-           <!-- <?php
+           <?php
             if(mysqli_num_rows($result) > 0){
                 $s = "";
                 
@@ -137,17 +131,11 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
             else {
                 echo 'Bạn chưa mua gì';
             }
-            ?> -->
-
-
+            ?>
     </div>
 
     <ul class="list_page"></ul>
-
-
-<script type="module" src="js/historycart.js">
-   
- </script>
+    <script type="module" src="js/historycart.js"></script>
     <script src="js/nav.js"></script>
 </body>
 </html>

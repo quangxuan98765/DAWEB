@@ -25,16 +25,42 @@
         </div>
 
         <!-- product image -->
-        <div class="product-info">
-            <div class="product-image"><p class="text">ảnh sản phẩm</p></div>
             <!-- upload inputs -->
-            <div class="upload-image-sec">
-                <p class="text"><img src="img/camera.png" alt="">tải ảnh lên</p>
-                <div class="upload-catalouge">
-                    <input type="file" class="fileupload" id="first-file-upload-btn" name="filetoup" hidden>
-                    <label for="first-file-upload-btn" class="upload-image" ></label>
-                </div>
+        <div class="upload-image-sec">
+            <p class="text"><img src="img/camera.png" alt="">tải ảnh lên</p>
+            <div class="upload-catalouge">
+                <input type="file" class="fileupload" id="image-upload1" name="filetoup[]" accept="image/*" style="width: 90px;">
+                <img id="image-preview1" style="display: block;width: 100px;">
+                <input type="file" class="fileupload" id="image-upload2" name="filetoup[]" accept="image/*" style="width: 90px;">
+                <img id="image-preview2" style="display: block;width: 100px;">
+                <input type="file" class="fileupload" id="image-upload3" name="filetoup[]" accept="image/*" style="width: 90px;">
+                <img id="image-preview3" style="display: block;width: 100px;">
+                <input type="file" class="fileupload" id="image-upload4" name="filetoup[]" accept="image/*" style="width: 90px;">
+                <img id="image-preview4" style="display: block;width: 100px;">
             </div>
+        </div>
+        <script>
+            const imageUploads = document.querySelectorAll('.fileupload');
+            const imagePreviews = document.querySelectorAll('img[id^="image-preview"]');
+        
+            for (let i = 0; i < imageUploads.length; i++) {
+                imageUploads[i].addEventListener('change', function() {
+                    const file = this.files[0];
+                    const imagePreview = imagePreviews[i];
+        
+                    if (file) {
+                        const reader = new FileReader();
+        
+                        reader.addEventListener('load', function() {
+                            imagePreview.setAttribute('src', this.result);
+                            imagePreview.style.display = 'block';
+                        });
+        
+                        reader.readAsDataURL(file);
+                    }
+                });
+            }
+        </script>
             <!-- <div class="select-sizes">
                 <p class="text">size hiện có</p>
                 <div class="sizes">
@@ -47,14 +73,14 @@
                     <input type="checkbox" class="size-checkbox" id="xxxl" value="xxxl">
                 </div>
             </div> -->
-        </div>
         <div class="product-price">
             <input type="number" id="selling-price" name="gia_sp" placeholder="giá bán">
         </div>
 
         <input type="number" id="stock" min="20" placeholder="Nhập số lượng vào kho (tối thiểu 20)">
 
-        <textarea id="tags" name="loai_sp" placeholder="Nhập phân loại sản phẩm tại đây, ví dụ - Men Armor, Power Armor, Primaris Armor,... (bạn phải nhập men hoặc women trước để bắt đầu)"></textarea>
+        <input type="text" id="tags" name="thuong_hieu" placeholder="Brand">
+        <input type="text" name="loai_sp" placeholder="Category">
 
         <input type="checkbox" class="checkbox" id="tac" checked>
         <label for="tac">Tôi đã kiểm tra kĩ thông tin</label>
@@ -63,7 +89,7 @@
             function validateForm() {
                 var gia = document.forms["themsp"]["selling-price"].value;
                 var name = document.forms["themsp"]["product-name"].value;
-                var img = document.forms["themsp"]["first-file-upload-btn"].value;
+                var img = document.forms["themsp"]["image-upload"].value;
                 if (name == "" || img == "" || gia =="") {
                     alert("Bạn cần nhập tên,giá sản phẩm và tải ảnh sản phẩm lên trước khi thêm sản phẩm.");
                     return false;
@@ -75,7 +101,6 @@
             <button class="btn" id="add-btn" name="submitThemsp" onclick="return validateForm()">thêm sản phẩm</button>
         </div>
 </form>
-    <script src="js/addProduct.js"></script>
     
 </body>
 </html>

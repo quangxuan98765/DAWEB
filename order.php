@@ -2,8 +2,6 @@
 <html lang="vi">
 <?php
 require_once('lib_login_session.php');
-
-
 ?>
 <head>
     <meta charset="UTF-8">
