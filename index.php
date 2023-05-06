@@ -292,7 +292,12 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
     </section>
 
     <footer></footer>
-
+    
+    <script type="module"> 
+    import { firstFunc } from "./js/searchBar.js";
+        firstFunc();
+    </script>
+    <script src="js/search.js"></script>
     <script src="js/home.js"></script>
     <script src="js/footer.js"></script>
 </body>
