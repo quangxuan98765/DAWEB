@@ -16,7 +16,7 @@ if (!$conn) {
   die("Connection failed: " . mysqli_connect_error());
 }
 $taikhoan = $_SESSION['current_username'];
-$sql = "SELECT * FROM cart,sanpham WHERE cart.masp = sanpham.MaSP and taikhoan = '$taikhoan'";
+$sql = "SELECT * FROM users,cart,sanpham WHERE  cart.masp = sanpham.MaSP and taikhoan = username and taikhoan = '$taikhoan'";
 $result = mysqli_query($conn, $sql);
 if (!$result) { die("Query failed: " . mysqli_error($conn)); }
 
@@ -150,6 +150,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
             if(mysqli_num_rows($result) > 0){
                 $s = "";
                 while($row = mysqli_fetch_assoc($result)) {
+                    $name = $row['fullname'];
                     $gia_moi = $row['GiaSP'] * $row['soluong'];
                     $gia_moi = number_format($gia_moi, 0, '', '.'); // Định dạng lại giá mới để hiển thị
                     $s.=sprintf('<tr><td><div class="cart-info"><img src="%s"><div>',$row['HinhSP']);
@@ -175,8 +176,8 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
         <input type="checkbox" id="Nu" name="xungho" onclick="checkOnlyOne1(this)">
         <label for="Nu" class="check-title">Chị</label>
         <div class="zone-text-input">
-            <input id="hoten" type="text" class="input-text" placeholder="Họ và tên">
-            <input id="sdt" type="text" class="input-text" placeholder="Số điện thoại">
+        <?php  echo '<input id="hoten"  type="text" class="input-text" placeholder="Họ và tên" value="'.$name.'"'?>>
+            <input id="sdt" name="sdt" type="text" class="input-text" placeholder="Số điện thoại">
         </div>
         <p class="text header">chọn cách thức nhận hàng</p>
         <input type="checkbox" id="ship" name="delivery" value="Giao hàng tận nơi" onclick="checkOnlyOne(this)">
@@ -187,7 +188,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
 
         <a href="locationForm.html" class="linked" id="add-address-link">Thêm địa chỉ mới</a>
         <div class="address-input">
-        <select id="mySelect" class="select">
+        <select id="mySelect" name="select-loc" class="select">
             <option value="-1">Chọn địa chỉ nhận hàng</option>
             <?php
             $sql1 = "SELECT * FROM diachi WHERE taikhoan = '$taikhoan'";
