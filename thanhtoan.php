@@ -59,17 +59,15 @@ if(isset($_REQUEST['huydon'])) {
   }
 
   // Check if the id parameter is set
-  if(isset($_GET['id_sp'])) {
+  if(isset($_GET['id_dh'])) {
     
-      $id_sp = $_GET['id_sp'];
       $id_dh = $_GET['id_dh'];
       $taikhoan = $_SESSION['current_username'];
-
-      $sql = "DELETE FROM sl_sp_dh WHERE id_sp = $id_sp and id_dh = $id_dh";
-      
-      mysqli_query($conn, $sql);
+      $sql1 = "DELETE FROM sl_sp_dh WHERE id_dh = $id_dh";
+      $sql2 = "DELETE FROM donhang WHERE id_dh = $id_dh";
+      mysqli_query($conn, $sql1);
+      mysqli_query($conn, $sql2);
       // Lấy danh sách các sản phẩm còn lại
-      
   }
 }
 
