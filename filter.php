@@ -13,6 +13,7 @@ if (!$conn) {
 
 $category = $_GET['category_name'];
 $gia = $_GET['GiaSP'];
+
 if($category == 0){
   if($gia == 1)
     $sql = "SELECT * FROM sanpham WHERE GiaSP >= 5000000 and GiaSP <= 15000000";

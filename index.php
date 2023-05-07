@@ -130,10 +130,10 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                     <option value = "3">trên 20 triệu</option>
                 </select>
                 <a class="nameselect-combo">Loại</a>
-                <select class="select-combo">
-                    <option>Chọn loại</option>
-                    <option>Laptop</option>
-                    <option>Phụ kiện</option>
+                <select class="select-combo" id="product-select_2" onchange="filterProducts()">
+                    <option value = "0">Chọn loại</option>
+                    <option value = "laptop">Laptop</option>
+                    <option value = "phụ kiện">Phụ kiện</option>
                 </select>
         </div>
 
@@ -143,7 +143,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
             xhr1.open("GET", "lib_login_sesison(forAjax).php", true);
             xhr1.onload = function() {
                 // Lấy giá trị được chọn trong select box
-                var productSelect = document.getElementById('product-select');
+                var productSelect = document.getElementById('product-select_2');
                 var productSelect_1 = document.getElementById('product-select_1');
                 var productValue = productSelect_1.value;
                 var productName = productSelect.value;
@@ -152,27 +152,42 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                 var xhr = new XMLHttpRequest();
                 xhr.open('GET', 'filter.php?category_name=' + productName + '&GiaSP=' + productValue, true);
                 xhr.onload = function() {
-                    if (xhr.status === 200) {
-                        // Xử lý kết quả trả về từ yêu cầu Ajax
-                        var products = JSON.parse(xhr.responseText);
-                        var productContainer = document.getElementById('boxajax-containter');
-                        var productHtml = '';
-                        products.forEach(function(product) {
-                            // Tạo phần tử HTML để hiển thị sản phẩm
-                            productHtml += `<div class="product-card"><div class="product-image"><a href="product.php?MaSP=` + product.MaSP + `">`;
-                            if(xhr1.responseText == 1){
-                                productHtml += `<img src="` + product.HinhSP + `" class="product-thumb"> <button class="card-btn">mua ngay</button>`;
-                                productHtml += `<a href="editProduct.php?id=` +  product.id + `"><button class="card-action-btn edit-btn">Sửa</button></a>`;
-                                productHtml += `<a href="manageProduct.php?del=1&id=` + product.id + `" onclick="return confirm(\'Are you sure?\');"><button class="card-action-btn delete-popup-btn">Xóa</button></a>`;
+                    if (xhr.status === 200) { 
+                        pagesToElement(products.length, DpP,document.querySelector(".list_page"),function myFunc(num) {
+                            thispage=num;
+                            // Xử lý kết quả trả về từ yêu cầu Ajax
+                            var products = JSON.parse(xhr.responseText);
+                            var productContainer = document.getElementById('boxajax-containter');
+                            var productHtml = '';
+                            productHtml += `<div class="product-card"><div class="product-image"><a href="product.php?MaSP=` + products[page].MaSP + `">`;
+                            for (let i = 0; i <DpP && (DpP*(num-1) + i)< products.length; i++) {
+                                var page = DpP*(num-1) + i;
+                                if(xhr1.responseText == 1){
+                                    productHtml += `<img src="` + products[page].HinhSP + `" class="product-thumb"> <button class="card-btn">mua ngay</button>`;
+                                    productHtml += `<a href="editProduct.php?id=` +  products[page].id + `"><button class="card-action-btn edit-btn">Sửa</button></a>`;
+                                    productHtml += `<a href="manageProduct.php?del=1&id=` + products[page].id + `" onclick="return confirm(\'Are you sure?\');"><button class="card-action-btn delete-popup-btn">Xóa</button></a>`;
+                                }
+                                else
+                                    productHtml += `<img src="` + products[page].HinhSP + `" class="product-thumb"> <button class="card-btn">mua ngay</button>`;
+                                    var gia = parseInt(products[page].GiaSP);
+                                    productHtml +=`</a></div><div class="product-info"><h2 class="product-brand">` + products[page].TenSP + `(` + products[page].MaSP + `)</h2><p class="product-short-des">` + products[page].MoTaSP + `</p><span class="price">` + gia.toLocaleString('vi-VN') + ` vnđ</span></div></div>`;
                             }
-                            else
-                                productHtml += `<img src="` + product.HinhSP + `" class="product-thumb"> <button class="card-btn">mua ngay</button>`;
-                            var gia = parseInt(product.GiaSP);
-                            productHtml +=`</a></div><div class="product-info"><h2 class="product-brand">` + product.TenSP + `(` + product.MaSP + `)</h2><p class="product-short-des">` + product.MoTaSP + `</p><span class="price">` + gia.toLocaleString('vi-VN') + ` vnđ</span></div></div>`;
-                        });
-                        productContainer.innerHTML = `<section class="product"><h2 class="product-category">Sản phẩm mới <img src="img/new.png"></h2><button class="pre-btn"><img src="img/arrow.png" alt=""></button><button class="nxt-btn"><img src="img/arrow.png" alt=""></button><div class="product-container">` + productHtml + '</div></section>';
+                            // products.forEach(function(product) {
+                            //     // Tạo phần tử HTML để hiển thị sản phẩm
+                            //     productHtml += `<div class="product-card"><div class="product-image"><a href="product.php?MaSP=` + product.MaSP + `">`;
+                            //     if(xhr1.responseText == 1){
+                            //         productHtml += `<img src="` + product.HinhSP + `" class="product-thumb"> <button class="card-btn">mua ngay</button>`;
+                            //         productHtml += `<a href="editProduct.php?id=` +  product.id + `"><button class="card-action-btn edit-btn">Sửa</button></a>`;
+                            //         productHtml += `<a href="manageProduct.php?del=1&id=` + product.id + `" onclick="return confirm(\'Are you sure?\');"><button class="card-action-btn delete-popup-btn">Xóa</button></a>`;
+                            //     }
+                            //     else
+                            //         productHtml += `<img src="` + product.HinhSP + `" class="product-thumb"> <button class="card-btn">mua ngay</button>`;
+                            //     var gia = parseInt(product.GiaSP);
+                            //     productHtml +=`</a></div><div class="product-info"><h2 class="product-brand">` + product.TenSP + `(` + product.MaSP + `)</h2><p class="product-short-des">` + product.MoTaSP + `</p><span class="price">` + gia.toLocaleString('vi-VN') + ` vnđ</span></div></div>`;
+                            // });
+                            productContainer.innerHTML = `<section class="product"><h2 class="product-category">Sản phẩm mới <img src="img/new.png"></h2><button class="pre-btn"><img src="img/arrow.png" alt=""></button><button class="nxt-btn"><img src="img/arrow.png" alt=""></button><div class="product-container">` + productHtml + '</div></section>';
+                        })
                     }
-
                 }
                 // const productDiv = document.getElementById('boxajax-containter');
                 // productDiv.style.display = 'flex';

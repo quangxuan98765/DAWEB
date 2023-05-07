@@ -1,6 +1,6 @@
      
     var thispage=1;
-    import {pagesToElement} from "../js/page.js"; 
+    import {pagesToElement} from "../js/page.js";
     let DpP = 5; //amountOfDataPerPage
 
     var xhr2 = new XMLHttpRequest();
