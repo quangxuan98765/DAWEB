@@ -3,12 +3,6 @@
     import {pagesToElement} from "../js/page.js"; 
     let DpP = 5; //amountOfDataPerPage
 
-
- 
-
-
-
-
     var xhr2 = new XMLHttpRequest();
     xhr2.open("GET", "mHistorycart.php", true);
     xhr2.onload = function () {
@@ -55,8 +49,8 @@
             }
 
     })
-}
     }
+        }
     xhr2.send();
     
     function deleteCart(idsp,iddh) {

@@ -113,27 +113,36 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
     <section class="product-details">
         <div class="image-slider">
         <?php
-        if (mysqli_num_rows($result) > 0) {
-            $row = mysqli_fetch_assoc($result);
-            $largeImage = sprintf('<img id="large-image" src="%s" style="width: 620px; height: 412px;">', $row['HinhSP']);
-            $smallImages = sprintf('<div class="anhsp" style="width: 630px">');
-            $smallImages .= sprintf('<img class="small-image" src="%s" style="width: 200px; height: 133px;">', $row['HinhSP']);
-            $smallImages .= sprintf('<img class="small-image" src="%s" style="width: 200px; height: 133px;">', $row['HinhSP']);
-            $smallImages .= sprintf('<img class="small-image" src="%s" style="width: 200px; height: 133px;">', $row['HinhSP']);
-            $smallImages .= sprintf('</div>');
-        }
-        echo $largeImage;
-        echo $smallImages;
+            if (mysqli_num_rows($result) > 0) {
+                $row = mysqli_fetch_assoc($result);
+                $largeImage = sprintf('<img class="lon" id="large-image" src="%s" style="width: 620px; height: 412px;">', $row['HinhSP']);
+                $smallImages = sprintf('<div class="anhsp" style="width: 630px">');
+                $smallImages .= sprintf('<img class="small-image" src="%s" style="width: 200px; height: 133px;">', $row['more_img']);
+                $smallImages .= sprintf('<img class="small-image" src="%s" style="width: 200px; height: 133px;">', $row['more_img1']);
+                $smallImages .= sprintf('<img class="small-image" src="%s" style="width: 200px; height: 133px;">', $row['more_img2']);
+                $smallImages .= sprintf('</div>');
+                $originalLargeImageSrc = $row['HinhSP']; // Store the original source of the large image
+            }
+            echo $largeImage;
+            echo $smallImages;
         ?>
         <!-- ----------------script------------------------------- -->
         <script>
             var smallImages = document.getElementsByClassName("small-image");
+            var largeImage = document.getElementById("large-image");
+            var originalLargeImageSrc = '<?php echo $originalLargeImageSrc; ?>'; // Retrieve the original source of the large image
             for (var i = 0; i < smallImages.length; i++) {
                 smallImages[i].addEventListener("click", function() {
                     var src = this.getAttribute("src");
-                    document.getElementById("large-image").setAttribute("src", src);
+                    largeImage.setAttribute("src", src);
                 });
             }
+
+            // Add a click event listener to the large image to reset its source to the original source
+            largeImage.addEventListener("click", function() {
+                largeImage.setAttribute("src", originalLargeImageSrc);
+            });
+
 
             function check_addToCart() {
                 // Hiển thị thông báo và lựa chọn xác nhận hoặc hủy
