@@ -138,6 +138,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
         </div>
 
     <script>
+        import {pagesToElement} from "../js/page.js";
         function filterProducts() {
             var xhr1 = new XMLHttpRequest();
             xhr1.open("GET", "lib_login_sesison(forAjax).php", true);
@@ -292,6 +293,8 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
             </div>
         </div>
     </section>
+
+    <footer></footer>
 
     <script type="module"> 
     import { firstFunc } from "./js/searchBar.js";
