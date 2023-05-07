@@ -30,6 +30,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="css/searchIndex.css">
+    <link rel="stylesheet" href="css/page.css">
 </head>
 <body>
 <div class="nav">
@@ -117,9 +118,9 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                 <a class="nameselect-combo">thương hiệu</a>
                 <select class="select-combo" id="product-select" onchange="filterProducts()">
                     <option value = "0">chọn loại</option>
-                    <option value = "dell">dell</option>
-                    <option value = "acer">acer</option>
-                    <option value = "asus">asus</option>
+                    <option value = "DELL">dell</option>
+                    <option value = "ACER">acer</option>
+                    <option value = "ASUS">asus</option>
                 </select>
                 <a class="nameselect-combo">Giá</a>
                 <select class="select-combo" id="product-select_1" onchange="filterProducts()">
@@ -128,25 +129,11 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                     <option value = "2">từ 15 tới 20 triệu</option>
                     <option value = "3">trên 20 triệu</option>
                 </select>
-                <a class="nameselect-combo">Khối lượng</a>
+                <a class="nameselect-combo">Loại</a>
                 <select class="select-combo">
-                    <option>dưới 20kg</option>
-                    <option>từ 2 tới 4 tỷ</option>
-                    <option>từ 4 đến 6 tỷ</option>
-                    <option>trên 6 tỷ</option>
-                </select>
-                <a class="nameselect-combo">nhu cầu</a>
-                <select class="select-combo">
-                    <option>Power Armor</option>
-                    <option>Terminator</option>
-                    <option>Dreagh</option>
-                    <option>flak</option>
-                </select>
-                <a class="nameselect-combo">Tính năng đặc biệt</a>
-                <select class="select-combo">
-                    <option>Dịch chuyển</option>
-                    <option>Bay</option>
-                    <option>Màn chắn</option>
+                    <option>Chọn loại</option>
+                    <option>Laptop</option>
+                    <option>Phụ kiện</option>
                 </select>
         </div>
 
@@ -270,7 +257,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
         mysqli_close($conn);
         ?>
     </div>
-
+    <ul class="list_page"></ul>
     <!--collections-->
     <h2 class="title-colection">Mục đáng chú ý</h2>
     <section class="collection-container">
@@ -291,14 +278,14 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
         </div>
     </section>
 
-    <footer></footer>
-    
     <script type="module"> 
     import { firstFunc } from "./js/searchBar.js";
         firstFunc();
     </script>
     <script src="js/search.js"></script>
+
     <script src="js/home.js"></script>
     <script src="js/footer.js"></script>
+    <script src="js/page.js"></script>
 </body>
 </html>

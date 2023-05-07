@@ -5,8 +5,9 @@ if(isset($_REQUEST['submitThemsp'])) {
 	$giaSP = (double)$_REQUEST['gia_sp'];
 	$maSP = $_REQUEST['ma_sp'];
     $loaiSP = $_REQUEST['loai_sp'];
-	$hinhSP = '';
-	uploadHinh($hinhSP);
+	$brands = $_REQUEST['thuong_hieu'];
+	$hinhSPs = array();
+	uploadHinh($hinhSPs);
 	
 	$servername = "localhost";
 	$username = "root";
@@ -25,7 +26,12 @@ if(isset($_REQUEST['submitThemsp'])) {
 	$row = mysqli_fetch_assoc($result1);
 	$category_id = $row['id'];
 
-	$sql = sprintf("INSERT INTO `sanpham` (`MaSP` ,`TenSP`, `HinhSP`, `MoTaSP`, `GiaSP`, `category_id`) VALUES ('%s','%s', '%s', '%s', %d , '%s');", $maSP, $tenSP,$hinhSP, $motaSP,$giaSP,$category_id);
+	$queo1 = "SELECT * FROM brands WHERE brand_name='$brands'";
+	$result2 = mysqli_query($conn, $queo1);
+	$row1 = mysqli_fetch_assoc($result2);
+	$b = $row1['id'];
+
+	$sql = sprintf("INSERT INTO `sanpham` (`MaSP`, `TenSP`, `HinhSP`, `more_img`, `more_img1`, `more_img2`, `MoTaSP`, `GiaSP`, `category_id`, `brand_id`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', %d, '%s', '%s');", $maSP, $tenSP, $hinhSPs[0], $hinhSPs[1], $hinhSPs[2], $hinhSPs[3], $motaSP, $giaSP, $category_id, $b);
 	//var_dump($sql);
 	if ($conn->query($sql) === TRUE) {
 	  echo "<hr/>New record created successfully";
@@ -113,56 +119,64 @@ if(isset($_REQUEST['del'])) {
 
 function uploadHinh(&$hinhSP) {
 	$target_dir = "../ProjectWeb/img/product/";
-	$target_file = $target_dir . basename($_FILES["filetoup"]["name"]);
+	
 	$uploadOk = 1;
-	$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-
-	// Check if image file is a actual image or fake image
+	$imageFileTypes = [];
+	$uploadedFiles = [];
 	
-	  $check = getimagesize($_FILES["filetoup"]["tmp_name"]);
-	  if($check !== false) {
-		echo "File is an image - " . $check["mime"] . ".";
-		$uploadOk = 1;
-	  } else {
-		echo "File is not an image.";
-		$uploadOk = 0;
-	  }
-	
+	// Check if files are actual images or fake images
+	foreach ($_FILES["filetoup"]["name"] as $key => $fileName) {
+		$target_file = $target_dir . basename($fileName);
+		$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+		$imageFileTypes[] = $imageFileType;
 
-	// Check if file already exists
-	if (file_exists($target_file)) {
-	  //echo "Sorry, file already exists.";
-	  $hinhSP = $target_file;
-	  return 1;
+		$check = getimagesize($_FILES["filetoup"]["tmp_name"][$key]);
+		if($check !== false) {
+			$uploadOk = 1;
+		} else {
+			$uploadOk = 0;
+			break;
+		}
+
+		// Check if file already exists
+		if (file_exists($target_file)) {
+			$uploadedFiles[] = $target_file;
+			continue;
+		}
+
+		// Check file size
+		if ($_FILES["filetoup"]["size"][$key] > 5000000) {
+			$uploadOk = 0;
+			break;
+		}
+
+		// Allow certain file formats
+		if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+			&& $imageFileType != "gif" ) {
+			$uploadOk = 0;
+			break;
+		}
+
+		// Check if $uploadOk is set to 0 by an error
+		if ($uploadOk == 0) {
+			break;
+		} else {
+			if (move_uploaded_file($_FILES["filetoup"]["tmp_name"][$key], $target_file)) {
+				$uploadedFiles[] = $target_file;
+			} else {
+				$uploadOk = 0;
+				break;
+			}
+		}
 	}
 
-	// Check file size
-	if ($_FILES["filetoup"]["size"] > 5000000) {
-	  echo "Sorry, your file is too large.";
-	  $uploadOk = 0;
-	}
-
-	// Allow certain file formats
-	if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-	&& $imageFileType != "gif" ) {
-	  echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-	  $uploadOk = 0;
-	}
-
-	// Check if $uploadOk is set to 0 by an error
 	if ($uploadOk == 0) {
-	  echo "Sorry, your file was not uploaded.";
-	// if everything is ok, try to upload file
+		echo "Sorry, your file was not uploaded.";
 	} else {
-	  if (move_uploaded_file($_FILES["filetoup"]["tmp_name"], $target_file)) {
-		echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
-		$hinhSP = $target_file;
-	  } else {
-		echo "Sorry, there was an error uploading your file.";
-		$uploadOk = 0;
-	  }
+		$hinhSP = $uploadedFiles;
 	}
-	
+
 	return $uploadOk;
 }
+
 ?>
