@@ -51,23 +51,18 @@ if(isset($_REQUEST['huydon'])) {
   $password = "";
   $dbname = "laptrinhweb2";
 
-  // Create connection
   $conn = mysqli_connect($servername, $username, $password, $dbname);
-  // Check connection
   if (!$conn) {
       die("Connection failed: " . mysqli_connect_error());
   }
-
-  // Check if the id parameter is set
   if(isset($_GET['id_dh'])) {
     
       $id_dh = $_GET['id_dh'];
       $taikhoan = $_SESSION['current_username'];
       $sql1 = "DELETE FROM sl_sp_dh WHERE id_dh = $id_dh";
-      $sql2 = "DELETE FROM donhang WHERE id_dh = $id_dh";
+      $sql2 = "DELETE FROM donhang WHERE id = $id_dh";
       mysqli_query($conn, $sql1);
       mysqli_query($conn, $sql2);
-      // Lấy danh sách các sản phẩm còn lại
   }
 }
 

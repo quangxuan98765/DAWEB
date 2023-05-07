@@ -4,10 +4,6 @@
     let DpP = 5; //amountOfDataPerPage
 
 
- 
-
-
-
 
     var xhr2 = new XMLHttpRequest();
     xhr2.open("GET", "mHistorycart.php", true);
@@ -19,7 +15,7 @@
     
     var products = data.data_sp;
     var sp_1st = data.id_1st_sp;
-     
+    var dh_cost = data.dh_cost;
      pagesToElement(products.length, DpP,document.querySelector(".list_page"),function myFunc(num) {
             thispage=num;
             var productContainer = document.getElementById('boxajax');
@@ -32,7 +28,7 @@
                 for (let i = 0; i <DpP && (DpP*(num-1) + i)< products.length; i++) {
                     var page = DpP*(num-1) + i;
                     if(products[page].id_sp == sp_1st[products[page].id_dh])
-                        productHtml += "<tr><th>#"+products[page].id_dh+"</th><th></th><th></th><th>10000</th><th></th><th  ><button class='btn-huydon' name='huydon' data-iddh='"+products[page].id_dh+"'>Hủy đơn</button><p>"+ (products[page].trangthai == "waiting"?"Đang xử lý":"Đã xử lý") +"</p></th></tr>";
+                        productHtml += "<tr><th>#"+products[page].id_dh+"</th><th></th><th></th><th>"+parseInt(dh_cost[products[page].id_dh]).toLocaleString('vi-VN') + "₫</th><th></th><th  ><button class='btn-huydon' name='huydon' data-iddh='"+products[page].id_dh+"'>Hủy đơn</button><p>"+ (products[page].trangthai == "waiting"?"Đang xử lý":"Đã xử lý") +"</p></th></tr>";
                     productHtml += `<tr><td></td><td>`;
                     productHtml += `<div class="cart-info"><img src="` + products[page].HinhSP + `"><div>`;
                     productHtml += `<h3>` + products[page].TenSP + ` (`+ products[page].MaSP + `)</h3>`;
