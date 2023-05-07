@@ -59,7 +59,6 @@ export function firstFunc() {
   xhr.onload = function () {
     if (xhr.status == 200) {
       var data = JSON.parse(xhr.responseText);
-
       console.log(data);
 
       var DpP = 6;
