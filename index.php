@@ -148,7 +148,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                 var productSelect_1 = document.getElementById('product-select_1');
                 var productValue = productSelect_1.value;
                 var productName = productSelect.value;
-
+                var DpP = 5;
                 // Tạo yêu cầu Ajax để lấy sản phẩm theo giá trị được chọn
                 var xhr = new XMLHttpRequest();
                 xhr.open('GET', 'filter.php?category_name=' + productName + '&GiaSP=' + productValue, true);
@@ -157,20 +157,20 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                         console.log(xhr.responseText);
                         var products = JSON.parse(xhr.responseText);
                         pagesToElement(products.length, DpP,document.querySelector(".list_page"),function myFunc(num) {
-                         
+                        
                             // Xử lý kết quả trả về từ yêu cầu Ajax
                             var productContainer = document.getElementById('boxajax-containter');
-                            var productHtml = '';
-                            productHtml += `<div class="product-card"><div class="product-image"><a href="product.php?MaSP=` + products[page].MaSP + `">`;
+                            var productHtml = '';   
                             for (let i = 0; i <DpP && (DpP*(num-1) + i)< products.length; i++) {
                                 var page = DpP*(num-1) + i;
                                 if(xhr1.responseText == 1){
+                                    productHtml += `<div class="product-card"><div class="product-image"><a href="product.php?MaSP=` + products[page].id + `">`;
                                     productHtml += `<img src="` + products[page].HinhSP + `" class="product-thumb"> <button class="card-btn">mua ngay</button>`;
                                     productHtml += `<a href="editProduct.php?id=` +  products[page].id + `"><button class="card-action-btn edit-btn">Sửa</button></a>`;
                                     productHtml += `<a href="manageProduct.php?del=1&id=` + products[page].id + `" onclick="return confirm(\'Are you sure?\');"><button class="card-action-btn delete-popup-btn">Xóa</button></a>`;
                                 }
                                 else
-                                    productHtml += `<img src="` + products[page].HinhSP + `" class="product-thumb"> <button class="card-btn">mua ngay</button>`;
+                                    productHtml += `<div class="product-card"><div class="product-image"><a href="product.php?MaSP=` + products[page].id + `"><img src="` + products[page].HinhSP + `" class="product-thumb"> <button class="card-btn">mua ngay</button>`;
                                     var gia = parseInt(products[page].GiaSP);
                                     productHtml +=`</a></div><div class="product-info"><h2 class="product-brand">` + products[page].TenSP + `(` + products[page].MaSP + `)</h2><p class="product-short-des">` + products[page].MoTaSP + `</p><span class="price">` + gia.toLocaleString('vi-VN') + ` vnđ</span></div></div>`;
                             }
@@ -244,8 +244,8 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
 
         <section class="product">
             <h2 class="product-category">Sản phẩm bán chạy  <img src="img/bestsell.png"></h2>
-            <button class="pre-btn"><img src="img/arrow.png" alt=""></button>
-            <button class="nxt-btn"><img src="img/arrow.png" alt=""></button>
+            <button class="pre-btn arrow"><img src="img/arrow.png" alt=""></button>
+            <button class="nxt-btn arrow"><img src="img/arrow.png" alt=""></button>
             <div class="product-container">
                 <?php
                 $sql1 = "SELECT * FROM SanPham WHERE product_sell = 'hàng bán chạy'";
