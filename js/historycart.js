@@ -3,11 +3,6 @@
     import {pagesToElement} from "../js/page.js";
     let DpP = 5; //amountOfDataPerPage
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 52662ef050ef8f29b969be88aea33893eba908a2
     var xhr2 = new XMLHttpRequest();
     xhr2.open("GET", "mHistorycart.php", true);
     xhr2.onload = function () {
@@ -32,11 +27,11 @@
                     var page = DpP*(num-1) + i;
                     if(products[page].id_sp == sp_1st[products[page].id_dh])
                         productHtml += "<tr><th>#"+products[page].id_dh+"</th><th></th><th></th><th>"+parseInt(dh_cost[products[page].id_dh]).toLocaleString('vi-VN') + "₫</th><th></th><th  ><button class='btn-huydon' name='huydon' data-iddh='"+products[page].id_dh+"'>Hủy đơn</button><p>"+ (products[page].trangthai == "waiting"?"Đang xử lý":"Đã xử lý") +"</p></th></tr>";
-                    productHtml += `<tr><td></td><td>`;
+                    productHtml += `<tr><td></  td><td>`;
                     productHtml += `<div class="cart-info"><img src="` + products[page].HinhSP + `"><div>`;
                     productHtml += `<h3>` + products[page].TenSP + ` (`+ products[page].MaSP + `)</h3>`;
                     productHtml += `<small>` + products[page].MoTaSP +`</small><br>`;
-                    productHtml += `<a class="link-text" href="products[page].php?MaSP=` + products[page].masp + `">Xem chi tiết</a></div></div></td>`;
+                    productHtml += `<a class="link-text" href="product.php?MaSP=` + products[page].MaSP + `">Xem chi tiết</a></div></div></td>`;
                     var gia = parseInt(products[page].GiaSP) * parseInt(products[page].soluong);
                     productHtml += `<td><a>`+ products[page].soluong +`</a></td><td>` + gia.toLocaleString('vi-VN') + `₫</td>`;
                     productHtml += `<td>`+ products[page].date +`</td><td></td></tr>`;
@@ -52,8 +47,8 @@
             }
 
     })
+}
     }
-        }
     xhr2.send();
     
     function deleteCart(iddh) {

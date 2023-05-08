@@ -1,6 +1,8 @@
 import {pagesToElement} from "../js/page.js";
 doFirst("ASC");
 var lastsort;
+
+
 function doFirst(sort){
   lastsort = sort;
   if(sort == "DESC"|| sort == "ASC"){
@@ -28,8 +30,8 @@ function doFirst(sort){
     var s = '<tr><th>#</th><th>Mã đơn hàng</th><th>Khách Hàng</th><th>Thời gian</th><th>Thành tiền</th> <th>Hình thức thanh toán</th><th>địa chỉ</th><th>Tình trạng đơn</th><th>Hành động</th></tr>';
     for (let i = 0; i <DpP && (DpP*(num-1) + i)< data.length; i++) {
       var page = DpP*(num-1) + i;
-      s += '<tr class="data-row" data-id="'+ data[page].id+'"><td><a>'+ (i+1) + '</a><td><p class="see-full" onclick="' + 'location.href="orderdetail.html"'
-        +'">'+ data[page].id +'</p><td><p>'+data[page].tentaikhoan +'</p></td><td><a>'+data[page].date+'</a></td><td><a>'
+      s += '<tr class="data-row" data-id="'+ data[page].id+'"><td><p style="color:black">'+ (i+1) + `</p><td><a class="see-full" data-id="${data[page].id}"`
+        +'">'+ data[page].id +'</a><td><p>'+data[page].tentaikhoan +'</p></td><td><a>'+data[page].date+'</a></td><td><a>'
         +data[page].cost + '</a></td><td><a>'+data[page].payment+ '</a></td><td>'+data[page].city+'</td><td><a>' 
         + (data[page].trangthai == "waiting"
         ?'Đang đợi xác nhận</a></td><td class="wait-btn"><button class="cancel-btn">Huỷ</button><button class="confirm-btn">Xác nhận</button>'
@@ -39,7 +41,6 @@ function doFirst(sort){
       }
       p.innerHTML = s;
        document.querySelectorAll(".wait-btn").forEach(function (item) {
-
       item.querySelector(".cancel-btn").addEventListener("click",()=>{
         var data1 = {action:"changeStatus",
                     status:"cancelled",
@@ -57,14 +58,34 @@ function doFirst(sort){
         queryRequest(data2);
         
       });
+   
+   
     })
-     });
+    document.querySelectorAll(".see-full").forEach(function(element){
+      element.addEventListener("click",(e)=>{
+        e.preventDefault();
+          const params = new URLSearchParams({ id: element.dataset.id});
+          const url = "orderdetail.html?" + params.toString();
+          window.location.href = url;
+      })
+
+
+    })
+
+
+
+    }
+    
+    )
+
+
+     };
     
     }
     
-}
 xhr.send(JSON.stringify(data));
-  }
+}
+  
 
 
 document.querySelector(".select-order").addEventListener("change",(e)=>{doFirst(e.target.value);})

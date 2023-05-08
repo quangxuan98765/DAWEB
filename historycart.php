@@ -107,31 +107,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
     </div>
 
     <div class="small-container cart-page" id="boxajax">
-           <?php
-            if(mysqli_num_rows($result) > 0){
-                $s = "";
-                
-                    $s .= '<table><tr><th></th><th>Sản phẩm</th><th>Số lượng</th><th>giá</th><th>ngày đặt mua</th><th class="status-confirm">trạng thái</th></tr>';
-                    while($row = mysqli_fetch_assoc($result)) {
-                        $s .="<tr><th>11111</th><th class='th-white'></th><th class='th-white'></th><th class='th-white'></th><th class='th-white'></th><th class='th-white' class='status-confirm'></th></tr>";
-                    $gia_moi = $row['GiaSP'] * $row['soluong'];
-                    $gia_moi = number_format($gia_moi, 0, '', '.');
-                    $s .= sprintf('<tr><td></td><td>');
-                    $s .= sprintf('<div class="cart-info"><img src="%s"><div>',$row['HinhSP']);
-                    $s .= sprintf('<h3>%s (%s)</h3>',$row['TenSP'], $row['MaSP']);
-                    $s .= sprintf('<small>%s</small><br>',$row['MoTaSP']);
-                    $s.='<a class="link-text" href="product.php?MaSP=' . $row['MaSP'] .'">Xem chi tiết</a></div></div></td>';
-                    $s .= sprintf('<td><a>%s</a></td><td>' . $gia_moi . '₫</td>',$row['soluong'],$row['GiaSP']);
-                    $s .= sprintf('<td>%s</td><td><button name="huydon" onclick="deleteCart(\'%s\')">Hủy đơn</button><p>%s</p></td></tr>',$row['date'],$row['did'],($row['trangthai']=="waiting"?"Đang xử lý":"Đã xử lý"));
-                    
-                }
-               $s .= "</table>";
-                echo $s;
-            }
-            else {
-                echo 'Bạn chưa mua gì';
-            }
-            ?>
+  
     </div>
 
     <ul class="list_page"></ul>

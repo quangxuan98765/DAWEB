@@ -43,14 +43,14 @@
         </div>
         
         <div class="info-order">
-            <p>Tên khách hàng: Nguyễn Văn A</p>
-            <p>Số điện thoại: 11311411522</p>
-            <p>Thời gian đặt: 12/12/2022 03:03:29</p>
-            <p>Địa chỉ: số 01, phường 2, quận 6, TP HCM</p>
-            <p>Hành động: đã xử lý</p>
-            <p>Hình thức thanh toán: Thẻ tín dụng</p>
-            <p>Trạng thái thanh toán: Đã thanh toán</p>
-            <p>Trạng thái đơn hàng: đã giao</p>
+            <p>Tên khách hàng:</p>
+            <p>Số điện thoại: </p>
+            <p>Thời gian đặt: </p>
+            <p>Địa chỉ: </p>
+            <p>Hành động: </p>
+            <p>Hình thức thanh toán: </p>
+            <p>Trạng thái thanh toán: </p>
+            <p>Trạng thái đơn hàng: </p>
             <p>Ghi chú: không có</p>
             <button class="btn report">In thông tin đơn hàng</button>
         </div>
@@ -64,51 +64,28 @@
                 <tr>
                     <td>
                         <div class="cart-info">
-                            <img src="img/card1.png">
+                            <img src="">
                             <div>
-                                <h3>Tên sản phẩm</h3>
-                                <small>mô tả sp</small>
+                                <h3></h3>
+                                <small></small>
                             </div>
                         </div>
-                    <td><a>1</a></td>
-                    <td>100.000$</td>
+                    <td><a></a></td>
+                    <td></td>
                 </tr>
-                <tr>
-                    <td>
-                        <div class="cart-info">
-                            <img src="img/card2.png">
-                            <div>
-                                <h3>Tên sản phẩm</h3>
-                                <small>mô tả sp</small>
-                            </div>
-                        </div>
-                    <td><a>1</a></td>
-                    <td>100.000$</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="cart-info">
-                            <img src="img/card3.png">
-                            <div>
-                                <h3>Tên sản phẩm</h3>
-                                <small>mô tả sp</small>
-                            </div>
-                        </div>
-                    <td><a>1</a></td>
-                    <td>100.000$</td>
-                </tr> 
-            </div>
-        </table>
       
+            
+        </table>
+    </div>
         <div class="total-price">
                 <table>
                         <tr>
                             <td>Tổng giá sản phẩm</td>
-                            <td>300.000$</td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td>Vận chuyển</td>
-                            <td>50.000$</td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td>Mã giảm giá</td>
@@ -116,10 +93,59 @@
                         </tr>
                         <tr>
                             <td>Tổng thanh toán</td>
-                            <td>310.000$</td>
+                            <td></td>
                         </tr>
                 </table>
             </div>
     </div>
 </body>
+
+<script>
+const id_dh = new URLSearchParams(window.location.search).get("id" );
+    if(id_dh != null && id_dh !=""){
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "orderdetailRequest.php?id_dh=" + id_dh , true);
+        xhr.onload = function () {       
+        if (xhr.status == 200) {
+            var data = JSON.parse(xhr.responseText);
+            var text = "";
+
+            text +=`<div class="add-product">
+            <p class="add-product-title">Chi tiết đơn hàng #` + data.id+`</p></div><div class="info-order">
+            <p>Tên khách hàng: `+data[0].fullname+`</p>
+            <p>Số điện thoại:`+ data[0].sdt+`</p>
+            <p>Thời gian đặt: `+data[0].date+`</p>
+            <p>Địa chỉ: `+ data[0].sonha + " " +data[0].tenduong +", "+data[0].city+`</p>
+            <p>Hành động: ` +(data[0].trangthai=="waiting"?"Chưa xác nhận" :(data[0].trangthai == "cancelled"?"Đã hủy":"Đã xác nhận"))+`</p>
+            <p>Hình thức thanh toán: `+data[0].payment+`</p>
+            <p>Trạng thái thanh toán: </p>
+            <p>Trạng thái đơn hàng: </p>
+            <p>Ghi chú: không có</p>
+            <button class="btn report">In thông tin đơn hàng</button>
+        </div> <div class="small-container cart-page"><table><tr><th>Sản phẩm</th> <th class="number-pro">Số lượng</th><th class="cost">giá</th></tr>`;
+            var TongGia = 0;
+            data.forEach((e) => {
+                var gia = e.soluong * e.GiaSP;
+                TongGia +=gia;
+                text+= `<tr><td><div class="cart-info">
+                            <img src="`+e.HinhSP+`"><div>
+                                <h3>`+e.TenSP+`</h3>
+                                <small>`+e.MoTaSP+`</small> </div></div>
+                    <td><a>`+e.soluong+`</a></td>
+                    <td>`+ gia +`$</td> </tr>`;
+            });
+            text+=`</table></div><div class="total-price"><table><tr>
+                            <td>Tổng giá sản phẩm</td>
+                            <td>`+TongGia+`$</td></tr><tr>
+                            <td>Vận chuyển</td><td>50.000$</td></tr> <tr>
+                            <td>Mã giảm giá</td>
+                            <td></td></tr><tr>
+                            <td>Tổng thanh toán</td>
+                            <td>`+(TongGia+50000)+`$</td></tr></table></div>`;
+            document.querySelector(".list-orderdetail").innerHTML = text;
+        }}
+        xhr.send();
+    }
+</script>
+
 </html>
