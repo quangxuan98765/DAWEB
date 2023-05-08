@@ -10,13 +10,13 @@ xhr.onload = function () {
     let DpP = 6; //amountOfDataPerPage
     var fun;
     pagesToElement(data.length, DpP,document.querySelector(".list_page"),function myFunc(num) {
-        var s = "<table><tr><th>Tên tài khoản</th><th>Tên người dùng</th><th>Quyền hạn</th><th class='table-btn-zone'>Hành động</th></tr>";
+        var s = `<table><tr><th>Tên tài khoản</th><th>Tên người dùng</th><th>Quyền hạn</th><th class="table-btn-zone">Hành động</th><th     style="width: 250px;">Trạng thái</th></tr>`;
         var p = document.querySelector(".oder-page");
         for (let i = 0; i <DpP && (DpP*(num-1) + i)< data.length; i++) {
             var page = DpP*(num-1) + i;
             s += '<tr class ="data-row" data-uname="'+data[page].username+'" data-role="'+data[page].role+'"><td><a style="text-transform: none;" >'+data[page].username+'</a></td><td><a style="text-transform: none;" >'+data[page].fullname+'</a></td><td><p style="text-transform: none; '
             + ((data[page].role == "admin")?' color: red;"':'"')  + '>'
-            + data[page].role+'</p></td><td><button class="edit-btn">chỉnh sửa</button><button class= "delete-btn">xoá</button></td></tr>';
+            + data[page].role+'</p></td><td><button class="edit-btn">chỉnh sửa</button><button class= "delete-btn">xoá</button></td><td>' + ((data[page].role == "admin")?'':((data[page].disabled == 0?`bình thường  <button class="disable-btn">Khóa`:`Đã khóa  <button class="enable-btn">Mở khóa`)+'</button>'))+'</td></tr>';
         }
         p.innerHTML = s +"</table>";
         document.querySelectorAll(".data-row").forEach(function (item) {
@@ -68,7 +68,6 @@ xhr.onload = function () {
                     })
         }
             item.querySelector(".edit-btn").addEventListener("click",editData);
-
             if(item.dataset.role == "admin")    
                 deleteBtn.classList.add("disabled-btn");
             deleteBtn.addEventListener("click",deleteData = function deleteData(e){
@@ -93,8 +92,51 @@ xhr.onload = function () {
                     queryRequest(data);
                 })
                     })
-
+                    
+              
             })
+            disableFunc();
+            enableFunc();
+            function disableFunc(){
+                document.querySelectorAll(".disable-btn").forEach((element)=>{
+                    
+                element.addEventListener("click",(e)=>{
+
+                   
+                console.log(element.parentElement.parentElement); 
+                    // e.target.parentElement.innerHTML = ((data[page].disabled == 0?`bình thường  <button class="disable-btn">Khóa`:`Đã khóa  <button class="enable-btn">Mở khóa`)+'</button>');
+                    if (confirm("Xác nhận khóa tài khoản "+element.parentElement.parentElement.dataset.uname+" ?")) {
+                        var data = {
+                            username:element.parentElement.parentElement.dataset.uname,
+                            action:"disable",
+                            disable_value:1
+                        }
+                        if(queryRequest(data))
+                        e.target.parentElement.innerHTML = (`bình thường  <button class="disable-btn">Khóa</button>`);
+                        enableFunc();
+                      } 
+                })
+            })
+            
+            }
+            function enableFunc(element){
+                document.querySelectorAll(".enable-btn").forEach((element)=>{
+                    element.addEventListener("click",(e)=>{
+                    if (confirm("Xác nhận mở khóa cho tài khoản "+element.parentElement.parentElement.dataset.uname+" ?")) {
+                        var data = {
+                            username:element.parentElement.parentElement.dataset.uname,
+                            action:"disable",
+                            disable_value:0
+                        }
+                        if(queryRequest(data))
+                            e.target.parentElement.innerHTML = (`Đã khóa  <button class="enable-btn">Mở khóa</button>`);
+                        disableFunc();
+                      } 
+                })
+                })
+            }
+
+            
  })
     }}
     xhr.send('role='+role);
@@ -108,12 +150,16 @@ function queryRequest(data){
     xhr1.onload = function () {
         if (this.status == 200) {
             var text = xhr1.responseText;
-    
-            if(text == "Updated" || text == "Deleted")
+            console.log(text)
+            if(text == "Updated" || text == "Deleted" || text == "Disabled updated"){
                 alert("Notice: " +xhr1.responseText,"\u2714", "green",doFirst(document.querySelector(".select-role").value));
+                return true;
+            }
         //  deleteBut.addEventListener("click",(e)=>{e.preventDefault();})
-            else 
+            else {
                 alert(text,"&#215;", "red",{});
+                return false;
+            }
         }
 }
 xhr1.send(JSON.stringify(data))

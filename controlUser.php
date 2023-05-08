@@ -16,7 +16,14 @@ $username = $data["username"];
 unset($data["action"]);
 unset($data["username"]);
 if (isset($data)) {
-    if ($action == "edit") {
+    if($action == "disable"){
+        $sql = sprintf("UPDATE `users` SET `disabled` = %s WHERE `username` = '$username'",$data['disable_value']);
+        $result = mysqli_query($conn,$sql);
+        if (!$result)
+            echo $sql;
+        else echo "Disabled updated";
+    }
+    else if ($action == "edit") {
         $result = true;
         foreach ($data as $key => $value) {
             $sql = sprintf("UPDATE `users` SET `%s` = '%s' WHERE `username` = '%s'", $key, $value, $username);

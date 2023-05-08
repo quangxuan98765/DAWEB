@@ -217,7 +217,7 @@ td:last-child{
     padding-top: 10px;
     height: 100%;
 }
-.delete-btn, .confirm-del-btn, .cancel-btn, .des-btn{
+.delete-btn, .disable-btn, .confirm-del-btn, .cancel-btn, .des-btn{
     border-radius: 5px;
     background: orangered;
     color: white;
@@ -229,13 +229,13 @@ td:last-child{
     cursor: pointer;
     margin-right: 4px;
 }
-.des-btn{
+.des-btn, .disable-btn{
     background: gray;
 }
 /* .cancel-btn{
     background: gray;
 } */
-.edit-btn, .confirm-btn{
+.edit-btn, .enable-btn, .confirm-btn{
     border-radius: 5px;
     background: rgb(41, 41, 255);
     color: white;
@@ -246,7 +246,9 @@ td:last-child{
     cursor: pointer;
     margin-right: 5px;
 }
-
+.enable-btn{
+    background:green;
+}
 .confirmed-btn{
     border-radius: 5px;
     background: green;
