@@ -24,26 +24,42 @@ INNER JOIN `sanpham` ON `id_sp` = `sanpham`.`id`
 INNER JOIN `diachi` ON `donhang`.`id_dc` = `diachi`.id AND `donhang`.`tentaikhoan` = `diachi`.`taikhoan`
 GROUP BY `donhang`.`id`";
 $action = $data["action"];
+$sqlSort ="";
 unset($data["action"]);
+
 if($action == "changeStatus"){
     $sql = sprintf("UPDATE `donhang` SET `trangthai` = '%s' WHERE `id` = %s",$data["status"],$data["id"]);
     $result = mysqli_query($conn,$sql);
     unset($data);
-}
-if (isset($data)) {
-    if($action == "searchDate"){
+}else if ($action == "sort" && !empty($data)) {
+    $sqldk = " HAVING ";
+    if(isset($data["sortType"])){
+      if ($data["sortType"] == "sortDate") {
+       $sqlSort = sprintf(" ORDER BY `date` %s ",$data["sort"]);
+       unset($data["sortType"],$data["sort"]);
+       $sqldk = !empty($data)?" HAVING ":"";  
+      }
+    elseif($data["sortType"] == "sortStatus"){
+        if($data["sort"] == "not wait")
+            $sql .= $sqldk . " `trangthai` != 'waiting' ";
+        else $sql .= $sqldk . sprintf(" `trangthai` = '%s' ",$data["sort"]);
+        $sqldk ="";
+      unset($data["sortType"],$data["sort"]);
+       $sql .= !empty($data)?" AND ": "";
+    }
+  }
+
+    if(isset($data["searchDate"])){
         $data["toDate"] = $data["toDate"]=='' ? date("Y-m-d"): $data["toDate"];
         $data["fromDate"] = $data["fromDate"]=='' ? "2000-01-01": $data["fromDate"];
-        $sql .= sprintf(" HAVING `date` BETWEEN '%s' AND '%s' ORDER BY `date` ASC",$data["fromDate"],$data["toDate"]);
-    }
-    elseif ($action == "sortDate") 
-       $sql .= sprintf(" ORDER BY `date` %s",$data["sort"]);
-    elseif($action == "sortStatus"){
-        if($data["status"] == "not wait")
-            $sql .= " HAVING `trangthai` != 'waiting' ORDER BY `date` ASC";
-        else $sql .= sprintf(" HAVING `trangthai` = '%s' ORDER BY `date` ASC",$data["status"]);
-    }
-    
+        $sql .= $sqldk . sprintf(" `date` BETWEEN '%s' AND '%s' ",$data["fromDate"],$data["toDate"]); 
+        $sqldk ="";
+        unset($data["searchDate"],$data["toDate"],$data["fromDate"]);
+        $sql .= !empty($data)?" AND ": "";
+    }  
+  if(isset($data["location"]))
+    $sql .= $sqldk . sprintf(" `city` =  '%s' ",$data["location"]);
+  $sql .= $sqlSort;
  $result = mysqli_query($conn, $sql);
 // if (!$result) { die("Query failed: " . mysqli_error($conn)); }
 $exdata = array();

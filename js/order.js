@@ -1,20 +1,40 @@
 import {pagesToElement} from "../js/page.js";
-doFirst("ASC");
-var lastsort;
-
-
-function doFirst(sort){
-  lastsort = sort;
-  if(sort == "DESC"|| sort == "ASC"){
-    var data ={action : "sortDate",
-              sort : sort}
-  }else if(sort.action == "searchDate"){
-    document.querySelector(".select-order").selectedIndex = 0;
-    var data = sort;
-  }else{
-    var data ={action : "sortStatus",
-    status : sort}
-  }  
+doFirst();
+function doFirst(){
+  
+  // if(sort == "DESC"|| sort == "ASC"){
+  //   var data ={action : "sortDate",
+  //             sort : sort}
+  // }else if(sort.action == "searchDate"){
+  //   document.querySelector(".select-order").selectedIndex = 0;
+  //   document.querySelector(".select-location").selectedIndex = 0;
+  //   var data = sort;
+  // }else{
+  //   var data ={action : "sortStatus",
+  //   status : sort}
+  // }  
+  var getSort = document.querySelector(".select-order").value;
+  var sortT;
+  sortT = (getSort == "DESC"|| getSort == "ASC")?"sortDate": "sortStatus";
+var getLocation = document.querySelector(".select-location").value;
+var fdate = document.querySelector(".date-search");
+  let data = {
+      action:"sort",
+    ...(getLocation !== "" && {
+      location: getLocation,
+    }),
+    ...( (fdate.querySelector(".from-date").value!= "" || fdate.querySelector(".to-date").value!= "") && {
+      searchDate:"1",
+      fromDate:fdate.querySelector(".from-date").value,
+      toDate:fdate.querySelector(".to-date").value,
+    }),
+    ...(getSort !== "" && {
+      sortType:sortT,
+      sort: getSort,
+    }),
+  };
+console.log(data);
+  document.querySelector(".date-search");
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "mOrder.php", true);
     xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
@@ -68,17 +88,10 @@ function doFirst(sort){
           const url = "orderdetail.html?" + params.toString();
           window.location.href = url;
       })
-
-
     })
-
-
-
     }
     
     )
-
-
      };
     
     }
@@ -88,14 +101,18 @@ xhr.send(JSON.stringify(data));
   
 
 
-document.querySelector(".select-order").addEventListener("change",(e)=>{doFirst(e.target.value);})
+document.querySelector(".select-order").addEventListener("change",(e)=>{doFirst();})
+document.querySelector(".select-location").addEventListener("change",(e)=>{doFirst();})
 var fdate = document.querySelector(".date-search");
 fdate.querySelector(".btn.btn-search-date").addEventListener("click",()=>{
-  var data ={ action:"searchDate",
-    fromDate:fdate.querySelector(".from-date").value,
-    toDate:fdate.querySelector(".to-date").value
-  }
-  doFirst(data);
+  document.querySelector(".select-order").selectedIndex = 0;
+  document.querySelector(".select-location").selectedIndex = 0;
+
+  // var data ={ action:"searchDate",
+  //   fromDate:fdate.querySelector(".from-date").value,
+  //   toDate:fdate.querySelector(".to-date").value
+  // }
+  doFirst();
 })
 
 function queryRequest(data){
@@ -105,7 +122,7 @@ function queryRequest(data){
   xhr1.onload = function () {
     console.log(xhr1.responseText);
       if (this.status == 200) {
-        doFirst(lastsort);
+        doFirst();
       }
 }
 xhr1.send(JSON.stringify(data))
