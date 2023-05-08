@@ -116,29 +116,29 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
     <div class="box">
                 <a class="titlefilter">Bộ lọc <img src="img/filter.png"></a>
                 <a class="nameselect-combo">thương hiệu</a>
-                <select class="select-combo" id="product-select" onchange="filterProducts()">
+                <select class="select-combo" id="product-select" onchange="window.filterProducts()">
                     <option value = "0">chọn loại</option>
                     <option value = "DELL">dell</option>
                     <option value = "ACER">acer</option>
                     <option value = "ASUS">asus</option>
                 </select>
                 <a class="nameselect-combo">Giá</a>
-                <select class="select-combo" id="product-select_1" onchange="filterProducts()">
+                <select class="select-combo" id="product-select_1" onchange="window.filterProducts()">
                     <option>chọn tầm giá</option>
                     <option value = "1">từ 5 tới 15 triệu</option>
                     <option value = "2">từ 15 tới 20 triệu</option>
                     <option value = "3">trên 20 triệu</option>
                 </select>
                 <a class="nameselect-combo">Loại</a>
-                <select class="select-combo" id="product-select_2" onchange="filterProducts()">
+                <select class="select-combo" id="product-select_2" onchange="window.filterProducts()">
                     <option value = "0">Chọn loại</option>
                     <option value = "laptop">Laptop</option>
                     <option value = "phụ kiện">Phụ kiện</option>
                 </select>
         </div>
 
-    <script>
-        import {pagesToElement} from "../js/page.js";
+        <script type="module">
+        import {pagesToElement} from "./js/page.js";
         function filterProducts() {
             var xhr1 = new XMLHttpRequest();
             xhr1.open("GET", "lib_login_sesison(forAjax).php", true);
@@ -154,10 +154,11 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                 xhr.open('GET', 'filter.php?category_name=' + productName + '&GiaSP=' + productValue, true);
                 xhr.onload = function() {
                     if (xhr.status === 200) { 
+                        console.log(xhr.responseText);
+                        var products = JSON.parse(xhr.responseText);
                         pagesToElement(products.length, DpP,document.querySelector(".list_page"),function myFunc(num) {
-                            thispage=num;
+                         
                             // Xử lý kết quả trả về từ yêu cầu Ajax
-                            var products = JSON.parse(xhr.responseText);
                             var productContainer = document.getElementById('boxajax-containter');
                             var productHtml = '';
                             productHtml += `<div class="product-card"><div class="product-image"><a href="product.php?MaSP=` + products[page].MaSP + `">`;
@@ -200,6 +201,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
             }
             xhr1.send();
         }
+        window.filterProducts = filterProducts;
     </script>
     <!--cards-container-->
     <div id="boxajax-containter">
@@ -277,17 +279,8 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
     <!--collections-->
     <h2 class="title-colection">Mục đáng chú ý</h2>
     <section class="collection-container">
-        <a href="womenarmor.html" class="collection">
-            <img src="img/women-collection.png" alt="">
-            <p class="collection-title">women <br> armor</p>
-        </a>
-        <a href="menarmor.html" class="collection">
-            <img src="img/men-collection.png" alt="">
-            <p class="collection-title">Man <br> armor</p>
-        </a>
-        <a href="accessories.html" class="collection">
-            <img src="img/accessories-collection.png" alt="">
-            <p class="collection-title">phụ kiện</p>
+        <a href="laptopProduct.php" class="collection">
+            <img src="img/quangcao.jpg" alt="">
         </a>
     </section>
             </div>
@@ -304,6 +297,5 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
 
     <script src="js/home.js"></script>
     <script src="js/footer.js"></script>
-    <script src="js/page.js"></script>
 </body>
 </html>

@@ -19,9 +19,17 @@ if(isset($_REQUEST['dathang'])) {
   $sdt = $_GET['sdt'];
   $loc_id = $_GET['select-loc'];
   
-  $query1 = sprintf("INSERT INTO `donhang` (`tentaikhoan` ,`date`,`payment`,`id_dc`,`trangthai` , `sdt`) VALUES ('$taikhoan','$currentDateTime','$pay','$loc_id','waiting','$sdt')");
-  mysqli_query($conn,$query1);
-  $newid_dh = mysqli_insert_id($conn);
+  $selected_option = $_REQUEST['delivery'];
+  if ($selected_option == "stay") {
+    $query1 = sprintf("INSERT INTO `donhang` (`tentaikhoan` ,`date`,`payment`,`id_dc`,`trangthai` , `sdt`) VALUES ('$taikhoan','$currentDateTime','$pay','nhận tại cửa hàng','waiting','$sdt')");
+    mysqli_query($conn,$query1);
+    $newid_dh = mysqli_insert_id($conn);
+  }
+  else{
+    $query1 = sprintf("INSERT INTO `donhang` (`tentaikhoan` ,`date`,`payment`,`id_dc`,`trangthai` , `sdt`) VALUES ('$taikhoan','$currentDateTime','$pay','$loc_id','waiting','$sdt')");
+    mysqli_query($conn,$query1);
+    $newid_dh = mysqli_insert_id($conn);
+  }
    
   $sql = "SELECT * FROM cart,sanpham WHERE cart.masp = sanpham.MaSP and taikhoan = '$taikhoan'";
   $result = mysqli_query($conn, $sql);

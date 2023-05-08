@@ -109,9 +109,10 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
             var products = JSON.parse(xhr.responseText);
             var numOfItems = products.length;
             var productContainer = document.getElementById('boxajax-containter');
-            var productHtml = `<a class="back" onclick="location.href='index.php'">&larr; Mua thêm sản phẩm khác</a> <div class="small-container cart-page"><table><tr><th>Sản phẩm</th><th>Số lượng</th><th style="width: 130px">giá</th></tr>`;
+            var productHtml = "";
             if(products.length === 0) {
-                productContainer.innerHTML = `<p id="formtt">Giỏ hàng của bạn đang trống</p>`;
+                productHtml = `<a class="back" onclick="location.href='index.php'">&larr; Mua thêm sản phẩm khác</a>`;
+                productContainer.innerHTML = productHtml + `<div class="container" style="text-align:center;"><img src="img/no-products.png" alt=""><p class="overlay" id="formtt">Giỏ hàng của bạn đang trống</p></div>`;
                 const myForm = document.getElementById("my-form");
                 myForm.style.display = "none";
             }
@@ -139,16 +140,10 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
 </script>
 <div id="boxajax-containter">
     <a class="back" onclick="location.href='index.php'">&larr; Mua thêm sản phẩm khác</a> 
-    <div class="small-container cart-page">
-        <table>
-            <tr>
-                <th>Sản phẩm</th>
-                <th>Số lượng</th>
-                <th style="width: 130px">giá</th>
-            </tr>
+
             <?php
             if(mysqli_num_rows($result) > 0){
-                $s = "";
+                $s = '<div class="small-container cart-page"><table><tr><th>Sản phẩm</th><th>Số lượng</th><th style="width: 130px">giá</th></tr>';
                 while($row = mysqli_fetch_assoc($result)) {
                     $name = $row['fullname'];
                     $gia_moi = $row['GiaSP'] * $row['soluong'];
@@ -159,14 +154,13 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                     $s.='<a class="link-text" href="product.php?MaSP=' . $row['masp'] .'">Xem chi tiết</a><br>';
                     $s.=sprintf('<button class="btn-remove" onclick="deleteCart(\'%s\')">Xoá sản phẩm</button></div></div><td><button class="btn-value">-</button><input type="number" value="%s"><button class="btn-value">+</button></td><td>' . $gia_moi . '₫</td></tr>',$row['masp'],$row['soluong']);
                 }
+                $s.='</table></div>';
                 echo $s;
             }
             else {
-                echo '<p id="formtt">Giỏ hàng của bạn đang trống</p>';
+                echo '<div class="container" style="text-align:center;"><img src="img/no-products.png" alt=""><p class="overlay" id="formtt">Giỏ hàng của bạn đang trống</p></div>';
             }
             ?>
-        </table>
-    </div>
 </div>
     <form name="form" method="get" id="my-form" action="thanhtoan.php" enctype="multipart/form-data">
     <div class="input-cart">
@@ -179,14 +173,9 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
         <?php  echo '<input id="hoten"  type="text" class="input-text" placeholder="Họ và tên" value="'.$name.'"'?>>
             <input id="sdt" name="sdt" type="text" class="input-text" placeholder="Số điện thoại">
         </div>
-        <p class="text header">chọn cách thức nhận hàng</p>
-        <input type="checkbox" id="ship" name="delivery" value="Giao hàng tận nơi" onclick="checkOnlyOne(this)">
-        <label for="ship" class="check-title">Giao hàng tận nơi</label>
+        <p class="text header">chọn địa chỉ nhận hàng</p>
 
-        <input type="checkbox" id="shop" name="delivery" value="Nhận tại cửa hàng" onclick="checkOnlyOne(this)">
-        <label for="shop" class="check-title">Nhận tại cửa hàng</label>
-
-        <a href="locationForm.html" class="linked" id="add-address-link">Thêm địa chỉ mới</a>
+        <a href="locationForm.html" class="linked" >Thêm địa chỉ mới</a>
         <div class="address-input">
         <select id="mySelect" name="select-loc" class="select">
             <option value="-1">Chọn địa chỉ nhận hàng</option>
@@ -200,14 +189,14 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
             }
             ?>
         </select>
-        <a id="myLink" href="#" style="display:none;">Chỉnh sửa địa chỉ</a>
+        <a id="myLink" href="#">Chỉnh sửa địa chỉ</a>
         </div>
         <input type="text" class="input-text input-text3" placeholder="Yêu cầu khác (không bắt buộc)">
         <p class="text header">chọn phương thức thanh toán</p>
-        <input type="checkbox" id="cod" name="pay" onclick="checkOnlyOne2(this)">
+        <input type="checkbox" id="cod" name="pay" value="COD" onclick="checkOnlyOne2(this)">
         <label for="cod" class="check-title">COD</label>
 
-        <input type="checkbox" id="onl" name="pay" onclick="checkOnlyOne2(this)">
+        <input type="checkbox" id="onl" name="pay" value="Online" onclick="checkOnlyOne2(this)">
         <label for="onl" class="check-title">Online</label>
         <div class="zone-text-input">
             <input type="text" class="input-text" id="bank" placeholder="số tài khoản" style="display:none;">
@@ -229,7 +218,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                 $count = mysqli_num_rows($result);
                 echo '<td id="count">Tạm tính(' . $count . 'sản phẩm)</td>';
                 echo '<td id="myTD">' . $sum . '</td>';
-                echo '</tr><tr><td><select class=" select select3"><option>Sử dụng mã giảm giá</option><option>Có cái nịt</option><option>Mặt Trăng</option><option>Sao Hoả</option></select></td><td>-0₫</td></tr><tr><td>Tổng thanh toán</td>';
+                echo '</tr><tr><td><select class=" select select3"><option>Sử dụng mã giảm giá</option><option>Có cái nịt</option></select></td><td>-0₫</td></tr><tr><td>Tổng thanh toán</td>';
                 echo '<td id="myTD1">' . $sum . '</td>';
                 ?>
             </tr>

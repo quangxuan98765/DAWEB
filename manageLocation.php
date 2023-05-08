@@ -22,7 +22,7 @@ if(isset($_REQUEST['submit'])) {
 	$result1 = mysqli_query($conn, $queo);
 	$row = mysqli_fetch_assoc($result1);
 
-	$sql = sprintf("INSERT INTO `diachi` (`taikhoan` , `city`, `tenduong`, `sonha`) VALUES ('$tentk', '%s', '%s', '%s');", $ten, $sdt,$city, $road,$house);
+	$sql = sprintf("INSERT INTO `diachi` (`taikhoan` , `city`, `tenduong`, `sonha`) VALUES ('$tentk', '%s', '%s', '%s');",$city, $road,$house);
 	//var_dump($sql);
 	if ($conn->query($sql) === TRUE) {
 	  header("Location: cart.php");

@@ -29,6 +29,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
     <title>Thêm sản phẩm</title>
     <link rel="stylesheet" href="css/sigup.css">
     <link rel="stylesheet" href="css/addProduct.css">
+    <link rel="stylesheet" href="css/cart.css">
 </head>
 <body>
     <img src="img/loader.gif" class="loader" alt="">
@@ -48,16 +49,41 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
         </div>
 
         <!-- product image -->
-        <div class="product-info">
-            <div class="product-image"><p class="text">ảnh sản phẩm</p></div>
-            <!-- upload inputs -->
-            <div class="upload-image-sec">
-                <p class="text"><img src="img/camera.png" alt="">tải ảnh lên</p>
-                <div class="upload-catalouge">
-                    <input type="file" class="fileupload" id="first-file-upload-btn" name="filetoup" hidden>
-                    <label for="first-file-upload-btn" class="upload-image" ></label>
-                </div>
+        <div class="upload-image-sec">
+            <p class="text"><img src="img/camera.png" alt="">tải ảnh lên</p>
+            <div class="upload-catalouge">
+                <input type="file" class="fileupload" id="image-upload1" name="filetoup[]" accept="image/*" style="width: 90px;">
+                <img id="image-preview1" src="<?= $row['HinhSP'] ?>" style="display: block;width: 100px;">
+                <input type="file" class="fileupload" id="image-upload2" name="filetoup[]" accept="image/*" style="width: 90px;">
+                <img id="image-preview2" src="<?= $row['more_img'] ?>" style="display: block;width: 100px;">
+                <input type="file" class="fileupload" id="image-upload3" name="filetoup[]" accept="image/*" style="width: 90px;">
+                <img id="image-preview3" src="<?= $row['more_img1'] ?>" style="display: block;width: 100px;">
+                <input type="file" class="fileupload" id="image-upload4" name="filetoup[]" accept="image/*" style="width: 90px;">
+                <img id="image-preview4" src="<?= $row['more_img2'] ?>" style="display: block;width: 100px;">
             </div>
+        </div>
+        <script>
+            const imageUploads = document.querySelectorAll('.fileupload');
+            const imagePreviews = document.querySelectorAll('img[id^="image-preview"]');
+        
+            for (let i = 0; i < imageUploads.length; i++) {
+                imageUploads[i].addEventListener('change', function() {
+                    const file = this.files[0];
+                    const imagePreview = imagePreviews[i];
+        
+                    if (file) {
+                        const reader = new FileReader();
+        
+                        reader.addEventListener('load', function() {
+                            imagePreview.setAttribute('src', this.result);
+                            imagePreview.style.display = 'block';
+                        });
+        
+                        reader.readAsDataURL(file);
+                    }
+                });
+            }
+        </script>
             <!-- <div class="select-sizes">
                 <p class="text">size hiện có</p>
                 <div class="sizes">
@@ -72,28 +98,32 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
             </div> -->
         </div>
         <div class="product-price">
-            <input type="number" id="selling-price" name="gia_sp" placeholder="giá bán" value="<?= $row['GiaSP'] ?>">
+            <input type="number" id="selling-price" name="gia_sp" placeholder="giá bán">
         </div>
 
         <input type="number" id="stock" min="20" placeholder="Nhập số lượng vào kho (tối thiểu 20)">
 
-        <?php
-            $loaiSP = $row['category_id'];
-            $queo = "SELECT * FROM category WHERE id='$loaiSP'";
-            $result1 = mysqli_query($conn, $queo);
-            $row1 = mysqli_fetch_assoc($result1);
-        ?>
-        <textarea id="tags" name="loai_sp" placeholder="Nhập phân loại sản phẩm tại đây, ví dụ - Men Armor, Power Armor, Primaris Armor,... (bạn phải nhập men hoặc women trước để bắt đầu)"><?php echo $row1['category_name']; ?></textarea>
-
-        <input type="checkbox" class="checkbox" id="tac" checked>
-        <label for="tac">Tôi đã kiểm tra kĩ thông tin</label>
+        <select class="select" name="thuong_hieu">
+            <option value = "0">chọn Thương Hiệu</option>
+            <option value = "DELL">dell</option>
+            <option value = "ACER">acer</option>
+            <option value = "ASUS">asus</option>
+        </select>
+        <select class="select" name="loai_sp">
+            <option value = "0">Chọn loại</option>
+            <option value = "laptop">Laptop</option>
+            <option value = "phụ kiện">Phụ kiện</option>
+        </select>
 
         <script>
             function validateForm() {
                 var gia = document.forms["themsp"]["selling-price"].value;
                 var name = document.forms["themsp"]["product-name"].value;
-                var img = document.forms["themsp"]["first-file-upload-btn"].value;
-                if (name == "" || img == "" || gia =="") {
+                var img1 = document.forms["themsp"]["image-upload1"].value;
+                var img2 = document.forms["themsp"]["image-upload2"].value;
+                var img3 = document.forms["themsp"]["image-upload3"].value;
+                var img4 = document.forms["themsp"]["image-upload4"].value;
+                if (name == "" || gia =="" || img1 == "" || img2 == "" || img3 == "" || img4 =="") {
                     alert("Bạn cần nhập tên,giá sản phẩm và tải ảnh sản phẩm lên trước khi thêm sản phẩm.");
                     return false;
                 }

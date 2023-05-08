@@ -255,9 +255,6 @@ td:last-child{
     width: 140px;
 }
 
-#add-address-link, #mySelect{
-    display: none;
-}
 .linked {
     display: block;
     text-decoration: none;
@@ -273,3 +270,19 @@ td:last-child{
     display: inline-block;
     margin: 0;
 }
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    color: white;
+    font-size: 24px;
+    text-align: center;
+    line-height: 100%;
+  }
+
+  .container {
+    position: relative;
+    width: 100%;
+  }

@@ -7,13 +7,6 @@ select.addEventListener("change", function() {
     link.href = 'editlocationForm.php?id=' + selectedValue;
 });
 
-function checkOnlyOne(checkbox) {
-    var checkboxes = document.getElementsByName('delivery');
-    checkboxes.forEach((item) => {
-        if (item !== checkbox) item.checked = false
-    })
-}
-
 function checkOnlyOne1(checkbox) {
     var checkxh = document.getElementsByName('xungho');
     checkxh.forEach((item) => {
@@ -28,33 +21,10 @@ function checkOnlyOne2(checkbox) {
     })
 }
 
-var checkbox1 = document.getElementById("ship");
-var checkbox2 = document.getElementById("shop");
 var link1 = document.getElementById("add-address-link");
 var link2 = document.getElementById("mySelect");
 var link3 = document.getElementById("myLink");
 
-checkbox1.addEventListener('change', function() {
-    if (this.checked && !checkbox2.checked) {
-        link1.style.display = "block";
-        link2.style.display = "inline";
-        link3.style.display = "inline-block";
-    } else {
-        link1.style.display = "none";
-        link2.style.display = "none";
-        link3.style.display = "none";
-    }
-    checkOnlyOne(this);
-});
-
-checkbox2.addEventListener('change', function() {
-    if (this.checked && !checkbox1.checked) {
-        link1.style.display = "none";
-        link2.style.display = "none";
-        link3.style.display = "none";
-    }
-    checkOnlyOne(this);
-});
 
 var checkbox3 = document.getElementById("onl");
 var checkbox4 = document.getElementById("cod");
@@ -76,15 +46,13 @@ function validateForm() {
     var name = document.forms["form"]["hoten"].value;
     var sdt = document.forms["form"]["sdt"].value;
     var pay = document.forms["form"]["bank"].value;
-    if (name == "" || sdt == "" || (checkbox3.checked && pay == "" )|| (!checkbox1.checked && !checkbox2.checked) || (!checkbox3.checked && !checkbox4.checked)) {
+    if (name == "" || sdt == "" || (checkbox3.checked && pay == "" )|| (!checkbox3.checked && !checkbox4.checked)) {
         alert("vui long2 dien du tt.");
         return false;
     }
-    if(checkbox1.checked){
-        if(document.getElementById("mySelect").value == -1){
-            alert("vui long2 dien du tt.");
-            return false;
-        }
+    if(document.getElementById("mySelect").value == -1){
+        alert("vui long2 dien du tt.");
+        return false;
     }
 }
 

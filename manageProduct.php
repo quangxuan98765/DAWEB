@@ -50,6 +50,7 @@ if(isset($_REQUEST['submitSuasp'])) {
 	$giaSP = (double)$_REQUEST['gia_sp'];
 	$maSP = $_REQUEST['ma_sp'];
     $loaiSP = $_REQUEST['loai_sp'];
+	$brands = $_REQUEST['thuong_hieu'];
 	$id = $_REQUEST['id'];
 	
 	$servername = "localhost";
