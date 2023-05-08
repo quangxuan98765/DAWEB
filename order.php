@@ -107,7 +107,7 @@ require_once('lib_login_session.php');
                     <th>Hình thức thanh toán</th>
                     <th>Tình trạng đơn</th>
                     <th>Hành động</th>
-                    <th>diachiiiiiiiiiii</th>
+                    <th>Địa chỉ</th>
                 </tr>
                 
             </table>
