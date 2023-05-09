@@ -7,6 +7,7 @@
     <title>Thêm sản phẩm</title>
     <link rel="stylesheet" href="css/sigup.css">
     <link rel="stylesheet" href="css/addProduct.css">
+    <link rel="stylesheet" href="css/cart.css">
 </head>
 <body>
     <img src="img/loader.gif" class="loader" alt="">
@@ -79,18 +80,27 @@
 
         <input type="number" id="stock" min="20" placeholder="Nhập số lượng vào kho (tối thiểu 20)">
 
-        <input type="text" id="tags" name="thuong_hieu" placeholder="Brand">
-        <input type="text" name="loai_sp" placeholder="Category">
-
-        <input type="checkbox" class="checkbox" id="tac" checked>
-        <label for="tac">Tôi đã kiểm tra kĩ thông tin</label>
+        <select class="select" name="thuong_hieu">
+            <option value = "0">chọn Thương Hiệu</option>
+            <option value = "DELL">dell</option>
+            <option value = "ACER">acer</option>
+            <option value = "ASUS">asus</option>
+        </select>
+        <select class="select" name="loai_sp">
+            <option value = "0">Chọn loại</option>
+            <option value = "laptop">Laptop</option>
+            <option value = "phụ kiện">Phụ kiện</option>
+        </select>
 
         <script>
             function validateForm() {
                 var gia = document.forms["themsp"]["selling-price"].value;
                 var name = document.forms["themsp"]["product-name"].value;
-                var img = document.forms["themsp"]["image-upload"].value;
-                if (name == "" || img == "" || gia =="") {
+                var img1 = document.forms["themsp"]["image-upload1"].value;
+                var img2 = document.forms["themsp"]["image-upload2"].value;
+                var img3 = document.forms["themsp"]["image-upload3"].value;
+                var img4 = document.forms["themsp"]["image-upload4"].value;
+                if (name == "" || gia =="" || img1 == "" || img2 == "" || img3 == "" || img4 =="") {
                     alert("Bạn cần nhập tên,giá sản phẩm và tải ảnh sản phẩm lên trước khi thêm sản phẩm.");
                     return false;
                 }

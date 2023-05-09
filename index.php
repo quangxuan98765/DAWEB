@@ -137,7 +137,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                 </select>
         </div>
 
-    <script type="module">
+<script type="module">
         import {pagesToElement} from "./js/page.js";
         function filterProducts() {
             var xhr1 = new XMLHttpRequest();
@@ -157,20 +157,31 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                         console.log(xhr.responseText);
                         var products = JSON.parse(xhr.responseText);
                         pagesToElement(products.length, DpP,document.querySelector(".list_page"),function myFunc(num) {
+// <<<<<<< master
                         
+//                             // Xử lý kết quả trả về từ yêu cầu Ajax
+//                             var productContainer = document.getElementById('boxajax-containter');
+//                             var productHtml = '';   
+//                             for (let i = 0; i <DpP && (DpP*(num-1) + i)< products.length; i++) {
+//                                 var page = DpP*(num-1) + i;
+//                                 if(xhr1.responseText == 1){
+//                                     productHtml += `<div class="product-card"><div class="product-image"><a href="product.php?MaSP=` + products[page].id + `">`;
+// =======
+                         
                             // Xử lý kết quả trả về từ yêu cầu Ajax
                             var productContainer = document.getElementById('boxajax-containter');
-                            var productHtml = '';   
+                            var productHtml = '';
+                            productHtml += `<div class="product-card"><div class="product-image"><a href="product.php?MaSP=` + products[page].MaSP + `">`;
                             for (let i = 0; i <DpP && (DpP*(num-1) + i)< products.length; i++) {
                                 var page = DpP*(num-1) + i;
                                 if(xhr1.responseText == 1){
-                                    productHtml += `<div class="product-card"><div class="product-image"><a href="product.php?MaSP=` + products[page].id + `">`;
                                     productHtml += `<img src="` + products[page].HinhSP + `" class="product-thumb"> <button class="card-btn">mua ngay</button>`;
                                     productHtml += `<a href="editProduct.php?id=` +  products[page].id + `"><button class="card-action-btn edit-btn">Sửa</button></a>`;
                                     productHtml += `<a href="manageProduct.php?del=1&id=` + products[page].id + `" onclick="return confirm(\'Are you sure?\');"><button class="card-action-btn delete-popup-btn">Xóa</button></a>`;
                                 }
                                 else
                                     productHtml += `<div class="product-card"><div class="product-image"><a href="product.php?MaSP=` + products[page].id + `"><img src="` + products[page].HinhSP + `" class="product-thumb"> <button class="card-btn">mua ngay</button>`;
+                                    productHtml += `<img src="` + products[page].HinhSP + `" class="product-thumb"> <button class="card-btn">mua ngay</button>`;
                                     var gia = parseInt(products[page].GiaSP);
                                     productHtml +=`</a></div><div class="product-info"><h2 class="product-brand">` + products[page].TenSP + `(` + products[page].MaSP + `)</h2><p class="product-short-des">` + products[page].MoTaSP + `</p><span class="price">` + gia.toLocaleString('vi-VN') + ` vnđ</span></div></div>`;
                             }
@@ -279,17 +290,8 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
     <!--collections-->
     <h2 class="title-colection">Mục đáng chú ý</h2>
     <section class="collection-container">
-        <a href="womenarmor.html" class="collection">
-            <img src="img/women-collection.png" alt="">
-            <p class="collection-title">women <br> armor</p>
-        </a>
-        <a href="menarmor.html" class="collection">
-            <img src="img/men-collection.png" alt="">
-            <p class="collection-title">Man <br> armor</p>
-        </a>
-        <a href="accessories.html" class="collection">
-            <img src="img/accessories-collection.png" alt="">
-            <p class="collection-title">phụ kiện</p>
+        <a href="laptopProduct.php" class="collection">
+            <img src="img/quangcao.jpg" alt="">
         </a>
     </section>
             </div>

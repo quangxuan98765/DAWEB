@@ -50,6 +50,7 @@ if(isset($_REQUEST['submitSuasp'])) {
 	$giaSP = (double)$_REQUEST['gia_sp'];
 	$maSP = $_REQUEST['ma_sp'];
     $loaiSP = $_REQUEST['loai_sp'];
+	$brands = $_REQUEST['thuong_hieu'];
 	$id = $_REQUEST['id'];
 	
 	$servername = "localhost";
@@ -68,14 +69,19 @@ if(isset($_REQUEST['submitSuasp'])) {
 	$row = mysqli_fetch_assoc($result1);
 	$category_id = $row['id'];
 
+	$queo1 = "SELECT * FROM brands WHERE brand_name='$brands'";
+	$result2 = mysqli_query($conn, $queo1);
+	$row1 = mysqli_fetch_assoc($result2);
+	$b = $row1['id'];
+
 	if($_FILES['filetoup']['name']=='') {
 		//No file selected
-		$sql = sprintf("UPDATE `sanpham` SET `MaSP` = '%s', `TenSP` = '%s', `MoTaSP` = '%s', `GiaSP` = '%f', `category_id` = '%s' WHERE `sanpham`.`id` = %d;", $maSP, $tenSP, $motaSP,$giaSP,$category_id, $id);
+		$sql = sprintf("UPDATE `sanpham` SET `MaSP` = '%s', `TenSP` = '%s', `MoTaSP` = '%s', `GiaSP` = '%f', `category_id` = '%s', `brand_id` = '%s' WHERE `sanpham`.`id` = %d;", $maSP, $tenSP, $motaSP,$giaSP,$category_id, $b, $id);
 	}
 	else {
-		$hinh = '';
-		uploadHinh($hinh);
-		$sql = sprintf("UPDATE `sanpham` SET `MaSP` = '%s', `TenSP` = '%s', `HinhSP` = '%s', `MoTaSP` = '%s', `GiaSP` = '%f', `category_id` = '%s' WHERE `sanpham`.`id` = %d;", $maSP, $tenSP, $hinh, $motaSP, $giaSP, $category_id, $id);
+		$hinhSPs = array();
+		uploadHinh($hinhSPs);
+		$sql = sprintf("UPDATE `sanpham` SET `MaSP` = '%s', `TenSP` = '%s', `HinhSP` = '%s', `more_img` = '%s', `more_img1` = '%s', `more_img2` = '%s', `MoTaSP` = '%s', `GiaSP` = '%f', `category_id` = '%s' WHERE `sanpham`.`id` = %d;", $maSP, $tenSP, $hinhSPs[0], $hinhSPs[1], $hinhSPs[2], $hinhSPs[3], $motaSP, $giaSP, $category_id, $b, $id);
 	}	
 	
 	if ($conn->query($sql) === TRUE) {
