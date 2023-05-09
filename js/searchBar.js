@@ -16,11 +16,12 @@ export function firstFunc() {
   });
 }
  export function newFunc() {
+  
   const searchValue = new URLSearchParams(window.location.search).get(
     "searchValue"
   );
   document.querySelector(".search-box").value = searchValue;
-  if (searchValue != null)
+  if (searchValue != null && searchValue.trim() !="")
     document.querySelector(".product-category").innerText =
       "Tìm kiếm cho '" + searchValue + "'";
   document.querySelectorAll(".select-combo").forEach((e) => {
