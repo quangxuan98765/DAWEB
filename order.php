@@ -89,12 +89,23 @@ require_once('lib_login_session.php');
                 <option value="waiting">chưa xử lý</option>
                 <option value="confirmed">đã xác nhận</option>
                 <option value="cancelled">đã huỷ</option>
-                
             </select>
-            <div class="search-order">
-                <input type="text" placeholder="Tìm kiếm...">
-                <button class="search-btn">&#9906; Tìm kiếm</button>                       
-            </div>
+            <select class="select select-location">
+                <option value="">Khu vực</option>
+                <?php
+                $servername = "localhost";
+                $username = "root";
+                $password = "";
+                $dbname = "laptrinhWeb2";
+                $conn = mysqli_connect($servername, $username, $password, $dbname);
+                $result = mysqli_query($conn,"SELECT distinct city from diachi");
+                $text = "";
+                while ($row = mysqli_fetch_assoc($result)) {
+                     $text .= ($row["city"] !="")? '<option value="'.$row["city"].'">'.$row["city"].'</option>':"";
+                }
+                echo $text;
+                ?>
+            </select>
         </div>
         <div class="small-container oder-page1">
             <table>
