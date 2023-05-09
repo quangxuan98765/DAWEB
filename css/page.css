@@ -1,0 +1,44 @@
+
+.list_page{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+    margin-top: 50px;
+  }
+  .list_page .list_sign_item{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      list-style: none;
+      margin-top: 50px;
+    }
+    .list_page .list_page_item{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      list-style: none;
+      margin-top: 50px;
+    }
+    .list_page_item{
+     margin: 0 25px;
+    }
+  .list_page_item--active .list_page_item_link{
+    color: #fff;
+    background-color: rgb(206, 80, 12);
+  }
+  .list_page_item--active .list_page_item_link:hover{
+    color: #f38f15;
+  }
+  .list_page_item_link{
+    display: block;
+    text-decoration: none;
+    font-size: 1.6rem;
+    color: #939393;
+    min-width: 40px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 2px;
+  }
+  

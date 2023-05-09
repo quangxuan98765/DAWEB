@@ -27,7 +27,7 @@ table{
     flex-wrap: wrap;
 }
 
-th{
+th, .th-white{
     text-align: left;
     padding: 5px;
     color: #fff;
@@ -36,7 +36,9 @@ th{
     font-size: 20px;
     text-transform: capitalize;
 }
-
+.th-white{
+background: none;
+}
 td{
     padding: 10px 5px;
     font-size: 20px;
@@ -164,8 +166,6 @@ td:last-child{
 .address-input{
     width: 100%;
     padding: 10px;
-    background: #383838;
-    height: 120px;
     border-radius: 10px;
     align-items: center;
 }
@@ -185,7 +185,7 @@ td:last-child{
 
 .select{
     font-size: 18px;
-    padding: 8px 19%;
+    padding: 5px;
     border-radius: 5px;
     text-transform: capitalize;
     margin-right: 5px;
@@ -253,4 +253,23 @@ td:last-child{
 .status-confirm
 {
     width: 140px;
+}
+
+#add-address-link, #mySelect{
+    display: none;
+}
+.linked {
+    display: block;
+    text-decoration: none;
+    margin-top: 10px; /* khoảng cách giữa thẻ a và các checkbox */
+    border: 1px solid #ccc; /* độ rộng và màu sắc khung */
+    padding: 5px; /* khoảng cách giữa nội dung và khung */
+}
+.select {
+    display: inline-block;
+    margin-right: 10px;
+}
+#myLink {
+    display: inline-block;
+    margin: 0;
 }

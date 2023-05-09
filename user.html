@@ -10,15 +10,15 @@
     <link rel="stylesheet" href="css/cart.css">
     <link rel="stylesheet" href="css/search.css">
     <link rel="stylesheet" href="css/sigup.css">
-    <link rel="stylesheet" href="css/admin.css">
-
+    <link rel="stylesheet" href="css/admin1.css">
+    <link rel="stylesheet" href="css/page.css">
 </head>
 <body>
     <img src="img/loader.gif" class="loader" alt="">
 
     <div class="alert-box">
-        <img src="img/error.png" class="alert-img" alt="">
-        <p class="alert-msg">Thông báo lỗi</p>
+        <h1 class="alert-sign"></h1>
+        <p class="alert-msg"></p>
     </div>
     <img src="img/dark-logo.png" class="logo" alt="">
 
@@ -43,82 +43,20 @@
             <button class="btn btn-new-product" id="new-user" onclick="location.href='addProduct.html'">	&#43; thêm user</button>
         </div>
         <div class="box">
-            <select class="select">
-                <option>hiển thị: 10 user</option>
-                <option>hiển thị: 20 user</option>
-                <option>hiển thị: 30 user</option>
-                <option>hiển thị tất cả</option>
-            </select>
-            <select class="select">
-                <option>Phân loại: Tất cả user</option>
-                <option>Staff</option>
-                <option>Administrator</option>
-                <option>Encoder</option>
-                <option>Uploader</option>
-                <option>Mới thêm gần đây</option>
+            <select class="select select-role">
+                <option value="">user</option>
+                <option value="admin">admin</option>
+                <option value="normal">normal</option>
             </select>
             <div class="search">
                 <input type="text" placeholder="Tìm kiếm...">
                 <button class="search-btn">&#9906; Tìm kiếm</button>                       
             </div>
         </div>
-        <div class="small-container oder-page">
-            <table>
-                <tr>
-                    <th>Tên tài khoản</th>
-                    <th>Tên người dùng</th>
-                    <th>Quyền hạn</th>
-                    <th class="table-btn-zone">Hành động</th>
-                </tr>
-                <tr>
-                    <td><a>happynewyear2023</a>
-                    <td><a>Trần Dần</a>
-                    <td><p style="color: red">Administrator</p></td>
-                    <td><button class="confirm-btn">chỉnh sửa</button><button class="canceled-btn">xoá</button></td>
-                </tr>
-                <tr>
-                    <td><a>happynewyear2023</a>
-                    <td><a>Trần Dần</a>
-                    <td><p>Member</p></td>
-                    <td><button class="confirm-btn">chỉnh sửa</button><button class="cancel-btn">xoá</button></td>
-                </tr>
-                <tr>
-                    <td><a>happynewyear2023</a>
-                    <td><a>Trần Dần</a>
-                    <td><p>Ecoder</p></td>
-                    <td><button class="confirm-btn">chỉnh sửa</button><button class="cancel-btn">xoá</button></td>
-                </tr>
-                <tr>
-                    <td><a>happynewyear2023</a>
-                    <td><a>Trần Dần</a>
-                    <td><p>Ecoder</p></td>
-                    <td><button class="confirm-btn">chỉnh sửa</button><button class="cancel-btn">xoá</button></td>
-                </tr>
-                <tr>
-                    <td><a>happynewyear2023</a>
-                    <td><a>Trần Dần</a>
-                    <td><p>Ecoder</p></td>
-                    <td><button class="confirm-btn">chỉnh sửa</button><button class="cancel-btn">xoá</button></td>
-                </tr>
-                <tr>
-                    <td><a>happynewyear2023</a>
-                    <td><a>Trần Dần</a>
-                    <td><p>Ecoder</p></td>
-                    <td><button class="confirm-btn">chỉnh sửa</button><button class="cancel-btn">xoá</button></td>
-                </tr>
-                
-            </div>
-        </table>
-        <div class="box">
-            <a>Đang hiển thị trang 1 trên 999</a>
-            <div class="pre-next-btn">
-                <a class="btn">Trang trước</a>
-                <a class="btn">1</a>
-                <a class="btn">Trang sau</a>
-            </div>
+            <div class="small-container oder-page">
+             </div>
+            <ul class="box list_page"></ul>
         </div>
-    </div>
-
-    <script src="js/admin.js"></script>
+        <script type="module" src="js/user.js"></script>
 </body>
 </html>

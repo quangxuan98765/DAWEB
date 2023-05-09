@@ -2,56 +2,43 @@ const loader = document.querySelector('.loader');
 
 
 //select input
-const submitBtn = document.querySelector('.submit-btn');
 const name = document.querySelector('#name');
 const email = document.querySelector('#email');
 const password = document.querySelector('#password');
-const number = document.querySelector('#number');
+const uname = document.querySelector('#username');
+// const phone = document.querySelector('#phone');
 const tac = document.querySelector('#term-and-cond');
 const notification = document.querySelector('#notidication');
 
-/*sua chua code tai day*/
-submitBtn.addEventListener('click', () =>{
-    if(name!=null){// sign up page
-        if(name.value.length <3){
-            showAlert('Tên không hợp lệ');
-        } else if(!email.value.length){
-            showAlert('Vui lòng nhập mail');
-        }else if(password.value.length <8){
-            showAlert('mật khẩu phải dài hơn 8 kí tự');
-        } else if(!number.value.length){
-            showAlert('Vui lòng nhập số điện thoại');
-        } else if(!Number(number.value)|| number.value.length <10){
-            showAlert('Số điện thoại lỗi. Nhập lại');
-        } else if(!tac.checked){
-            showAlert('Bạn phải đồng ý điều khoản và dịch vụ của chúng tôi');
-        } else{
-            //submit form
-            loader.style.display = 'block';
-        }  
-    }else{//ranh thi sua lai o cho nay cho day du giong ben tren
-        //login page
-        if(!email.value.length|| !password.value.length){
-            showAlert('Vui lòng điền đủ thông tin ');
-        } else if(password.value.length<8){
-            showAlert('mật khẩu phải hơn 8 ký tự');
-        } else{
-            //submit form
-            loader.style.display = 'block';
-            if(email.value=="admin" && password.value=="admin1234"){
-                location.href = "admin.html"
-            } 
-            else{
-                location.href="index.html";
-            }
-        }  
+function validateForm() {
+    if(name.value.trim().length < 3){
+        showAlert('Tên không hợp lệ');
+        return false;
+    } else if(!email.value.trim()){
+        showAlert('Vui lòng nhập email');
+        return false;
+    } else if(!/^\S+@\S+\.\S+$/.test(email.value.trim())){
+        showAlert('Email không hợp lệ');
+        return false;
+    } else if(!uname.value.trim()){
+        showAlert('Tên đăng nhập không hợp lệ!');
+        return false;
+    } else if(uname.value.indexOf(" ") !== -1){
+        showAlert('Tên đăng nhập không được chứa khoảng trắng!');
+        return false;
+    } else if(password.value.trim().length < 8){
+        showAlert('Mật khẩu phải có ít nhất 8 kí tự');
+        return false;
+    // } else if(!/^\d+$/.test(phone.value.trim())){
+    //     showAlert('Số điện thoại không hợp lệ');
+    } else if(!tac.checked){
+        showAlert('Bạn phải đồng ý với các điều khoản và dịch vụ của chúng tôi');
+        return false;
     }
-})
+    return true;
+}
 
-//send data funcion
-//cai nay chua hoc nen cung chua can den
-
-////alert function
+// Hàm hiển thị thông báo
 const showAlert = (msg) =>{
     let alertBox = document.querySelector('.alert-box');
     let alertMsg = document.querySelector('.alert-msg');
@@ -59,5 +46,6 @@ const showAlert = (msg) =>{
     alertBox.classList.add('show');
     setTimeout(() => {
         alertBox.classList.remove('show');
-    }, 3000);
+    }, 900);
 }
+
