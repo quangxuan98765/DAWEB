@@ -19,7 +19,6 @@
 
 table{
     width: 100%;
-    border-collapse: collapse;
 }
 
 .cart-info{
@@ -31,7 +30,6 @@ th, .th-white{
     text-align: left;
     padding: 5px;
     color: #fff;
-    background: #383838;
     font-weight: normal;
     font-size: 20px;
     text-transform: capitalize;

@@ -54,9 +54,9 @@ require_once('lib_login_session.php');
             </script>
             
         </div>
-        <p class="add-product-title nav-link" onclick="location.href='user.html'">quản lý user</p>
+        <p class="add-product-title nav-link" onclick="location.href='index.php'">trang chủ</p>
+        <p class="add-product-title nav-link" onclick="location.href='userhtml.php'">quản lý user</p>
         <p class="add-product-title nav-link" onclick="location.href='order.php'">quản lý đơn hàng</p>
-        <p class="add-product-title nav-link" onclick="location.href='report.html'">báo cáo</p>
     </div>
     <div class="order-list">
         <div class="add-product">

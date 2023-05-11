@@ -79,7 +79,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                     ?>
                     </div>
                 </a>
-                <a href="historycart.html"><img src="img/history.png"></a>
+                <a href="historycart.php"><img src="img/history.png"></a>
                 <a href="cart.php"><img src="img/cart.png"></a>
         </div>
     </div>
@@ -98,10 +98,6 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
     <div class="info-user">
         <div class="title-user">
         <h2 class="title-history-cart">Đơn hàng đã mua gần đây</h2>  
-        <div class="search go-right">
-            <input type="text" class="search-box" placeholder="">
-            <button class="search-btn">&#9906; Tìm kiếm</button>                       
-        </div>
         </div>
     </div>
 
@@ -111,6 +107,5 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
 
     <ul class="list_page"></ul>
     <script type="module" src="js/historycart.js"></script>
-    <script src="js/nav.js"></script>
 </body>
 </html>

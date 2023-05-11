@@ -123,19 +123,6 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                     <option value = "phụ kiện">Phụ kiện</option>
                 </select>
         </div>
-        <!-- <div class="box">
-            <a class="titlefilter">Tuỳ chọn mức giá phù hợp <img src="img/pricefilter.png"></a>
-            <div class="min-max-slider" data-legendnum="2">
-                <label for="min">Giá tối thiểu</label>
-                <input id="min" class="min" name="min" type="range" step="1" min="0" max="50000000" />
-                <label for="max">Giá tối đa</label>
-                <input id="max" class="max" name="max" type="range" step="1" min="0" max="50000000" />
-            </div>
-            <div class="btnend">
-                <button class="un-selectBtn">Bỏ chọn</button>
-                <button class="detailBtn">Xem kết quả</button>
-            </div>
-        </div> -->
         <div class="box">
             <select class="select">
                 <option>Xếp theo: Nổi bật</option>

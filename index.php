@@ -109,7 +109,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
     <header class="hero-section">
         <div class="content">
             <img src="img/light-logo.png" class="logo" alt="">
-            <p class="sub-heading">Biến chiến trường thành sân khấu của bạn</p>
+            <p class="sub-heading">Yamateeeee kudasai</p>
         </div>
     </header>
 
@@ -119,10 +119,10 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
             <a class="nameselect-combo">Giá</a>
             <select id="select-cost" class="select-combo">
                 <option value="">chọn khoảng giá</option>
-                <option value="`%s`<2000000">dưới 2 triệu</option>
-                <option value="`%s`>=2000000 AND `%s`<4000000">từ 2 tới 4 triệu</option>
-                <option value="`%s`>=4000000 AND `%s`<6000000">từ 4 tới 6 triệu</option>
-                <option value="`%s`>=6000000">trên 6 triệu</option>
+                <option value="`%s`<7000000">dưới 7 triệu</option>
+                <option value="`%s`>=5000000 AND `%s`<15000000">từ 5 tới 15 triệu</option>
+                <option value="`%s`>=15000000 AND `%s`< 30000000">từ 15 tới 30 triệu</option>
+                <option value="`%s`>=30000000">trên 30 triệu</option>
             </select>
         </div>
         <div class="box">
@@ -132,7 +132,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                 <option value="DESC">Giá từ cao đến thấp</option>
             </select>
         </div>
-        </div>
+    </div>
 
     <!-- <script type="module">
         import {pagesToElement} from "./js/page.js";
@@ -203,12 +203,12 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
     <!--cards-container-->
     <div id="boxajax-containter">
         <section class="product">
-            <h2 class="product-category">Sản phẩm mới <img src="img/new.png"></h2>
+            <h2 class="product-category">Laptop mới <img src="img/new.png"></h2>
             <button class="pre-btn"><img src="img/arrow.png" alt=""></button>
             <button class="nxt-btn"><img src="img/arrow.png" alt=""></button>
             <div class="product-container">
                 <?php
-                $sql1 = "SELECT * FROM SanPham WHERE product_sell = 'hàng mới'";
+                $sql1 = "SELECT * FROM SanPham ";
                 $result1 = mysqli_query($conn, $sql1);
                     if(mysqli_num_rows($result1) > 0){
                         $s = "";
@@ -237,15 +237,15 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                     echo $s;
                 ?>
         </section>
-                <div class="order-page"></div></section>
+                <div class="order-page"></div>
                 
         <section class="product">
-            <h2 class="product-category">Sản phẩm bán chạy  <img src="img/bestsell.png"></h2>
+            <h2 class="product-category">Phụ kiện mới <img src="img/bestsell.png"></h2>
             <button class="pre-btn arrow"><img src="img/arrow.png" alt=""></button>
             <button class="nxt-btn arrow"><img src="img/arrow.png" alt=""></button>
             <div class="product-container">
                 <?php
-                $sql1 = "SELECT * FROM SanPham WHERE product_sell = 'hàng bán chạy'";
+                $sql1 = "SELECT * FROM SanPham ";
                 $result1 = mysqli_query($conn, $sql1);
                     if(mysqli_num_rows($result1) > 0){
                         $s = "";
@@ -253,7 +253,14 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                             $s.='<div class="product-card">';
                             $s.='<div class="product-image">';
                             $s .= '<a href="product.php?MaSP=' . $row['MaSP'] . '">';
-                            $s.= sprintf('<img src="%s" class="product-thumb"> <button class="card-btn">mua ngay</button>', $row['HinhSP']);
+                            if(isLogged() == 1){
+                                $s.= sprintf('<img src="%s" class="product-thumb"> <button class="card-btn">mua ngay</button>', $row['HinhSP']);
+                                $s .= sprintf('<a href="editProduct.php?id=%s"><button class="card-action-btn edit-btn">Sửa</button></a>', $row['id']);
+                                $s.= sprintf('<a href="manageProduct.php?del=1&id=%s" onclick="return confirm(\'Are you sure?\');"><button class="card-action-btn delete-popup-btn">Xóa</button></a>', $row['id']);
+                                //<a href="editProduct.php?id=' . $row['id'] . '">Sửa</a><a href="manageProduct.php?del=1&id=' .$row['id'] . '" onclick="return confirm("Are you sure?");">Del</a>
+                            }
+                            else
+                                $s.= sprintf('<img src="%s" class="product-thumb"> <button class="card-btn">mua ngay</button>', $row['HinhSP']);
                             $s .= '</a>';
                             $s.='</div>';
                             $s.='<div class="product-info">';

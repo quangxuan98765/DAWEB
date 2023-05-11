@@ -18,7 +18,7 @@ if (!$conn) {
 }
 $id = $_GET['id'];
 $taikhoan = $_SESSION['current_username'];
-$sql = "SELECT * FROM diachi WHERE taikhoan = '$taikhoan'";
+$sql = "SELECT * FROM diachi WHERE taikhoan = '$taikhoan' and id = '$id'";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
 if (!$result) { die("Query failed: " . mysqli_error($conn)); }

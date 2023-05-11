@@ -23,7 +23,6 @@ function checkOnlyOne2(checkbox) {
 
 var link1 = document.getElementById("add-address-link");
 var link2 = document.getElementById("mySelect");
-var link3 = document.getElementById("myLink");
 
 
 var checkbox3 = document.getElementById("onl");
@@ -47,11 +46,11 @@ function validateForm() {
     var sdt = document.forms["form"]["sdt"].value;
     var pay = document.forms["form"]["bank"].value;
     if (name == "" || sdt == "" || (checkbox3.checked && pay == "" )|| (!checkbox3.checked && !checkbox4.checked)) {
-        alert("vui long2 dien du tt.");
+        alert("Vui lòng điền đủ thông tin.");
         return false;
     }
     if(document.getElementById("mySelect").value == -1){
-        alert("vui long2 dien du tt.");
+        alert("Vui lòng điền đủ thông tin.");
         return false;
     }
 }

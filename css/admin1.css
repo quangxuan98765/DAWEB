@@ -53,6 +53,7 @@ padding-left: 0px;
 
 .add-product-title{
     text-transform: capitalize;
+    cursor: pointer;
     color: #383838;
 }
 
@@ -319,7 +320,6 @@ tr:nth-child(even) {
     padding: 10px 20px;
     border-radius:10px;
     margin-bottom: 20px;
-    cursor: pointer;
     background: #fff;
     border-bottom: 2px solid black;
 }

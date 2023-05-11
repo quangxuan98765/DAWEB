@@ -147,8 +147,21 @@
             <label for="radioTwo" class="radio">Văn phòng</label>
           </div>
         </div>
-        <button name="submit" class="button">Lưu</button>
+        <button name="submit" class="button" onclick="return validateForm()">Lưu</button>
       </form>
+      <script>
+        function validateForm() {
+                var gia = document.forms["themsp"]["city"].value;
+                var name = document.forms["themsp"]["duong"].value;
+                var img1 = document.forms["themsp"]["nha"].value;
+
+                if (name == "" || gia =="" || img1 == "" ) {
+                    alert("Vui lòng nhập đủ thông tin");
+                    return false;
+                }
+            }
+    </script>
+    
     </div>
   </body>
 </html>

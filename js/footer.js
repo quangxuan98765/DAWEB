@@ -34,7 +34,7 @@ const createFooter = () => {
         <a href="#" class="social-link">Điều khoản dịch vụ và chính sách bảo mật</a>
         <a href="#" class="social-link">Trang cá nhân</a>
         <a href="#" class="social-link">instagram</a>
-        <a href="#" class="social-link">facebook</a>
+        <a href="https://www.facebook.com/profile.php?id=100008726139053" class="social-link">facebook</a>
         <a href="#" class="social-link">twitter</a>
     </div>
 </div>

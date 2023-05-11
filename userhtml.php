@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="vi">
-    <!-- <?php
+    <?php
     require_once('lib_login_session.php');
-    ?> -->
+    ?> 
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -31,10 +31,10 @@
         <div class="nav-space">
             <div class="nav-admin">
                 <img src="img/user.png">
-                <!-- <?php
+                 <?php
                     echo '<p class="add-product-title name-admin">Hello '. $_SESSION['current_username'] .'</p>';
                     echo '<button class="btn btn-new-product" id="new-product">Đăng xuất</button>';
-                ?> -->
+                ?> 
                 <script>
                     var logoutBtn = document.getElementById("new-product");
     
@@ -54,9 +54,9 @@
                 </script>
                 
             </div>
-            <p class="add-product-title nav-link" onclick="location.href='user.html'">quản lý user</p>
+            <p class="add-product-title nav-link" onclick="location.href='index.php'">trang chủ</p>
+            <p class="add-product-title nav-link" onclick="location.href='userhtml.php'">quản lý user</p>
             <p class="add-product-title nav-link" onclick="location.href='order.php'">quản lý đơn hàng</p>
-            <p class="add-product-title nav-link" onclick="location.href='report.html'">báo cáo</p>
         </div>
         <div class="box">
             <select class="select select-role">

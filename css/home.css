@@ -44,7 +44,7 @@
 
 .product-container{
     height: 500px;
-    padding: 0 10vw;
+    padding: 0 2vw;
     display: flex;
     overflow-x: auto;
     scroll-behavior: smooth;
@@ -161,7 +161,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #fff 100%);
+    background-color: rgba(0, 0, 0, 0);
+    color: #000;
+    padding: 10px 20px;
+    font-size: 16px;
     cursor: pointer;
     z-index: 8;
 }
