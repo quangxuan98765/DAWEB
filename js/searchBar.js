@@ -61,7 +61,7 @@ export function firstFunc() {
       var data = JSON.parse(xhr.responseText);
       console.log(data);
 
-      var DpP = 6;
+      var DpP = 9;
       pagesToElement(
         data.length,
         DpP,

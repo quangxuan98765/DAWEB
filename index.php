@@ -51,17 +51,17 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                             var logoutBtn = document.getElementById("user-btn");
 
                             logoutBtn.addEventListener("click", function() {
-                                var xhr = new XMLHttpRequest();
-                                xhr.open('POST', 'unset_lib_login_session.php', true);
+                                var xhr1 = new XMLHttpRequest();
+                                xhr1.open('POST', 'unset_lib_login_session.php', true);
 
-                                xhr.onload = function() {
+                                xhr1.onload = function() {
                                     //var response = JSON.parse(this.responseText);
                                     if (this.responseText === 'ok') {
                                         window.location.reload();
                                     }
                                 };
 
-                                xhr.send();
+                                xhr1.send();
                             });
                         </script>
                 <?php
@@ -115,29 +115,26 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
 
     <div class="box">
                 <a class="titlefilter">Bộ lọc <img src="img/filter.png"></a>
-                <a class="nameselect-combo">thương hiệu</a>
-                <select class="select-combo" id="product-select" onchange="window.filterProducts()">
-                    <option value = "0">chọn loại</option>
-                    <option value = "DELL">dell</option>
-                    <option value = "ACER">acer</option>
-                    <option value = "ASUS">asus</option>
-                </select>
-                <a class="nameselect-combo">Giá</a>
-                <select class="select-combo" id="product-select_1" onchange="window.filterProducts()">
-                    <option>chọn tầm giá</option>
-                    <option value = "1">từ 5 tới 15 triệu</option>
-                    <option value = "2">từ 15 tới 20 triệu</option>
-                    <option value = "3">trên 20 triệu</option>
-                </select>
-                <a class="nameselect-combo">Loại</a>
-                <select class="select-combo" id="product-select_2" onchange="window.filterProducts()">
-                    <option value = "0">Chọn loại</option>
-                    <option value = "laptop">Laptop</option>
-                    <option value = "phụ kiện">Phụ kiện</option>
-                </select>
+                <?php include_once('addfil.php'); ?>
+            <a class="nameselect-combo">Giá</a>
+            <select id="select-cost" class="select-combo">
+                <option value="">chọn khoảng giá</option>
+                <option value="`%s`<2000000">dưới 2 triệu</option>
+                <option value="`%s`>=2000000 AND `%s`<4000000">từ 2 tới 4 triệu</option>
+                <option value="`%s`>=4000000 AND `%s`<6000000">từ 4 tới 6 triệu</option>
+                <option value="`%s`>=6000000">trên 6 triệu</option>
+            </select>
+        </div>
+        <div class="box">
+            <select id="select-sort" class="select select-combo">
+                <option value="">Xếp theo: Nổi bật</option>
+                <option value="ASC">Giá từ thấp đến cao</option>
+                <option value="DESC">Giá từ cao đến thấp</option>
+            </select>
+        </div>
         </div>
 
-<script type="module">
+    <!-- <script type="module">
         import {pagesToElement} from "./js/page.js";
         function filterProducts() {
             var xhr1 = new XMLHttpRequest();
@@ -157,31 +154,20 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                         console.log(xhr.responseText);
                         var products = JSON.parse(xhr.responseText);
                         pagesToElement(products.length, DpP,document.querySelector(".list_page"),function myFunc(num) {
-// <<<<<<< master
                         
-//                             // Xử lý kết quả trả về từ yêu cầu Ajax
-//                             var productContainer = document.getElementById('boxajax-containter');
-//                             var productHtml = '';   
-//                             for (let i = 0; i <DpP && (DpP*(num-1) + i)< products.length; i++) {
-//                                 var page = DpP*(num-1) + i;
-//                                 if(xhr1.responseText == 1){
-//                                     productHtml += `<div class="product-card"><div class="product-image"><a href="product.php?MaSP=` + products[page].id + `">`;
-// =======
-                         
                             // Xử lý kết quả trả về từ yêu cầu Ajax
                             var productContainer = document.getElementById('boxajax-containter');
-                            var productHtml = '';
-                            productHtml += `<div class="product-card"><div class="product-image"><a href="product.php?MaSP=` + products[page].MaSP + `">`;
+                            var productHtml = '';   
                             for (let i = 0; i <DpP && (DpP*(num-1) + i)< products.length; i++) {
                                 var page = DpP*(num-1) + i;
                                 if(xhr1.responseText == 1){
+                                    productHtml += `<div class="product-card"><div class="product-image"><a href="product.php?MaSP=` + products[page].id + `">`;
                                     productHtml += `<img src="` + products[page].HinhSP + `" class="product-thumb"> <button class="card-btn">mua ngay</button>`;
                                     productHtml += `<a href="editProduct.php?id=` +  products[page].id + `"><button class="card-action-btn edit-btn">Sửa</button></a>`;
                                     productHtml += `<a href="manageProduct.php?del=1&id=` + products[page].id + `" onclick="return confirm(\'Are you sure?\');"><button class="card-action-btn delete-popup-btn">Xóa</button></a>`;
                                 }
                                 else
                                     productHtml += `<div class="product-card"><div class="product-image"><a href="product.php?MaSP=` + products[page].id + `"><img src="` + products[page].HinhSP + `" class="product-thumb"> <button class="card-btn">mua ngay</button>`;
-                                    productHtml += `<img src="` + products[page].HinhSP + `" class="product-thumb"> <button class="card-btn">mua ngay</button>`;
                                     var gia = parseInt(products[page].GiaSP);
                                     productHtml +=`</a></div><div class="product-info"><h2 class="product-brand">` + products[page].TenSP + `(` + products[page].MaSP + `)</h2><p class="product-short-des">` + products[page].MoTaSP + `</p><span class="price">` + gia.toLocaleString('vi-VN') + ` vnđ</span></div></div>`;
                             }
@@ -213,7 +199,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
             xhr1.send();
         }
         window.filterProducts = filterProducts;
-    </script>
+    </script> -->
     <!--cards-container-->
     <div id="boxajax-containter">
         <section class="product">
@@ -250,9 +236,9 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                     }
                     echo $s;
                 ?>
-            </div>
         </section>
-
+                <div class="order-page"></div></section>
+                
         <section class="product">
             <h2 class="product-category">Sản phẩm bán chạy  <img src="img/bestsell.png"></h2>
             <button class="pre-btn arrow"><img src="img/arrow.png" alt=""></button>
@@ -301,8 +287,14 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
     <footer></footer>
 
     <script type="module"> 
-    import { firstFunc } from "./js/searchBar.js";
-        firstFunc();
+    import { newFunc } from "./js/searchBar.js";
+     document.querySelectorAll(".select-combo").forEach((e) => {
+    e.addEventListener("change", () => {
+      document.querySelectorAll(".product").forEach(function(e){
+        e.innerHTML = "";})
+      newFunc();
+    });
+})
     </script>
     <script src="js/search.js"></script>
 

@@ -19,7 +19,7 @@
             var productContainer = document.getElementById('boxajax');
             var productHtml = "";
             if(products.length === 0) {
-                productContainer.innerHTML = `Bạn chưa mua gì`;
+                productContainer.innerHTML = `<div class="container" style="text-align:center;"><img src="img/no-product-1.png" alt=""><p class="overlay" id="formtt">Ban chua mua gi</p></div>`;
             }
             else{
                 productHtml = '<table><tr><th></th><th>Sản phẩm</th><th>Số lượng</th><th>giá</th><th>ngày đặt mua</th><th class="status-confirm">trạng thái</th></tr>';

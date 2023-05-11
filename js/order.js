@@ -85,7 +85,7 @@ console.log(data);
       element.addEventListener("click",(e)=>{
         e.preventDefault();
           const params = new URLSearchParams({ id: element.dataset.id});
-          const url = "orderdetail.html?" + params.toString();
+          const url = "orderdetail.php?" + params.toString();
           window.location.href = url;
       })
     })

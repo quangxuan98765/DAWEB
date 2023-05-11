@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="vi">
+<?php
+require_once('lib_login_session.php');
+?>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,10 +10,11 @@
     <title>ADMIN</title>
 
     <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/cart.css">
     <link rel="stylesheet" href="css/search.css">
     <link rel="stylesheet" href="css/sigup.css">
-    <link rel="stylesheet" href="css/cart.css">
     <link rel="stylesheet" href="css/admin1.css">
+    <link rel="stylesheet" href="css/page.css">
 
 </head>
 <body>
@@ -18,7 +22,7 @@
 
     <div class="alert-box">
         <img src="img/error.png" class="alert-img" alt="">
-        <p class="alert-msg">Thông báo lỗi</p>
+        <p class="alert-msg"></p>
     </div>
     <img src="img/dark-logo.png" class="logo" alt="">
 
@@ -27,14 +31,32 @@
     <div class="nav-space">
         <div class="nav-admin">
             <img src="img/user.png">
-            <p class="add-product-title name-admin">Chào mừng Hiếu</p>
-            <button class="btn btn-new-product" id="new-product" onclick="location.href='login.html'">Đăng xuất</button>
+            <?php
+                echo '<p class="add-product-title name-admin">Hello '. $_SESSION['current_username'] .'</p>';
+                echo '<button class="btn btn-new-product" id="new-product">Đăng xuất</button>';
+            ?>
+            <script>
+                var logoutBtn = document.getElementById("new-product");
+
+                logoutBtn.addEventListener("click", function() {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', 'unset_lib_login_session.php', true);
+
+                    xhr.onload = function() {
+                        //var response = JSON.parse(this.responseText);
+                        if (this.responseText === 'ok') {
+                            window.location.replace('index.php'); //phương thức location.replace thì trang web sẽ không back lại được
+                        }
+                    };
+
+                    xhr.send();
+                });
+            </script>
+            
         </div>
-        <p class="add-product-title nav-link" onclick="location.href='admin.html'">quản lý sản phẩm</p>
         <p class="add-product-title nav-link" onclick="location.href='user.html'">quản lý user</p>
-        <p class="add-product-title nav-link" onclick="location.href='order.html'">quản lý đơn hàng</p>
+        <p class="add-product-title nav-link" onclick="location.href='order.php'">quản lý đơn hàng</p>
         <p class="add-product-title nav-link" onclick="location.href='report.html'">báo cáo</p>
-        <p class="add-product-title nav-link" onclick="location.href='orderdetail.html'">xem đơn chi tiết</p>
     </div>
 
     <div class="list-orderdetail">

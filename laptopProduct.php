@@ -27,7 +27,6 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kết quả tìm kiếm cho MENARMOR</title>
 
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/search.css">
@@ -83,7 +82,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
             </a>
             <?php
                 if(isLogged() == 1 || isLogged() == 0){
-                    echo '<a href="historycart.html"><img src="img/history.png"></a><a href="cart.php"><img src="img/cart.png"></a>';
+                    echo '<a href="historycart.php"><img src="img/history.png"></a><a href="cart.php"><img src="img/cart.png"></a>';
                 }
             ?>
     </div>
@@ -101,42 +100,28 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
     })
 </script>
     <section class="search-results">
-        <div class="box">
-            <a class="titlefilter">Bộ lọc <img src="img/filter.png"></a>
-            <a class="nameselect-combo">thương hiệu</a>
-            <select class="select-combo">
-                <option>Mechanicus</option>
-                <option>Orn</option>
-                <option>Vulkan</option>
-                <option>Emperor</option>
-            </select>
-            <a class="nameselect-combo">Giá</a>
-            <select class="select-combo">
-                <option>dưới 2 triệu</option>
-                <option>từ 2 tới 4 triệu</option>
-                <option>từ 4 tới 6 triệu</option>
-                <option>trên 6 triệu</option>
-            </select>
-            <a class="nameselect-combo">Khối lượng</a>
-            <select class="select-combo">
-                <option>dưới 20kg</option>
-                <option>từ 2 tới 4 tỷ</option>
-                <option>từ 4 đến 6 tỷ</option>
-                <option>trên 6 tỷ</option>
-            </select>
-            <a class="nameselect-combo">nhu cầu</a>
-            <select class="select-combo">
-                <option>Bộ binh</option>
-                <option>Terminator</option>
-                <option>Không binh</option>
-                <option>Ám sát</option>
-            </select>
-            <a class="nameselect-combo">Tính năng đặc biệt</a>
-            <select class="select-combo">
-                <option>Dịch chuyển</option>
-                <option>Bay</option>
-                <option>Màn chắn</option>
-            </select>
+    <div class="box">
+                <a class="titlefilter">Bộ lọc <img src="img/filter.png"></a>
+                <a class="nameselect-combo">thương hiệu</a>
+                <select class="select-combo" id="product-select" onchange="window.filterProducts()">
+                    <option value = "0">chọn loại</option>
+                    <option value = "DELL">dell</option>
+                    <option value = "ACER">acer</option>
+                    <option value = "ASUS">asus</option>
+                </select>
+                <a class="nameselect-combo">Giá</a>
+                <select class="select-combo" id="product-select_1" onchange="window.filterProducts()">
+                    <option>chọn tầm giá</option>
+                    <option value = "1">từ 5 tới 15 triệu</option>
+                    <option value = "2">từ 15 tới 20 triệu</option>
+                    <option value = "3">trên 20 triệu</option>
+                </select>
+                <a class="nameselect-combo">Loại</a>
+                <select class="select-combo" id="product-select_2" onchange="window.filterProducts()">
+                    <option value = "0">Chọn loại</option>
+                    <option value = "laptop">Laptop</option>
+                    <option value = "phụ kiện">Phụ kiện</option>
+                </select>
         </div>
         <!-- <div class="box">
             <a class="titlefilter">Tuỳ chọn mức giá phù hợp <img src="img/pricefilter.png"></a>
@@ -152,14 +137,6 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
             </div>
         </div> -->
         <div class="box">
-            <input type="checkbox" checked id="date">
-            <label for="date" class="checktext">Mới nhất <img src="img/new.png" class="iconimg"></label>
-            <input type="checkbox" id="ship">
-            <label for="ship" class="checktext">Giao nhanh</label>
-            <input type="checkbox" id="selloff">
-            <label for="selloff" class="checktext">Giảm giá</label>
-            <input type="checkbox" id="vjp">
-            <label for="vjp" class="checktext">Độc quyền</label>
             <select class="select">
                 <option>Xếp theo: Nổi bật</option>
                 <option>% giảm</option>
@@ -175,7 +152,14 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                         $s.='<div class="product-card">';
                         $s.='<div class="product-image">';
                         $s.='<a href="product.php?MaSP=' . $row['MaSP'] . '">';
-                        $s.= sprintf('<img src="%s" class="product-thumb"> <button class="card-btn">mua ngay</button>', $row['HinhSP']);
+                        if(isLogged() == 1){
+                            $s.= sprintf('<img src="%s" class="product-thumb"> <button class="card-btn">mua ngay</button>', $row['HinhSP']);
+                            $s .= sprintf('<a href="editProduct.php?id=%s"><button class="card-action-btn edit-btn">Sửa</button></a>', $row['id']);
+                            $s.= sprintf('<a href="manageProduct.php?del=1&id=%s" onclick="return confirm(\'Are you sure?\');"><button class="card-action-btn delete-popup-btn">Xóa</button></a>', $row['id']);
+                            //<a href="editProduct.php?id=' . $row['id'] . '">Sửa</a><a href="manageProduct.php?del=1&id=' .$row['id'] . '" onclick="return confirm("Are you sure?");">Del</a>
+                        }
+                        else
+                            $s.= sprintf('<img src="%s" class="product-thumb"> <button class="card-btn">mua ngay</button>', $row['HinhSP']);
                         $s.='</a>';
                         $s.='</div>';
                         $s.='<div class="product-info">';
