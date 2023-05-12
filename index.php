@@ -89,7 +89,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
 <ul class="links-container">
     <li class="link-item"><a href="index.php" class="link"><img src="img/home.png">Trang chủ</li>
     <li class="link-item"><a href="laptopProduct.php" class="link">Laptop</li>
-    <li class="link-item"><a href="womenarmor.html" class="link">Phụ Kiện</li>
+    <li class="link-item"><a href="acceProduct.php" class="link">Phụ Kiện</li>
     <?php
         if(isLogged() == 1){
             echo '<li class="link-item"><a href="addProduct.html" class="link">Thêm sản phẩm</li>';

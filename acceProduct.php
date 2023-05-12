@@ -75,7 +75,7 @@
     
     <footer></footer>
     <script>
-        document.getElementById("select-category").value = 1;
+        document.getElementById("select-category").value = 2;
         document.getElementById("select-category").previousElementSibling.style.display = "none";
         
         document.getElementById("select-category").style.display = "none";
