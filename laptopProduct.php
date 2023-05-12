@@ -1,43 +1,86 @@
 <!DOCTYPE html>
 <html lang="vi">
-
+<?php
+require_once('lib_login_session.php');
+?>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kết quả tìm kiếm cho MENARMOR</title>
+    <title>Laptop</title>
 
+    <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/product.css">
+    <link rel="stylesheet" href="css/searchIndex.css">
     <link rel="stylesheet" href="css/home.css">
-    <link rel="stylesheet" href="css/search.css">
-
     <link rel="stylesheet" href="css/page.css">
 </head>
 
 <body>
-    <link rel="stylesheet" href="css/home.css">
-    <link rel="stylesheet" href="css/searchIndex.css">
-    <div class="nav">
-        <img src="img/dark-logo.png" class="brand-logo" alt="">
-        <div class="nav-items">
+<div class="nav">
+    <img src="img/dark-logo.png" class="brand-logo" alt="">
+    <div class="nav-items">
             <div class="search">
                 <input type="text" class="search-box" placeholder="Tìm tên thương hiệu, sản phẩm...">
-                <button class="search-btn">Tìm kiếm</button>
+                <button class="search-btn">Tìm kiếm</button>                       
             </div>
             <a>
                 <img src="img/user.png" id="user-img" alt="">
                 <div class="login-logout-popup hide">
-                    <p class="account-info">Đang đăng nhập Group3@gmail</p>
-                    <button class="btn" id="user-btn">đăng xuất</button>
+                <?php
+                    if(isLogged() == 0 || isLogged() == 1) {
+                        echo "<p class='account-info'>Xin chào, " . $_SESSION['current_username'] . "!</p>";
+                        echo ('<button class="btn" id="user-btn">đăng xuất</button>');?>
+                        <script>
+                            var logoutBtn = document.getElementById("user-btn");
+
+                            logoutBtn.addEventListener("click", function() {
+                                var xhr = new XMLHttpRequest();
+                                xhr.open('POST', 'unset_lib_login_session.php', true);
+
+                                xhr.onload = function() {
+                                    //var response = JSON.parse(this.responseText);
+                                    if (this.responseText === 'ok') {
+                                        window.location.reload();
+                                    }
+                                };
+
+                                xhr.send();
+                            });
+                        </script>
+                <?php
+                    }
+                    else {
+                        echo "<p class='account-info'>bạn chưa đăng nhập</p>";
+                        echo ('<button class="btn" id="user-btn">đăng nhập</button>');?>
+                        <script>
+                            document.getElementById("user-btn").addEventListener("click", function() {
+                                window.location.href = "login.html";
+                            });
+                        </script>
+                <?php
+                    }
+				?>
                 </div>
             </a>
-            <a href="historycart.html"><img src="img/history.png"></a>
-            <a href="cart.php"><img src="img/cart.png"></a>
-        </div>
+            <?php
+                if(isLogged() == 1 || isLogged() == 0){
+                    echo '<a href="historycart.php"><img src="img/history.png"></a><a href="cart.php"><img src="img/cart.png"></a>';
+                }
+            ?>
     </div>
-    <ul class="links-container">
-        <li class="link-item"><a href="index.php" class="link"><img src="img/home.png">Trang chủ</li>
-    
-    </ul>
+</div>
+<ul class="links-container">
+    <li class="link-item"><a href="index.php" class="link"><img src="img/home.png">Trang chủ</li>
+    <li class="link-item"><a href="laptopProduct.php" class="link">Laptop</li>
+    <li class="link-item"><a href="acceProduct.php" class="link">Phụ Kiện</li>
+    <?php
+        if(isLogged() == 1)
+            echo '<li class="link-item"><a href="addProduct.html" class="link">Thêm sản phẩm</li>';
+    ?>
+    <li class="link-item"><a class="link"></li>
+</ul>
     <script>
         const userImageButton = document.getElementById("user-img");
         const userPop = document.querySelector('.login-logout-popup');
@@ -71,7 +114,6 @@
         <ul class="list_page">
         </ul>
     </section>
-    <h2 class="read-more">xem thêm</h2>
     
     <footer></footer>
     <script>

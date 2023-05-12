@@ -3,8 +3,9 @@ if(isset($_REQUEST['submitDangky'])) {
 	$hoten = $_POST['hoten'];
 	$mail = $_POST['email'];
 	$tk = $_POST['username'];
-    $mk = $_POST['password'];
-	
+	$mk = $_POST['password'];
+	$hashed_mk = password_hash($mk, PASSWORD_DEFAULT);
+
 	$servername = "localhost";
 	$username = "root";
 	$password = "";
@@ -14,10 +15,11 @@ if(isset($_REQUEST['submitDangky'])) {
 	$conn = mysqli_connect($servername, $username, $password, $dbname);
 	// Check connection
 	if (!$conn) {
-	  die("Connection failed: " . mysqli_connect_error());
+	die("Connection failed: " . mysqli_connect_error());
 	}
 
-	$sql = sprintf("INSERT INTO `users` (`username`, `password`, `email`, `fullname`,`role`) VALUES ('%s','%s', '%s', '%s','normal');", $tk, $mk,$mail, $hoten);
+	$sql = sprintf("INSERT INTO `users` (`username`, `password`, `email`, `fullname`,`role`) VALUES ('%s','%s', '%s', '%s','normal');", $tk, $hashed_mk ,$mail, $hoten);
+
 	//var_dump($sql);
 	if ($conn->query($sql) === TRUE) {
 	  //echo "<hr/>New record created successfully";

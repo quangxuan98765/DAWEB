@@ -96,7 +96,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
 <ul class="links-container">
     <li class="link-item"><a href="index.php" class="link"><img src="img/home.png">Trang chủ</li>
     <li class="link-item"><a href="laptopProduct.php" class="link">Laptop</li>
-    <li class="link-item"><a href="womenarmor.html" class="link">Phụ Kiện</li>
+    <li class="link-item"><a href="acceProduct.php" class="link">Phụ Kiện</li>
     <?php
         if(isLogged() == 1)
             echo '<li class="link-item"><a href="addProduct.html" class="link">Thêm sản phẩm</li>';
@@ -203,109 +203,30 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
         <button class="pre-btn"><img src="img/arrow.png" alt=""></button>
         <button class="nxt-btn"><img src="img/arrow.png" alt=""></button>
         <div class="product-container">
-            <div class="product-card">
-                <div class="product-image">
-                    <span class="discount-tag">đang giảm 50%</span>
-                    <img src="img/card1.png" class="product-thumb" alt="">
-                    <button class="card-btn">thêm vào giỏ hàng</button>
-                </div>
-                <div class="product-info">
-                    <h2 class="product-brand">BloodAngels Primaris</h2>
-                    <p class="product-short-des">Mark X Tacticus Power Armor</p>
-                    <span class="price">230.000₫</span><span class="actual-price">460.000₫</span>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <span class="discount-tag">đang giảm 50%</span>
-                    <img src="img/card2.png" class="product-thumb" alt="">
-                    <button class="card-btn">thêm vào giỏ hàng</button>
-                </div>
-                <div class="product-info">
-                    <h2 class="product-brand">Black Dragons Primaris</h2>
-                    <p class="product-short-des">Mark X Tacticus Power Armor</p>
-                    <span class="price">230.000₫</span><span class="actual-price">460.000₫</span>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <span class="discount-tag">đang giảm 30%</span>
-                    <img src="img/card3.png" class="product-thumb" alt="">
-                    <button class="card-btn">thêm vào giỏ hàng</button>
-                </div>
-                <div class="product-info">
-                    <h2 class="product-brand">Blood Ravens Primaris</h2>
-                    <p class="product-short-des">Mark X Tacticus Power Armor</p>
-                    <span class="price">280.000₫</span><span class="actual-price">400.000₫</span>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <span class="discount-tag">đang giảm 30%</span>
-                    <img src="img/card4.png" class="product-thumb" alt="">
-                    <button class="card-btn">thêm vào giỏ hàng</button>
-                </div>
-                <div class="product-info">
-                    <h2 class="product-brand">Exorcists Primaris</h2>
-                    <p class="product-short-des">Mark X Tacticus Power Armor</p>
-                    <span class="price">266.000₫</span><span class="actual-price">380.000₫</span>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <span class="discount-tag">đang giảm 25%</span>
-                    <img src="img/card5.png" class="product-thumb" alt="">
-                    <button class="card-btn">thêm vào giỏ hàng</button>
-                </div>
-                <div class="product-info">
-                    <h2 class="product-brand">Fire Lords Primaris</h2>
-                    <p class="product-short-des">Mark X Tacticus Power Armor</p>
-                    <span class="price">337.500₫</span><span class="actual-price">450.000₫</span>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <span class="discount-tag">đang giảm 25%</span>
-                    <img src="img/card6.png" class="product-thumb" alt="">
-                    <button class="card-btn">thêm vào giỏ hàng</button>
-                </div>
-                <div class="product-info">
-                    <h2 class="product-brand">Iron Hands Primaris</h2>
-                    <p class="product-short-des">Mark X Tacticus Power Armor</p>
-                    <span class="price">270.000₫</span><span class="actual-price">360.000₫</span>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <span class="discount-tag">đang giảm 15%</span>
-                    <img src="img/card7.png" class="product-thumb" alt="">
-                    <button class="card-btn">thêm vào giỏ hàng</button>
-                </div>
-                <div class="product-info">
-                    <h2 class="product-brand">Knights of the Chalice Primaris</h2>
-                    <p class="product-short-des">Mark X Tacticus Power Armor</p>
-                    <span class="price">306.000₫</span><span class="actual-price">360.000₫</span>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <span class="discount-tag">đang giảm 15%</span>
-                    <img src="img/card8.png" class="product-thumb" alt="">
-                    <button class="card-btn">thêm vào giỏ hàng</button>
-                </div>
-                <div class="product-info">
-                    <h2 class="product-brand">Rift Stalkers Primaris</h2>
-                    <p class="product-short-des">Mark X Tacticus Power Armor</p>
-                    <span class="price">297.500₫</span><span class="actual-price">350.000₫</span>
-                </div>
-            </div>
+            <?php
+                $lum = "SELECT * FROM SanPham WHERE MaSP = '$idmsp'";
+                $rs = mysqli_query($conn, $lum);
+                $okchua = mysqli_fetch_assoc($rs);
+                $getBrand = $okchua['brand_id'];
 
-
+                $sql2 = "SELECT * FROM sanpham WHERE brand_id= '$getBrand' and MaSP <> '$idmsp'";
+                $result2 = mysqli_query($conn, $sql2);
+                if (mysqli_num_rows($result2) > 0) {
+                    $s1 = "";
+                    while($row = mysqli_fetch_assoc($result2)) {
+                        $s1 .= sprintf('<div class="product-card"><div class="product-image"><a href="product.php?MaSP=' . $row['MaSP'] . '">');
+                        $s1 .= sprintf('<img src="'. $row['HinhSP']. '" class="product-thumb"><button class="card-btn">thêm vào giỏ hàng</button></div>');
+                        $s1 .= sprintf('<div class="product-info"><h2 class="product-brand">'. $row['TenSP'] .'</h2>');
+                        $s1 .= sprintf('<p class="product-short-des">'. $row['MoTaSP'] .'</p>');
+                        $s1 .= sprintf('<span class="price">%s đ</span></div></div>',number_format($row['GiaSP'], 0, '', '.'));
+                    }
+                }
+                echo $s1;
+            ?>
         </div>
         </section>
     <footer></footer>
 
-    <script src="js/nav.js"></script>
     <script src="js/footer.js"></script>
     <script src="js/home.js"></script>
     <script src="js/product.js"></script>

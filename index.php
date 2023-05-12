@@ -208,7 +208,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
             <button class="nxt-btn"><img src="img/arrow.png" alt=""></button>
             <div class="product-container">
                 <?php
-                $sql1 = "SELECT * FROM SanPham ";
+                $sql1 = "SELECT * FROM SanPham WHERE category_id = 1";
                 $result1 = mysqli_query($conn, $sql1);
                     if(mysqli_num_rows($result1) > 0){
                         $s = "";
@@ -245,7 +245,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
             <button class="nxt-btn arrow"><img src="img/arrow.png" alt=""></button>
             <div class="product-container">
                 <?php
-                $sql1 = "SELECT * FROM SanPham ";
+                $sql1 = "SELECT * FROM SanPham WHERE category_id = 2";
                 $result1 = mysqli_query($conn, $sql1);
                     if(mysqli_num_rows($result1) > 0){
                         $s = "";

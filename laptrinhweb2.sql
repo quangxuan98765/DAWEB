@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 12, 2023 at 03:40 AM
+-- Generation Time: May 12, 2023 at 05:28 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -88,19 +88,6 @@ CREATE TABLE `diachi` (
   `sonha` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `diachi`
---
-
-INSERT INTO `diachi` (`id`, `taikhoan`, `city`, `tenduong`, `sonha`) VALUES
-(1, 'account', 'asdds', 'sadads', '123'),
-(3, 'account', 'HCM', 'asdsad', '231132'),
-(4, 'account', 'HCM', 'TEnduong', '123'),
-(5, 'account', 'HCM', 'TEnduong', '123'),
-(8, 'account', 'asdds', 'sadads', '123'),
-(10, 'cc1', '12', 'sadasd', '123'),
-(12, 'newnewaccount', 'Ha Noi', 'Tungttt', '4587');
-
 -- --------------------------------------------------------
 
 --
@@ -117,16 +104,6 @@ CREATE TABLE `donhang` (
   `sdt` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `donhang`
---
-
-INSERT INTO `donhang` (`id`, `tentaikhoan`, `date`, `payment`, `id_dc`, `trangthai`, `sdt`) VALUES
-(21, 'account', '2023-05-05', 'on', 4, 'waiting', 923123),
-(22, 'account', '2023-05-05', 'on', 3, 'waiting', 23123123),
-(23, 'account', '2023-05-05', 'on', 3, 'waiting', 23123123),
-(24, 'account', '2023-05-05', 'on', 4, 'waiting', 98809);
-
 -- --------------------------------------------------------
 
 --
@@ -140,7 +117,6 @@ CREATE TABLE `sanpham` (
   `HinhSP` text NOT NULL,
   `MoTaSP` varchar(200) NOT NULL,
   `GiaSP` int(11) NOT NULL,
-  `product_sell` varchar(100) NOT NULL,
   `more_img` text NOT NULL,
   `more_img1` text NOT NULL,
   `more_img2` text NOT NULL,
@@ -152,21 +128,9 @@ CREATE TABLE `sanpham` (
 -- Dumping data for table `sanpham`
 --
 
-INSERT INTO `sanpham` (`id`, `MaSP`, `TenSP`, `HinhSP`, `MoTaSP`, `GiaSP`, `product_sell`, `more_img`, `more_img1`, `more_img2`, `category_id`, `brand_id`) VALUES
-(2, 'dnakssj', 'Laptop msi 1', ' ', ' ', 20000, 'Hàng mới', ' ', '', '', 1, 2),
-(3, 'dndaksj', 'Laptop acer 1', ' ', ' ', 20000, 'Hàng mới', ' ', '', '', 1, 1),
-(4, 'dnưaksj', 'sạc AUS 1', ' ', ' ', 20000, 'Hàng mới', ' ', '', '', 2, 4),
-(5, 'lỏ vừa thôi', 'Laptop msi 1', '../ProjectWeb/img/product/huawei1.jpg', ' lo cccc', 1312312, 'Hàng mới', '../ProjectWeb/img/product/hp2.jpg', '../ProjectWeb/img/product/dell1.jpg', '../ProjectWeb/img/product/asus2.jpg', 1, 4),
-(6, 'dnak1sj', 'sạc lenovo 3', ' ', ' ', 20000, 'Hàng mới', ' ', '', '', 2, 4),
-(7, 'dnakđâssj', 'sạc lenovo 4', ' ', ' ', 20000, 'Hàng mới', ' ', '', '', 2, 4),
-(8, 'dnadaksj', 'sạc lenovo 5', ' ', ' ', 20000, 'Hàng mới', ' ', '', '', 2, 4),
-(9, 'dnakczxsj', 'sạc lenovo 6', ' ', ' ', 20000, 'Hàng mới', ' ', '', '', 2, 4),
-(10, 'dnazcxáksj', 'sạc lenovo 7', ' ', ' ', 20000, 'Hàng mới', ' ', '', '', 2, 4),
-(11, 'dnak12esj', 'sạc lenovo 8', ' ', ' ', 20000, 'Hàng mới', ' ', '', '', 2, 4),
-(12, 'dnakeesj', 'sạc lenovo 9', ' ', ' ', 20000, 'Hàng mới', ' ', '', '', 2, 4),
-(13, 'dnaaksj', 'sạc lenovo 10', ' ', ' ', 20000, 'Hàng mới', ' ', '', '', 2, 4),
-(15, 'LNV12', 'LENOVO S1', ' ', ' ', 20000, 'Mới', ' ', '', '', 1, 4),
-(21, 'DHB', 'Dell 3', '../ProjectWeb/img/product/dell1.jpg', 'asdasddas', 50000000, '', '../ProjectWeb/img/product/dell2.png', '../ProjectWeb/img/product/dell 3.jpg', '../ProjectWeb/img/product/Screenshot (229).png', 1, 5);
+INSERT INTO `sanpham` (`id`, `MaSP`, `TenSP`, `HinhSP`, `MoTaSP`, `GiaSP`, `more_img`, `more_img1`, `more_img2`, `category_id`, `brand_id`) VALUES
+(5, 'lỏ vừa thôi', 'Laptop msi 1', '../ProjectWeb/img/product/huawei1.jpg', ' lo cccc', 1312312, '../ProjectWeb/img/product/hp2.jpg', '../ProjectWeb/img/product/dell1.jpg', '../ProjectWeb/img/product/asus2.jpg', 1, 4),
+(21, 'DHB', 'Dell 3', '../ProjectWeb/img/product/dell1.jpg', 'asdasddas', 50000000, '../ProjectWeb/img/product/dell2.png', '../ProjectWeb/img/product/dell 3.jpg', '../ProjectWeb/img/product/Screenshot (229).png', 1, 5);
 
 -- --------------------------------------------------------
 
@@ -203,7 +167,7 @@ CREATE TABLE `users` (
   `email` varchar(100) NOT NULL,
   `fullname` varchar(100) NOT NULL,
   `role` varchar(20) NOT NULL,
-  `disabled` tinyint(1) NOT NULL
+  `disabled` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -211,24 +175,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`username`, `password`, `email`, `fullname`, `role`, `disabled`) VALUES
-('account', '123456789', '123boyzzkwdadasadw1313hoi@gmail.com', 'asdasd', 'admin', 0),
-('cc1', 'adminbaso9', 'Xxbblu333exx@gmail.com', 'asasds', 'normal', 0),
-('ccc1', 'adminbaso9', 'Xxbb13lu333esxx@gmail.com', 'asasd', 'normal', 0),
-('ccc2', 'adminbaso9', 'Xxbbaslue3xx@31gmail.com', 'asasd', 'normal', 0),
-('clm1', 'adminbaso9', 'Xxbblu333exx@gmails.com', 'asasd', 'normal', 0),
-('cocaic2', 'adminbaso9', 'Xxbbluexx@31gmaial.com', 'asasd', 'normal', 0),
-('newaccount', '123456789', '123boyzzk1313hoi@gmail.com', 'asdasd', 'adminsss', 0),
-('newnewaccount', '123456789', '1a23boyzzk1313hoi@gmail.com', 'asdasd', 'admin', 0),
-('taikhoanmoi', 'adminbaso9', 'Xxbb3luexx@g321mail.com', 'asasd', 'normal', 0),
-('taikhoanmsssoi', 'adminbaso9', 'Xxdasdadabb3luexx@g321mail.com', 'asasd', 'normal', 0),
-('taikhoanncc', 'adminbaso9', 'Xxbb3luessaxx@g321mail.com', 'asasd', 'normal', 0),
-('tk122', '123456789', '1das23boyzz123khoi@gma4il.com', 'asdasd', 'admin', 0),
-('tk1313', '123456789', '123boyzz123khoi@gmsa4il.com', 'asdasd', 'admin', 0),
-('tk2', '123456789', '123boyzz123khoi@gma4il.com', 'asdasd', 'admin', 0),
-('tk23', '123456789', '123boyz222zkhoi@gmail.com', 'asdsssssaadsada', 'adminss', 0),
-('tk2399', '123456789', '123boyz222zkhoi@gmadil.com', 'asdasd', 'admin', 0),
-('tk323', '123456789', '12123boyz222zkhoi@gmail.com', 'asdasd', 'admin', 0),
-('tk423', '123456789', '123boyz22ssss2zkhoi@gmail.com', 'asdasd', 'admin', 0);
+('newaccount', '$2y$10$02KmdlDsZaMP.a399eQbjO2qYQ6hD9YJKUHED73A7o6bCiBwJHUJe', '123boyzzkhoi@gmail.com', 'TaochuAi', 'admin', 0),
+('nextmoonqueen', '$2y$10$SRCCtDQaWPJ8njyP92Gh6OezuA7u9rzY7/Amw1t8jmdgxnyC0TSx2', 'yidepe9903@inkmoto.com', 'Ranni', 'normal', 0),
+('taikhoanmoi', '$2y$10$DRpH.6EVr4JTxfiO/Ze8luKFhi0XI17uSKQouCpfaJEOo6qnjkK1u', 'Xxbbluexx@gmail.com', 'Douicc', 'admin', 0);
 
 --
 -- Indexes for dumped tables
@@ -305,13 +254,13 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `diachi`
 --
 ALTER TABLE `diachi`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `donhang`
 --
 ALTER TABLE `donhang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `sanpham`

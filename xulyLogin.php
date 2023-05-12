@@ -22,7 +22,7 @@ if (mysqli_num_rows($result) == 0) {
 } else {
     $_SESSION['current_username'] = $username;
     $row = mysqli_fetch_assoc($result);
-    if ($password == $row['password']) {
+    if (password_verify($password, $row['password'])) {
         $_SESSION['pass'] = true;
         if($row['role'] == 'admin'){
             $_SESSION['isAdmin'] = true;
