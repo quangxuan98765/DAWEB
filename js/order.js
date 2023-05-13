@@ -52,7 +52,7 @@ console.log(data);
       var page = DpP*(num-1) + i;
       s += '<tr class="data-row" data-id="'+ data[page].id+'"><td><p style="color:black">'+ (i+1) + `</p><td><a class="see-full" data-id="${data[page].id}"`
         +'">'+ data[page].id +'</a><td><p>'+data[page].tentaikhoan +'</p></td><td><a>'+data[page].date+'</a></td><td><a>'
-        +data[page].cost + '</a></td><td><a>'+data[page].payment+ '</a></td><td>'+data[page].city+'</td><td><a>' 
+        +parseInt(data[page].cost).toLocaleString('vi-VN') + ' vnd</a></td><td><a>'+data[page].payment+ '</a></td><td>'+data[page].city+'</td><td><a>' 
         + (data[page].trangthai == "waiting"
         ?'Đang đợi xác nhận</a></td><td class="wait-btn"><button class="cancel-btn">Huỷ</button><button class="confirm-btn">Xác nhận</button>'
         :(data[page].trangthai=="cancelled"? 'Đã huỷ</a></td><td><button class="canceled-btn">Đã huỷ</button>'

@@ -54,14 +54,14 @@ require_once('lib_login_session.php');
             </script>
             
         </div>
-        <p class="add-product-title nav-link" onclick="location.href='user.html'">quản lý user</p>
+        <p class="add-product-title nav-link" onclick="location.href='index.php'">trang chủ</p>
+        <p class="add-product-title nav-link" onclick="location.href='userhtml.php'">quản lý user</p>
         <p class="add-product-title nav-link" onclick="location.href='order.php'">quản lý đơn hàng</p>
-        <p class="add-product-title nav-link" onclick="location.href='report.html'">báo cáo</p>
     </div>
 
     <div class="list-orderdetail">
         <div class="add-product">
-            <p class="add-product-title">Chi tiết đơn hàng #99</p>
+            <p class="add-product-title">Chi tiết đơn hàng</p>
         </div>
         
         <div class="info-order">
@@ -133,7 +133,7 @@ const id_dh = new URLSearchParams(window.location.search).get("id" );
             var text = "";
 
             text +=`<div class="add-product">
-            <p class="add-product-title">Chi tiết đơn hàng #` + data.id+`</p></div><div class="info-order">
+            <p class="add-product-title">Chi tiết đơn hàng #` + data[0].id+`</p></div><div class="info-order">
             <p>Tên khách hàng: `+data[0].fullname+`</p>
             <p>Số điện thoại:`+ data[0].sdt+`</p>
             <p>Thời gian đặt: `+data[0].date+`</p>
@@ -147,23 +147,23 @@ const id_dh = new URLSearchParams(window.location.search).get("id" );
         </div> <div class="small-container cart-page"><table><tr><th>Sản phẩm</th> <th class="number-pro">Số lượng</th><th class="cost">giá</th></tr>`;
             var TongGia = 0;
             data.forEach((e) => {
-                var gia = e.soluong * e.GiaSP;
-                TongGia +=gia;
+                var gia = parseInt(e.soluong * e.GiaSP);
+                TongGia += parseInt(gia);
                 text+= `<tr><td><div class="cart-info">
                             <img src="`+e.HinhSP+`"><div>
                                 <h3>`+e.TenSP+`</h3>
                                 <small>`+e.MoTaSP+`</small> </div></div>
                     <td><a>`+e.soluong+`</a></td>
-                    <td>`+ gia +`$</td> </tr>`;
+                    <td>`+ gia.toLocaleString('vi-VN') +` vnd</td> </tr>`;
             });
             text+=`</table></div><div class="total-price"><table><tr>
                             <td>Tổng giá sản phẩm</td>
-                            <td>`+TongGia+`$</td></tr><tr>
-                            <td>Vận chuyển</td><td>50.000$</td></tr> <tr>
+                            <td>`+TongGia.toLocaleString('vi-VN')+` vnd</td></tr><tr>
+                            <td>Vận chuyển</td><td>50.000 vnd</td></tr> <tr>
                             <td>Mã giảm giá</td>
                             <td></td></tr><tr>
                             <td>Tổng thanh toán</td>
-                            <td>`+(TongGia+50000)+`$</td></tr></table></div>`;
+                            <td>`+(TongGia+50000).toLocaleString('vi-VN')+` vnd</td></tr></table></div>`;
             document.querySelector(".list-orderdetail").innerHTML = text;
         }}
         xhr.send();
