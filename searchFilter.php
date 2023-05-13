@@ -7,7 +7,7 @@ require_once('lib_login_session.php');
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kết quả tìm kiếm cho MENARMOR</title>
+    <title>Kết quả tìm kiếm</title>
 
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/admin.css">
