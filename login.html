@@ -37,8 +37,10 @@
             xhr.open('POST', 'xulyLogin.php', true);
             xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             xhr.onload = function() {
-                if (this.status == 200) {
-                    if (this.responseText == 'success') {
+                if (xhr.status == 200) {
+                    
+                    if (xhr.responseText.trim() == 'success') {
+                        
                         window.location.href = 'index.php';
                     } else {
                         document.getElementById('error-msg').innerHTML = 'Sai tên đăng nhập hoặc mật khẩu';

@@ -31,9 +31,15 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
     <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="css/searchIndex.css">
     <link rel="stylesheet" href="css/page.css">
+    
+    <link rel="stylesheet" href="css/alert.css">
 </head>
 <body>
 <div class="nav">
+<div class="alert-box">
+            <img src="" class="alert-sign" alt="">
+            <p class="alert-msg"></p>
+        </div>
     <img src="img/dark-logo.png" class="brand-logo" alt="">
     <div class="nav-items">
             <div class="search">
@@ -56,7 +62,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
 
                                 xhr1.onload = function() {
                                     //var response = JSON.parse(this.responseText);
-                                    if (this.responseText === 'ok') {
+                                    if (this.responseText.trim() == 'ok') {
                                         window.location.reload();
                                     }
                                 };
