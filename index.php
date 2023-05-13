@@ -16,7 +16,7 @@ if (!$conn) {
   die("Connection failed: " . mysqli_connect_error());
 }
 
-$sql = "SELECT * FROM category";
+$sql = "SELECT * FROM sanpham";
 $result = mysqli_query($conn, $sql);
 if (!$result) { die("Query failed: " . mysqli_error($conn)); }
 
@@ -251,11 +251,11 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
             <button class="nxt-btn arrow"><img src="img/arrow.png" alt=""></button>
             <div class="product-container">
                 <?php
-                $sql1 = "SELECT * FROM SanPham WHERE category_id = 2";
-                $result1 = mysqli_query($conn, $sql1);
-                    if(mysqli_num_rows($result1) > 0){
+                $sql2 = "SELECT * FROM SanPham WHERE category_id = 2";
+                $result2 = mysqli_query($conn, $sql2);
+                    if(mysqli_num_rows($result2) > 0){
                         $s = "";
-                        while($row = mysqli_fetch_assoc($result1)) {
+                        while($row = mysqli_fetch_assoc($result2)) {
                             $s.='<div class="product-card">';
                             $s.='<div class="product-image">';
                             $s .= '<a href="product.php?MaSP=' . $row['MaSP'] . '">';
