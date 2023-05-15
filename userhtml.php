@@ -37,14 +37,13 @@
                 ?> 
                 <script>
                     var logoutBtn = document.getElementById("new-product");
-    
                     logoutBtn.addEventListener("click", function() {
                         var xhr = new XMLHttpRequest();
                         xhr.open('POST', 'unset_lib_login_session.php', true);
     
                         xhr.onload = function() {
                             //var response = JSON.parse(this.responseText);
-                            if (this.responseText === 'ok') {
+                            if (this.responseText.trim() === 'ok') {
                                 window.location.replace('index.php'); //phương thức location.replace thì trang web sẽ không back lại được
                             }
                         };
@@ -64,10 +63,10 @@
                 <option value="admin">admin</option>
                 <option value="normal">normal</option>
             </select>
-            <div class="search">
+            <!-- <div class="search">
                 <input type="text" placeholder="Tìm kiếm...">
                 <button class="search-btn">&#9906; Tìm kiếm</button>                       
-            </div>
+            </div> -->
         </div>
             <div class="small-container oder-page">
              </div>

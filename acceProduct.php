@@ -127,7 +127,6 @@ require_once('lib_login_session.php');
         import { newFunc } from "./js/searchBar.js";
         newFunc();
     </script>
-    <script src="js/nav.js"></script>
     <script src="js/footer.js"></script>
     <script src="js/search.js"></script>
 
