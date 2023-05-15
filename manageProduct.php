@@ -51,7 +51,7 @@ if(isset($_REQUEST['submitSuasp'])) {
 	$maSP = $_REQUEST['ma_sp'];
     $loaiSP = $_REQUEST['loai_sp'];
 	$brands = $_REQUEST['thuong_hieu'];
-	$id = $_REQUEST['id'];
+	$id = $_REQUEST['idc'];
 	
 	$servername = "localhost";
 	$username = "root";
@@ -81,7 +81,7 @@ if(isset($_REQUEST['submitSuasp'])) {
 	else {
 		$hinhSPs = array();
 		uploadHinh($hinhSPs);
-		$sql = sprintf("UPDATE `sanpham` SET `MaSP` = '%s', `TenSP` = '%s', `HinhSP` = '%s', `more_img` = '%s', `more_img1` = '%s', `more_img2` = '%s', `MoTaSP` = '%s', `GiaSP` = '%f', `category_id` = '%s' WHERE `sanpham`.`id` = %d;", $maSP, $tenSP, $hinhSPs[0], $hinhSPs[1], $hinhSPs[2], $hinhSPs[3], $motaSP, $giaSP, $category_id, $b, $id);
+		$sql = sprintf("UPDATE `sanpham` SET `MaSP` = '%s', `TenSP` = '%s', `HinhSP` = '%s', `more_img` = '%s', `more_img1` = '%s', `more_img2` = '%s', `MoTaSP` = '%s', `GiaSP` = '%f', `category_id` = '%s', `brand_id` = '%s' WHERE `sanpham`.`id` = %d;", $maSP, $tenSP, $hinhSPs[0], $hinhSPs[1], $hinhSPs[2], $hinhSPs[3], $motaSP, $giaSP, $category_id, $b, $id);
 	}	
 	
 	if ($conn->query($sql) === TRUE) {

@@ -77,7 +77,7 @@ export function firstFunc() {
             for (let i = 0; i < DpP && DpP * (num - 1) + i < data.length; i++) {
               if (i % 3 == 0) s += '<div class="product-container">';
               var page = DpP * (num - 1) + i;
-              s +='<div class="product-card"><div class="product-image">';
+              s +='<div class="product-card" style="width: 420px;"><div class="product-image">';
               s += '<a href="product.php?MaSP=' + data[page].MaSP + '">';
               console.log(xhr_login.responseText);
               if(xhr_login.responseText == 1){

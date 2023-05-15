@@ -42,7 +42,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
     <img src="img/dark-logo.png" class="logo" alt="">
     <form name="themsp" method="post" action="manageProduct.php" enctype="multipart/form-data">
         <div class="form">
-            <input type="hidden" name="id" value=<?=$row['id']?>/>
+            <input type="hidden" name="idc" value="<?=$row['id']?>">
             <input type="text" id="product-name" name="ten_sp" placeholder="Tên sản phẩm" value="<?= $row['TenSP'] ?>">
             <input type="text" name="ma_sp" id="short-des" placeholder="Mã sản phẩm" value="<?= $row['MaSP'] ?>">
             <textarea id="des" name="mota_sp" placeholder="Mô tả chi tiết về sản phẩm"><?php echo $row['MoTaSP']; ?></textarea>
@@ -50,7 +50,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
 
         <!-- product image -->
         <div class="upload-image-sec">
-            <p class="text"><img src="img/camera.png" alt="">tải ảnh lên</p>
+            <p class="text"><img src="img/camera.png" alt="">tải ảnh lên (Bạn sẽ phải upload lại đường dẫn của những hình ảnh)</p>
             <div class="upload-catalouge">
                 <input type="file" class="fileupload" id="image-upload1" name="filetoup[]" accept="image/*" style="width: 90px;">
                 <img id="image-preview1" src="<?= $row['HinhSP'] ?>" style="display: block;width: 100px;">
@@ -98,18 +98,20 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
             </div> -->
         </div>
         <div class="product-price">
-            <input type="number" id="selling-price" name="gia_sp" placeholder="giá bán">
+            <input type="number" id="selling-price" name="gia_sp" placeholder="giá bán" value="<?= $row['GiaSP'] ?>">
         </div>
 
         <input type="number" id="stock" min="20" placeholder="Nhập số lượng vào kho (tối thiểu 20)">
 
-        <select class="select" name="thuong_hieu">
-            <option value = "0">chọn Thương Hiệu</option>
+        <select class="select" id="s1" name="thuong_hieu">
+        <option value = "0">chọn Thương Hiệu</option>
             <option value = "DELL">dell</option>
             <option value = "ACER">acer</option>
             <option value = "ASUS">asus</option>
+            <option value = "MSI">MSI</option>
+            <option value = "LENOVO">lenovo</option> 
         </select>
-        <select class="select" name="loai_sp">
+        <select class="select" id="s2" name="loai_sp">
             <option value = "0">Chọn loại</option>
             <option value = "laptop">Laptop</option>
             <option value = "phụ kiện">Phụ kiện</option>
@@ -117,14 +119,22 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
 
         <script>
             function validateForm() {
+                if(document.getElementById("s1").value == 0 || document.getElementById("s2").value == 0){
+                    alert("Vui lòng chọn phân loại.");
+                    return false;
+                }
                 var gia = document.forms["themsp"]["selling-price"].value;
                 var name = document.forms["themsp"]["product-name"].value;
                 var img1 = document.forms["themsp"]["image-upload1"].value;
                 var img2 = document.forms["themsp"]["image-upload2"].value;
                 var img3 = document.forms["themsp"]["image-upload3"].value;
                 var img4 = document.forms["themsp"]["image-upload4"].value;
-                if (name == "" || gia =="" || img1 == "" || img2 == "" || img3 == "" || img4 =="") {
-                    alert("Bạn cần nhập tên,giá sản phẩm và tải ảnh sản phẩm lên trước khi thêm sản phẩm.");
+                if (name == "" || gia =="") {
+                    alert("Bạn cần nhập tên, giá sản phẩm trước khi thêm sản phẩm.");
+                    return false;
+                }
+                else if(img1 == "" || img2 == "" || img3 == "" || img4 ==""){
+                    alert("Cần upload lại đường dẫn của các hình ảnh");
                     return false;
                 }
             }
@@ -134,7 +144,6 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
             <button class="btn" id="add-btn" name="submitSuasp" onclick="return validateForm()">lưu chỉnh sửa</button>
         </div>
 </form>
-    <script src="js/addProduct.js"></script>
     
 </body>
 </html>
