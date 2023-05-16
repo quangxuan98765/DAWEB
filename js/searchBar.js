@@ -80,7 +80,7 @@ export function firstFunc() {
               s +='<div class="product-card" style="width: 420px;"><div class="product-image">';
               s += '<a href="product.php?MaSP=' + data[page].MaSP + '">';
               console.log(xhr_login.responseText);
-              if(xhr_login.responseText == 1){
+              if(xhr_login.responseText.trim() == 1){
                 s += '<img src="' + data[page].HinhSP + '" class="product-thumb"> <button class="card-btn">mua ngay</button>';
                 s += '<a href="editProduct.php?id=' +  data[page].id + '"><button class="card-action-btn edit-btn">Sửa</button></a>';
                 s += '<a href="manageProduct.php?del=1&id=' + data[page].id + '" onclick="return confirm(\'Are you sure?\');"><button class="card-action-btn delete-popup-btn">Xóa</button></a>';

@@ -56,7 +56,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
 
                                 xhr.onload = function() {
                                     //var response = JSON.parse(this.responseText);
-                                    if (this.responseText === 'ok') {
+                                    if (this.responseText.trim() === 'ok') {
                                         window.location.href = "index.php";
                                     }
                                 };
