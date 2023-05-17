@@ -115,7 +115,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
     <header class="hero-section">
         <div class="content">
             <img src="img/light-logo.png" class="logo" alt="">
-            <p class="sub-heading">Yamateeeee kudasai</p>
+            <p class="sub-heading">Bài tập thầy Thanh</p>
         </div>
     </header>
 

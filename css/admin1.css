@@ -347,7 +347,7 @@ tr:nth-child(even) {
     margin: 0 0 0 5vw;
     text-transform: capitalize;
     font-size: 16px;
-    background-color: rgb(204, 200, 200);
+    background-color: rgb(0, 0, 0);
     width: 50%;
     border-radius: 10px;
     padding: 20px;

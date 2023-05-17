@@ -41,7 +41,7 @@ require_once('lib_login_session.php');
 
                                 xhr.onload = function() {
                                     //var response = JSON.parse(this.responseText);
-                                    if (this.responseText === 'ok') {
+                                    if (this.responseText.trim() === 'ok') {
                                         window.location.reload();
                                     }
                                 };
@@ -95,10 +95,10 @@ require_once('lib_login_session.php');
             <a class="nameselect-combo">Giá</a>
             <select id="select-cost" class="select-combo">
                 <option value="">chọn khoảng giá</option>
-                <option value="`%s`<2000000">dưới 2 triệu</option>
-                <option value="`%s`>=2000000 AND `%s`<4000000">từ 2 tới 4 triệu</option>
-                <option value="`%s`>=4000000 AND `%s`<6000000">từ 4 tới 6 triệu</option>
-                <option value="`%s`>=6000000">trên 6 triệu</option>
+                <option value="`%s`<7000000">dưới 7 triệu</option>
+                <option value="`%s`>=5000000 AND `%s`<15000000">từ 5 tới 15 triệu</option>
+                <option value="`%s`>=15000000 AND `%s`< 30000000">từ 15 tới 30 triệu</option>
+                <option value="`%s`>=30000000">trên 30 triệu</option>
             </select>
         </div>
         <div class="box">
