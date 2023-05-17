@@ -139,7 +139,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
     }
 </script>
 <div id="boxajax-containter">
-    <a class="back" onclick="location.href='index.php'">&larr; Mua thêm sản phẩm khác</a> 
+    <a class="back" onclick="location.href='index.php'">&larr; Mua thêm sản phẩm khác</a>
 
             <?php
             if(mysqli_num_rows($result) > 0){
