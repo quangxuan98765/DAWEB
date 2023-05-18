@@ -111,19 +111,19 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
             var productContainer = document.getElementById('boxajax-containter');
             var productHtml = "";
             if(products.length === 0) {
-                productHtml = `<a class="back" onclick="location.href='index.php'">&larr; Mua thêm sản phẩm khác</a>`;
-                productContainer.innerHTML = productHtml + `<div class="container" style="text-align:center;"><img src="img/no-products.png" alt=""><p class="overlay" id="formtt">Giỏ hàng của bạn đang trống</p></div>`;
+                productContainer.innerHTML =`<div class="container" style="text-align:center;"><img src="img/no-products.png" alt=""><p class="overlay" id="formtt">Giỏ hàng của bạn đang trống</p></div>`;
                 const myForm = document.getElementById("my-form");
                 myForm.style.display = "none";
             }
             else{
+                productHtml += '<table><tr><th>Sản phẩm</th><th>Số lượng</th><th style="width: 130px">giá</th></tr>';
                 products.forEach(function(product){
                     productHtml += `<tr><td><div class="cart-info"><img src="` + product.HinhSP + `"><div>`;
                     productHtml += `<h3>` + product.TenSP + `(` + product.MaSP + `)</h3>`;
                     productHtml += `<small>`+ product.MoTaSP +`</small><br>`;
                     productHtml += `<a class="link-text" href="product.php?MaSP=` + product.masp + `">Xem chi tiết</a><br>`;
                     var gia = parseInt(product.GiaSP) * parseInt(product.soluong);
-                    productHtml += `<button class="btn-remove" onclick="deleteCart('${product.masp}')">Xoá sản phẩm</button></div></div><td><button class="btn-value">-</button><input type="number" value="${product.soluong}"><button class="btn-value">+</button></td><td>`+ gia.toLocaleString('vi-VN') +`₫</td></tr>`;
+                    productHtml += `<button class="btn-remove" onclick="deleteCart('${product.masp}')">Xoá sản phẩm</button></div></div><td><button class="btn-value">-</button><input type="number" value="${product.soluong}"><button class="btn-value">+</button></td><td>`+ gia.toLocaleString('vi-VN') +`₫</td></tr></table>`;
                     sum += gia;
                 });
                 productContainer.innerHTML = productHtml;
@@ -138,12 +138,11 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
         xhr.send();
     }
 </script>
-<div id="boxajax-containter">
     <a class="back" onclick="location.href='index.php'">&larr; Mua thêm sản phẩm khác</a>
 
             <?php
             if(mysqli_num_rows($result) > 0){
-                $s = '<div class="small-container cart-page"><table><tr><th>Sản phẩm</th><th>Số lượng</th><th style="width: 130px">giá</th></tr>';
+                $s = '<div class="small-container cart-page" id="boxajax-containter"><table><tr><th>Sản phẩm</th><th>Số lượng</th><th style="width: 130px">giá</th></tr>';
                 while($row = mysqli_fetch_assoc($result)) {
                     $name = $row['fullname'];
                     $gia_moi = $row['GiaSP'] * $row['soluong'];
@@ -161,7 +160,6 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                 echo '<div class="container" style="text-align:center;"><img src="img/no-products.png" alt=""><p class="overlay" id="formtt">Giỏ hàng của bạn đang trống</p></div>';
             }
             ?>
-</div>
     <form name="form" method="get" id="my-form" action="thanhtoan.php" enctype="multipart/form-data">
     <div class="input-cart">
         <p class="text header">thông tin khách hàng</p>
