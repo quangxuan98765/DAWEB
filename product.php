@@ -218,15 +218,14 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                         $s1 .= sprintf('<img src="'. $row['HinhSP']. '" class="product-thumb"><button class="card-btn">thêm vào giỏ hàng</button></div>');
                         $s1 .= sprintf('<div class="product-info"><h2 class="product-brand">'. $row['TenSP'] .'</h2>');
                         $s1 .= sprintf('<p class="product-short-des">'. $row['MoTaSP'] .'</p>');
-                        $s1 .= sprintf('<span class="price">%s đ</span></div></div>',number_format($row['GiaSP'], 0, '', '.'));
+                        $s1 .= sprintf('<span class="price">%s đ</span></div></a></div>',number_format($row['GiaSP'], 0, '', '.'));
                     }
                 }
                 echo $s1;
             ?>
         </div>
-        </section>
-    <footer></footer>
-
+    </section>
+<footer></footer>
     <script src="js/footer.js"></script>
     <script src="js/home.js"></script>
     <script src="js/product.js"></script>

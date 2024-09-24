@@ -22,11 +22,11 @@
                 productContainer.innerHTML = `<div class="container" style="text-align:center;"><img src="img/no-products.png" alt=""><p class="overlay" id="formtt"> Không có lịch sử mua hàng</p></div>`;
             }
             else{
-                productHtml = '<table><tr style=\"background-color: hsl(189.87deg 94% 68% / 50%);\"><th></th><th>Sản phẩm</th><th>Số lượng</th><th>giá</th><th>ngày đặt mua</th><th class="status-confirm">trạng thái</th></tr>';
+                productHtml = '<table><tr style=\"background-color: aqua;\"><th></th><th>Sản phẩm</th><th>Số lượng</th><th>giá</th><th>ngày đặt mua</th><th class="status-confirm">trạng thái</th></tr>';
                 for (let i = 0; i <DpP && (DpP*(num-1) + i)< products.length; i++) {
                     var page = DpP*(num-1) + i;
                     if(products[page].id_sp == sp_1st[products[page].id_dh])
-                        productHtml += "<tr style=\"background-color: yellow;\"><th>#"+products[page].id_dh+"</th><th></th><th></th><th>"+parseInt(dh_cost[products[page].id_dh]).toLocaleString('vi-VN') + "₫</th><th></th><th  ><button class='btn-huydon' name='huydon' data-iddh='"+products[page].id_dh+"'>Hủy đơn</button><p>"+ (products[page].trangthai == "waiting"?"Đang xử lý":"Đã xử lý") +"</p></th></tr>";
+                        productHtml += "<tr style=\"background-color: darkblue;\"><th>#"+products[page].id_dh+"</th><th></th><th></th><th>"+parseInt(dh_cost[products[page].id_dh]).toLocaleString('vi-VN') + "₫</th><th></th><th  ><button class='btn-huydon' name='huydon' data-iddh='"+products[page].id_dh+"'>Hủy đơn</button><p>"+ (products[page].trangthai == "waiting"?"Đang xử lý":"Đã xử lý") +"</p></th></tr>";
                     productHtml += `<tr><td></  td><td>`;
                     productHtml += `<div class="cart-info"><img src="` + products[page].HinhSP + `"><div>`;
                     productHtml += `<h3>` + products[page].TenSP + ` (`+ products[page].MaSP + `)</h3>`;

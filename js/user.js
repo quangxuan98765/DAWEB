@@ -10,7 +10,7 @@ xhr.onload = function () {
     let DpP = 6; //amountOfDataPerPage
     var fun;
     pagesToElement(data.length, DpP,document.querySelector(".list_page"),function myFunc(num) {
-        var s = `<table><tr><th>Tên tài khoản</th><th>Tên người dùng</th><th>Quyền hạn</th><th class="table-btn-zone">Hành động</th><th     style="width: 250px;">Trạng thái</th></tr>`;
+        var s = `<table><tr style=\"background-color: aqua;\"><th>Tên tài khoản</th><th>Tên người dùng</th><th>Quyền hạn</th><th class="table-btn-zone">Hành động</th><th     style="width: 250px;">Trạng thái</th></tr>`;
         var p = document.querySelector(".oder-page");
         for (let i = 0; i <DpP && (DpP*(num-1) + i)< data.length; i++) {
             var page = DpP*(num-1) + i;
