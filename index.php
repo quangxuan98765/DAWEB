@@ -235,7 +235,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                             $s.='<div class="product-info">';
                             $s .= sprintf('<h2 class="product-brand">%s (%s)</h2>', $row['TenSP'], $row['MaSP']);
                             $s.= sprintf('<p class="product-short-des">%s</p>',$row['MoTaSP']);
-                            $s.= sprintf('<span class="price">%s vnđ</span>',number_format($row['GiaSP'], 0, '', '.'));
+                            $s.= sprintf('<span class="price">%s USD</span>',number_format($row['GiaSP'], 0, '', '.'));
                             $s.='</div>';
                             $s.='</div>';
                         }
@@ -272,7 +272,7 @@ if (!$result) { die("Query failed: " . mysqli_error($conn)); }
                             $s.='<div class="product-info">';
                             $s .= sprintf('<h2 class="product-brand">%s (%s)</h2>', $row['TenSP'], $row['MaSP']);
                             $s.= sprintf('<p class="product-short-des">%s</p>',$row['MoTaSP']);
-                            $s.= sprintf('<span class="price">%s vnđ</span>',number_format($row['GiaSP'], 0, '', '.'));
+                            $s.= sprintf('<span class="price">%s USD</span>',number_format($row['GiaSP'], 0, '', '.'));
                             $s.='</div>';
                             $s.='</div>';
                         }

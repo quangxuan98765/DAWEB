@@ -7,21 +7,8 @@ const createFooter = () => {
     <div class="footer-ul-container">
         <ul class="category">
             <li class="category-title">Laptop</li>
-            <li><a href="menarmor.html" class="footer-link">armor</a></li>
-            <li><a href="accessories.html" class="footer-link">phụ kiện</a></li>
-            <li><a href="#" class="footer-link">mũ</a></li>
-            <li><a href="#" class="footer-link">giày</a></li>
-            <li><a href="#" class="footer-link">găng tay</a></li>
-            <li><a href="#" class="footer-link">súng</a></li>
-        </ul>
-        <ul class="category">
-            <li class="category-title">Phụ Kiện</li>
-            <li><a href="womenarmor.html" class="footer-link">armor</a></li>
-            <li><a href="accessories.html" class="footer-link">phụ kiện</a></li>
-            <li><a href="#" class="footer-link">mũ</a></li>
-            <li><a href="#" class="footer-link">giày</a></li>
-            <li><a href="#" class="footer-link">găng tay</a></li>
-            <li><a href="#" class="footer-link">súng</a></li>
+            <li><a href="laptopProduct.php" class="footer-link">Laptop</a></li>
+            <li><a href="acceProduct.html" class="footer-link">Phụ kiện</a></li>
         </ul>
     </div>
 </div>

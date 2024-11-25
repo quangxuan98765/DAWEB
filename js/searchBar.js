@@ -90,7 +90,7 @@ export function firstFunc() {
               s += '</a></div><div class="product-info"><h2 class="product-brand">' + data[page].TenSP + '(' + data[page].MaSP + ')</h2>';
               s += '<p class="product-short-des">' + data[page].MoTaSP +'</p>';
               var gia = parseInt(data[page].GiaSP);
-              s += '<span class="price">' + gia.toLocaleString('vi-VN') + ' vnđ</span></div></div>';
+              s += '<span class="price">' + gia.toLocaleString('vi-VN') + ' USD</span></div></div>';
               if ((i % 3 == 2 && i != 0) || page == data.length) s += "</div>";
             }
             p.innerHTML = s;
