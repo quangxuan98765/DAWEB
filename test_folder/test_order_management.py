@@ -83,7 +83,7 @@ def test_confirm_order(driver):
     time.sleep(2)
     # Lấy trạng thái đơn hàng sau khi xác nhận
     order_status_element = driver.find_element(By.XPATH, "//*[@id='boxajax']/table/tbody/tr[2]/th[6]/p")
-    assert "Đã xử lý" in order_status_element.text, f"Expected status 'Đã xử lý' for order #{order_id}, but got '{order_status_element.text}'"
+    assert "Đã Xử Lý" in order_status_element.text, f"Expected status 'Đã xử lý' for order #{order_id}, but got '{order_status_element.text}'"
 
 def test_cancel_order(driver):
     login(driver)
@@ -116,7 +116,7 @@ def test_order_and_location_filters(driver):
     time.sleep(2)
     
     order_filter = Select(driver.find_element(By.CLASS_NAME, "select-order"))
-    order_filter.select_by_value("ASC")  # Select "mới nhất"
+    order_filter.select_by_value("DESC")  # Select "mới nhất"
     time.sleep(2)  # Wait for results to load
     verify_filter_results(driver, filter_type="order", expected_value="mới nhất")
     

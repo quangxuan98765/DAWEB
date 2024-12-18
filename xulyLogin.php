@@ -3,7 +3,7 @@ require_once('lib_login_session.php');
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "laptrinhweb2";
+$dbname = getenv('DB_NAME') ?: 'laptrinhweb2'; // PHPUnit sẽ sử dụng database test (DB_NAME) nếu chạy test
 
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
